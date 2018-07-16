@@ -17,13 +17,12 @@
   </head>
 
   <body>
-  
+    <%= render 'layouts/partials/navbar' %>
+ 
     <div class="container">
-      <% if notice %><div class="alert alert-info"><%=notice %></div><% end %>
-       <% if alert %><div class="alert alert-warning"><%=alert %></div><% end %>
+         <%= render './layouts/partials/alert' %>
         <%= yield %>
       </div>
-     <%= render 'layouts/partials/navbar' %>
- 
-  </body>
+   
+     </body>
 </html>
