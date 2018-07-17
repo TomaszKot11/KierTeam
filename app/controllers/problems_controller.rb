@@ -29,6 +29,11 @@ class ProblemsController < ApplicationController
         end
     end
 
+    # show specific problem
+    def show 
+        @problem = Problem.find(params[:id])
+    end
+
     private 
         # params from form whic are required
         def problem_params

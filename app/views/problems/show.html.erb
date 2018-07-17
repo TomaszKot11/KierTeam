@@ -1,0 +1,25 @@
+<div class='container'>
+    <h1 class='text-center'><%= @problem.title %></h1>
+        <table class='table'>
+            <tbody>
+                <tr>
+                    <th scope='row'>Title:</th>
+                    <td><%= @problem.title %></td>
+                </tr>
+                <tr>
+                    <th scope='row'>Content:</th>
+                    <td><%= @problem.content %></td>
+                </tr>
+                <tr>
+                    <th scope='row'>References:</th>
+                    <td><%= @problem.references %></td>
+                </tr>
+                <tfoot>
+                    <tr>
+                            <% # here you can add some buttons to navigate to other views %>
+
+                    </tr>
+                </tfoot>
+            </tbody>
+        </table>
+</div>
