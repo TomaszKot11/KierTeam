@@ -7,7 +7,7 @@ RSpec.describe ProblemUser, type: :model do
 		end
 	end
 
-	describe 'Validators' do
+	describe 'validators' do
 			it { should validate_presence_of (:problem_id)}
 			it { should validate_presence_of (:user_id)}
 	end

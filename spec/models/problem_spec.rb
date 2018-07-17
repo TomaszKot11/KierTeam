@@ -8,7 +8,7 @@ RSpec.describe Problem, type: :model do
 		end
 	end
 
-	describe 'Validators' do
+	describe 'validators' do
 			it { should validate_presence_of (:title)}
 			it { should validate_presence_of (:content)}
 			it { should validate_presence_of (:references)}

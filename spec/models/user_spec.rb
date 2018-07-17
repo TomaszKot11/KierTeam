@@ -8,7 +8,7 @@ RSpec.describe User, type: :model do
 		end
 	end
 
-	describe 'Validators' do
+	describe 'validators' do
 			it { should validate_presence_of (:name)}
 			it { should validate_presence_of (:surname)}
 			it { should validate_presence_of (:position)}
