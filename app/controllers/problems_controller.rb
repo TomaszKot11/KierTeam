@@ -1,7 +1,7 @@
 class ProblemsController < ApplicationController
     before_action :require_login, only: [:new]
 
-    def new
+    def new_logged_user
         @problem = Problem.new
         @currentUser = current_user.id
     end
@@ -20,7 +20,7 @@ class ProblemsController < ApplicationController
     private 
         # params from form whic are required
         def problem_params
-            params.require(:problem).permit(:title, :content, :references)
+            params.require(:problem).permit(:title, :content, :references, :creator_id)
         end
         # checks if user is logged_in
         def require_login
