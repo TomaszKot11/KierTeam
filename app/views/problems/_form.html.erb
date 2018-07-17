@@ -1,0 +1,18 @@
+<%= form_for @problem, html: { class: 'form-group' } do |f| %>
+    <%= f.label :title %>
+    <%= f.text_field :title, placeholder: 'Title', class: 'form-control' %>
+    
+    <%= f.label :content %>
+    <%= f.text_area :content, cols: 5, rows: 5, placeholder: 'Content', class: 'form-control' %>
+   
+
+
+    <!-- TODO: change this ! -->
+     <%= f.hidden_field :creator_id, value: @currentUser %>
+
+    <%= f.label :references %>
+    <%= f.text_area :references, cols: 5, rows: 5, placeholder: 'Insert here references', class: 'form-control' %>
+
+    <%= f.submit 'Save', class: 'btn btn-primary mt-2'%>
+
+<% end %>
