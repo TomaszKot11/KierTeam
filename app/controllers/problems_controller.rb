@@ -5,12 +5,11 @@ class ProblemsController < ApplicationController
     # FOR USER LOG IN CREATION
     def new_logged_user
         @problem = Problem.new
-        @current_user = current_user.id
     end
 
 
     def create 
-        @problem = Problem.new(problem_params)
+        @problem = Problem.new(problem_params.merge(creator_id: current_user.id))
         
         if @problem.save 
             redirect_to root_path, notice: 'You created post successfully!'
@@ -30,16 +29,9 @@ class ProblemsController < ApplicationController
         end
     end
 
-
     private 
         # params from form whic are required
         def problem_params
-            params.require(:problem).permit(:title, :content, :references, :creator_id)
-        end
-        # checks if user is logged_in
-        def require_login
-            unless user_signed_in?
-                redirect_to root_path, alert: 'You have to be logged in to create new posts'
-            end
+            params.require(:problem).permit(:title, :content, :references)
         end
 end
