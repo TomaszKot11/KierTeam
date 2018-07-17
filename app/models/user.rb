@@ -3,8 +3,11 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   # , :confirmable
 
-  devise :database_authenticatable, :registerable,
+	devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+
+
+    has_many :problems, foreign_key: :creator_id
        
 end
