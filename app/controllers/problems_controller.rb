@@ -1,6 +1,6 @@
 class ProblemsController < ApplicationController
    
-    before_action :authenticate_user!, :except => [:show, :index]
+    before_action :authenticate_user!, :only => [:new_logged_user, :create]
 
     # FOR USER LOG IN CREATION
     def new_logged_user
