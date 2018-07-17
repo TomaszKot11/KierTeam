@@ -7,7 +7,7 @@
 
       <%= form_tag problem_search_path, method: :get do %>
         <%= text_field_tag :lookup, nil, placeholder: "Please, tell me your problem", class: 'form-control ' %>
-          <%= submit_tag 'Search',  class: 'btn btn-success' %>
+          <%= submit_tag 'Search',name: nil, class: 'btn btn-success' %>
       <% end %>
   
   </div>
