@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   get '/problems/new', to: 'problems#new_logged_user', as: :new_problem_user
   post '/problems', to: 'problems#create'
 
+  # for post searching
+  get '/problems/search_problems', to: 'problems#search_problems', as: :problem_search
 end

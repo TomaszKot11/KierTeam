@@ -1,9 +1,10 @@
 class ProblemsController < ApplicationController
     before_action :require_login, only: [:new]
 
+    # FOR USER LOG IN CREATION
     def new_logged_user
         @problem = Problem.new
-        @currentUser = current_user.id
+        @current_user = current_user.id
     end
 
 
@@ -16,6 +17,18 @@ class ProblemsController < ApplicationController
            render :new
         end
     end
+
+    # searches for problems
+    def search_problems
+        query = params[:lookup]
+        if query.blank? != true    
+            # to avoid SQL Injection
+            @problems = Problem.where("title LIKE ? OR content LIKE ?", "%#{query}%", "%#{query}%")
+        else
+            redirect_to root_path, alert: 'Searching query should not be blank!'
+        end
+    end
+
 
     private 
         # params from form whic are required
