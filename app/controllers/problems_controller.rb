@@ -29,16 +29,9 @@ class ProblemsController < ApplicationController
         end
     end
 
-
     private 
         # params from form whic are required
         def problem_params
             params.require(:problem).permit(:title, :content, :references)
         end
-        # # checks if user is logged_in
-        # def require_login
-        #     unless user_signed_in?
-        #         redirect_to root_path, alert: 'You have to be logged in to create new posts'
-        #     end
-        # end
 end
