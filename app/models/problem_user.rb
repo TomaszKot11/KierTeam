@@ -1,0 +1,4 @@
+
+class ProblemUser < ApplicationRecord
+	
+end

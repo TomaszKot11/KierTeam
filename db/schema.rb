@@ -10,7 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_17_083542) do
+ActiveRecord::Schema.define(version: 2018_07_17_091440) do
+
+  create_table "comments", force: :cascade do |t|
+    t.string "title"
+    t.string "content"
+    t.string "references"
+    t.integer "problem_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["problem_id"], name: "index_comments_on_problem_id"
+  end
+
+  create_table "problem_users", force: :cascade do |t|
+    t.integer "problem_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["problem_id"], name: "index_problem_users_on_problem_id"
+    t.index ["user_id"], name: "index_problem_users_on_user_id"
+  end
+
+  create_table "problems", force: :cascade do |t|
+    t.string "title"
+    t.string "content"
+    t.string "references"
+    t.integer "creator_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -25,6 +53,9 @@ ActiveRecord::Schema.define(version: 2018_07_17_083542) do
     t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
+    t.string "surname"
+    t.string "position"
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
