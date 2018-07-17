@@ -7,9 +7,6 @@ Rails.application.routes.draw do
 
   # For logged in user to create new post
   get '/problems/new', to: 'problems#new_logged_user', as: :new_problem_user
-  
-  authenticate :user do
-    post '/problems', to: 'problems#create'
-  end
+  post '/problems', to: 'problems#create'
 
 end
