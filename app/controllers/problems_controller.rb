@@ -1,5 +1,6 @@
 class ProblemsController < ApplicationController
-    before_action :require_login, only: [:new]
+   
+    before_action :authenticate_user!, :except => [:show, :index]
 
     def new_logged_user
         @problem = Problem.new
