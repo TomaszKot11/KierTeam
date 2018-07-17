@@ -5,6 +5,14 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
+  validates :name, :surname, :position, presence: true
+  validates :name, :surname, :position, length: {in: 3..40}
+  
   has_many :problems, foreign_key: :creator_id
+
+  has_many :problem_users
+  has_many :problems, through: :problem_users
+
+
 end
 
