@@ -18,10 +18,11 @@ RSpec.describe ProblemsController, type: :controller do
             sign_in(user_sud)
 
             get :new_logged_user
-            #expect(response).to redirect_to(new_user_session_path)
-       
+            expect(response).to render_template('new_logged_user')       
         end
-
-
+        
     end
+
+
+
 end
