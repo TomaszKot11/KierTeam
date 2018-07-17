@@ -14,7 +14,7 @@ class ProblemsController < ApplicationController
         if @problem.save 
             redirect_to root_path, notice: 'You created post successfully!'
         else
-           render :new
+           render :new_logged_user
         end
     end
 
