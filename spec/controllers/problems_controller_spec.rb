@@ -77,30 +77,25 @@ RSpec.describe ProblemsController, type: :controller do
         let(:problem_included) { create(:problem, title: 'Hello') } 
         let(:problem_excluded) { create(:problem, title: 'Bye bye')}
         
+        # TODO: try to extract get and paramatrize them ? 
         it 'should return proper data' do 
             get :search_problems, params: { lookup: 'Hello' }
 
             expect(assigns(:problems)).to match_array([ problem_included ])
         end
     
-        it 'should not retunr not proper data' do 
-            
+        it 'should not return not proper data' do 
+            get :search_problems, params: { lookup: 'Hello' }
+
+            expect(assigns(:problems)).not_to match_array([ problem_excluded ])
         end
-        
+      
+        it 'when query blank should redirect to root with alert' do 
+            get :search_problems, params: { lookup: nil }
+
+            expect(flash[:alert]).to be_present
+            expect(response).to redirect_to(root_path)
+        end
+
     end
-
-
-
-    describe 'searching action testing' do 
-    
-        it 'user should be able to search for problems and get proper result' do 
-
-        end
-
-        # it should be done in views controller ? 
-        it 'results should be paginated' do 
-            
-        end
-    end
-
 end
