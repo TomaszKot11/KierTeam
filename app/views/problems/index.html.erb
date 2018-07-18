@@ -1,0 +1,9 @@
+
+
+<div class="container">
+
+	 <% @problems.each do |problem| %>
+         <li class='list-group-item'><%= render 'single_result', problem: problem %></li>
+        <hr />
+    <% end %>
+</div>

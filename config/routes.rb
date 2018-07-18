@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   
   root 'home#welcome'
 
+  get '/problems', to: 'problems#index', as: :problems
   # For logged in user to create new post
   get '/problems/new', to: 'problems#new_logged_user', as: :new_problem_user
   post '/problems', to: 'problems#create'
