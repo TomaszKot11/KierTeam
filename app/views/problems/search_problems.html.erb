@@ -4,10 +4,12 @@
             <li class='list-group-item'>It looks as if you have to fix it on your own :(</li>
         </ul>
     <% else %>
+      
         <ul class='list-group'>
+          <%= will_paginate @problems, class: 'digg_pagination' %>
             <% @problems.each do |problem| %>
-                    <li class='list-group-item'><%= problem.content%>
-                    </li>
+
+                    <li class='list-group-item'><%= render 'single_result', problem: problem %></li>
 
                 <hr />
             <% end %>

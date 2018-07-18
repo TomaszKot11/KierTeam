@@ -2,6 +2,11 @@ class ProblemsController < ApplicationController
    
     before_action :authenticate_user!, :only => [:new_logged_user, :create]
 
+    def index
+        @problems = Problem.all
+    end
+
+
     # FOR USER LOG IN CREATION
     def new_logged_user
         @problem = Problem.new
@@ -14,16 +19,16 @@ class ProblemsController < ApplicationController
         if @problem.save 
             redirect_to root_path, notice: 'You created post successfully!'
         else
-           render :new
+           render :new_logged_user
         end
     end
 
     # searches for problems
     def search_problems
         query = params[:lookup]
-        if query.blank? != true    
+        if query.blank? != true 
             # to avoid SQL Injection
-            @problems = Problem.where("title LIKE ? OR content LIKE ?", "%#{query}%", "%#{query}%")
+            @problems = Problem.where("title LIKE ? OR content LIKE ?", "%#{query}%", "%#{query}%").paginate(:per_page => 5, :page => params[:page])
         else
             redirect_to root_path, alert: 'Searching query should not be blank!'
         end
