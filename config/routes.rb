@@ -18,7 +18,6 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => { registrations: 'registrations'}
 
-
-
+  get '/problem_users/new', to: 'problem_users#new', as: :add_collaborator
 
 end
