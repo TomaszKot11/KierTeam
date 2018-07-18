@@ -11,8 +11,8 @@
        <li><%= link_to 'All problems', problems_path, role: 'button', class: 'mr-3 btn btn-outline-primary' %>
             </li>
            <% if user_signed_in? %>
-              <li> <%= link_to current_user.email, edit_user_registration_path, role: 'button', class: 'nav-link mr-3 btn btn-outline-primary' %></li>
-              <%-# change so any styling classes -%>
+              <li> <%= link_to current_user.email, user_path(id: current_user.id), role: 'button', class: 'nav-link mr-3 btn btn-outline-primary' %></li>
+               <li> <%= link_to 'All users', users_path, role: 'button', class: 'nav-link mr-3 btn btn-outline-primary' %></li>
               <li><%= link_to 'Logout', destroy_user_session_path, role: 'button', method: :delete, class: 'nav-link mr-3  btn btn-outline-warning' %></li>
               <li><%= link_to 'Create new post', new_problem_user_path, role: 'button', class: 'nav-link btn btn-outline-success' %>
             <% else %>
