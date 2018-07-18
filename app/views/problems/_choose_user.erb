@@ -1,0 +1,3 @@
+<%= form_tag add_collaborator_path, method: :get, class: 'form-inline my-2 my-lg-0' do %>
+    <%= select_tag(:user_id, @users.map { |d| [ "#{d.name} #{d.surname}", d.id] }) %>
+<% end %>

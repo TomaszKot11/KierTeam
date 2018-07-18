@@ -10,6 +10,7 @@ class ProblemsController < ApplicationController
     # FOR USER LOG IN CREATION
     def new_logged_user
         @problem = Problem.new
+        @users = User.all
     end
 
 

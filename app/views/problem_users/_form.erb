@@ -1,0 +1,12 @@
+<%= form_for @problem_user, html: { class: 'form-group' } do |f| %>
+    <%= f.label :title %>
+    <%= f.text_field :title, placeholder: 'Title', class: 'form-control' %>
+    
+    <%= f.label :content %>
+    <%= f.text_area :content, cols: 5, rows: 5, placeholder: 'Content', class: 'form-control' %>
+   
+    <%= f.label :author_id %>
+    <%= f.select :author_id,  @authors_list, class: 'form-control' %>
+   
+    <%= f.submit 'Save', class: 'btn btn-primary mt-2'%>
+<% end %>

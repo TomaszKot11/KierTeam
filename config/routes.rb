@@ -20,11 +20,15 @@ Rails.application.routes.draw do
 
   get '/problems/:id', to: 'problems#show', as: :problem
 
+
   get '/users/:id/', to: 'users#show', as: :user
   get '/users',   to: 'users#index', as: :users
   
   resources :users, only: [:show]
  
+
+
+  get '/problem_users/new', to: 'problem_users#new', as: :add_collaborator
 
 
 end
