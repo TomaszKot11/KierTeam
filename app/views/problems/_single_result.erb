@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col-xs-10 col-md-11">
+        <div>
+              <%= link_to problem.title, problem_path(id: problem.id) %>
+                <div class="mic-info">
+                    <!-- TODO: add here user and link_to his profile -->
+                    By: <a href="#">Sample user</a> <%= localize(problem.created_at, :format => :long) %>
+                </div>
+        </div>
+                <div class="comment-text">
+                   <%= truncate( problem.content, length: 30, omission: ' (...)') %>
+                </div>                    
+                <div class="action">
+                        <%= link_to 'Show more', problem_path(id: problem.id), type: 'button' , class: 'btn btn-primary' %> 
+                </div>
+        </div>
+</div>
