@@ -6,7 +6,9 @@
     <% else %>
         <ul class='list-group'>
             <% @problems.each do |problem| %>
-                    <li class='list-group-item'><%= problem.content%></li>
+                    <li class='list-group-item'><%= problem.content%>
+                    </li>
+
                 <hr />
             <% end %>
         </ul>

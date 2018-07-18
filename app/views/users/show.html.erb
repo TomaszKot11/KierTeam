@@ -1,0 +1,32 @@
+<div class="container">
+    <br> 
+    Name:
+    <%= "#{@user.name}" %>
+    <br> <br>
+    Surname:
+    <%= "#{@user.surname}" %>
+    <br><br>
+    Position:
+    <%= "#{@user.position}" %>
+    <br><br>
+    Created_problems:
+    <% if @problems.any? %>
+        <% @problems.each do |problem| %>
+            <li> 
+                <b><%= problem.title %></b>
+                from
+                <b><%= problem.created_at %></b>
+                (last modification at
+                <b><%= problem.updated_at %></b>)
+                <br />
+                <%= post.content %>
+                <br /><br />
+            </li>
+        <% end %>
+    <% else %>
+        <i>None</i>
+    <% end %>
+    <hr>
+         <%= link_to "Change your password", edit_user_registration_path %>
+         <%= link_to 'Back to Users', users_path, role: 'button', class: 'btn btn-primary' %>
+</div>
