@@ -8,7 +8,7 @@ class User < ApplicationRecord
   validates :name, :surname, :position, presence: true
   validates :name, :surname, :position, length: {in: 3..40}
   
-  has_many :problems, foreign_key: :creator_id
+  has_many :created_problems, foreign_key: :creator_id, class_name: 'Problem'
 
   has_many :problem_users
   has_many :problems, through: :problem_users
