@@ -1,5 +1,10 @@
 <div class='container'>
-  <h2>Edit <%= resource_name.to_s.humanize %></h2>
+
+  <br>
+  <div class="page-header">
+    <h2>Edit <%= resource_name.to_s.humanize %></h2>
+  </div>
+
 
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, class: 'form-control') do |f| %>
     <%= devise_error_messages! %>
@@ -26,6 +31,7 @@
       <%= f.text_field :position, autocomplete: "position", class: 'form-control' %>
     </div>
 
+    <hr/>
     <div class="field">
       <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
       <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
@@ -40,19 +46,36 @@
       <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %>
     </div>
 
+     <hr/>
+
     <div class="field">
       <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
       <%= f.password_field :current_password, autocomplete: "off", class: 'form-control' %>
     </div>
+
+    <br>
 
     <div class="actions">
       <%= f.submit "Update", class: 'btn btn-warning' %>
     </div>
   <% end %>
 
-  <h3>Cancel my account</h3>
+  <hr/>
 
-  <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-danger' %></p>
+  <h3>Delete my account</h3>
 
-  <%= link_to "Back", :back, class: 'btn btn-primary' %>
+  <p>Unhappy with our service ? </p>
+
+  <div class="row justify-content-start">
+
+    <div class="col-md-auto col-xs-12 form-group"">
+      <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-danger' %>
+    </div>
+
+    <div class="col-md-auto col-xs-12 form-group"">
+       <%= link_to "Back", :back, class: 'btn btn-primary' %>
+    </div>
+
+  </div>
+
 </div>
