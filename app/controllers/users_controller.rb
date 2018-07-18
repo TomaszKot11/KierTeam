@@ -8,9 +8,9 @@ class UsersController < ApplicationController
 
 
   def show
-          @user = User.find(params[:id])
-	  	  @problems= @user.problems	 
-	  	  @problem=Problem.find(params[:id])
+        @user = User.find(params[:id])
+	  	  #@problems= @user.problems
+        @problems=Problem.where(creator_id:params[:id]).find_each	 
   end
 
   def fullname
