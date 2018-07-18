@@ -2,6 +2,11 @@ class ProblemsController < ApplicationController
    
     before_action :authenticate_user!, :only => [:new_logged_user, :create]
 
+    def index
+        @problems = Problem.all
+    end
+
+
     # FOR USER LOG IN CREATION
     def new_logged_user
         @problem = Problem.new
