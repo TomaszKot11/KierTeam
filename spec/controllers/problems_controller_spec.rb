@@ -5,7 +5,7 @@ RSpec.describe ProblemsController, type: :controller do
 
     describe 'problems creating' do 
 
-        let!(:user_sud) { create(:user)}
+        let!(:user_sud) { create(:user) }
  
         context 'restrictions' do
             it 'not logged user should be restricted from creating new problems' do 
@@ -63,6 +63,29 @@ RSpec.describe ProblemsController, type: :controller do
     end
 
     describe '#show' do 
+        let(:problem_sud) { create(:problem) }
+
+        it 'should redner proper template' do 
+            get :show, params: { id: problem_sud.id }
+            expect(response).to render_template('show')
+        end
+    end
+
+    describe '#search_problems' do 
+        # TODO: chenge this to create collection
+        # and not to use fixed data
+        let(:problem_included) { create(:problem, title: 'Hello') } 
+        let(:problem_excluded) { create(:problem, title: 'Bye bye')}
+        
+        it 'should return proper data' do 
+            get :search_problems, params: { lookup: 'Hello' }
+
+            expect(assigns(:problems)).to match_array([ problem_included ])
+        end
+    
+        it 'should not retunr not proper data' do 
+            
+        end
         
     end
 
@@ -71,7 +94,7 @@ RSpec.describe ProblemsController, type: :controller do
     describe 'searching action testing' do 
     
         it 'user should be able to search for problems and get proper result' do 
-            
+
         end
 
         # it should be done in views controller ? 
