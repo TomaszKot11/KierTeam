@@ -26,9 +26,9 @@ class ProblemsController < ApplicationController
     # searches for problems
     def search_problems
         query = params[:lookup]
-        if query.blank? != true    
+        if query.blank? != true 
             # to avoid SQL Injection
-            @problems = Problem.where("title LIKE ? OR content LIKE ?", "%#{query}%", "%#{query}%")
+            @problems = Problem.where("title LIKE ? OR content LIKE ?", "%#{query}%", "%#{query}%").paginate(:per_page => 5, :page => params[:page])
         else
             redirect_to root_path, alert: 'Searching query should not be blank!'
         end
