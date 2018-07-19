@@ -44,7 +44,21 @@ class ProblemsController < ApplicationController
     # show specific problem
     def show 
         @problem = Problem.find(params[:id])
-    end
+        @user=current_user
+        @comment = Comment.new
+        if @problem.comments.any?
+          @comments = Comment.where(problem_id: params[:id]).order(created_at: :desc)
+        else
+          @comments = nil
+        end
+
+        @users = User.all
+        if params[:errors]
+          @comment_errors = params[:errors]
+        else
+          @comment_errors = {}
+        end
+     end
 
 
     private 

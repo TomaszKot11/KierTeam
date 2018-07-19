@@ -42,6 +42,7 @@ gem 'haml-rails'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
+
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Rspec for convinient testing
@@ -54,6 +55,11 @@ group :development, :test do
   gem 'faker'
   # for Rspec controller testing
   gem 'rails-controller-testing'
+
+  gem 'bundler-audit'
+
+  
+
 end
 
 
@@ -66,6 +72,16 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'letter_opener'
+
+  gem 'capistrano'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+  gem 'capistrano-rvm'
+end
+
+group :production do
+  gem 'pg'
+  gem 'unicorn'
 end
 
 group :test do

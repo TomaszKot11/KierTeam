@@ -1,6 +1,10 @@
-<div class="container">
-	<% @users.each do |user| %>
-	  <%= user.name %><br/>
-	  <%= link_to user.email, user_path(id: user.id) %><hr/>
-	<% end %>
+
+<div style="background:transparent !important" class="jumbotron">
+	<div class="container">
+		<% @users.each do |user| %>
+			<ul class="list-group" style="padding-bottom: 25px;">
+		  		<%= render 'user', user: user %>
+		  	</ul>
+		<% end %>
+	</div>
 </div>

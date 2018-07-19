@@ -1,0 +1,6 @@
+<div data-comment-id="<%= comment.id %>" class="row commentSection-comment">
+  <div class="col-md-2"><%= comment.user.name %></div>
+  <div class="col-md-6"><%= comment.content %></div>
+  <div class="col-md-3">~ <%= comment.created_at %></div>
+  <div class="col-md-1"><%= link_to 'Delete', comment_path(comment.id), method: :delete, remote: true, data: { confirm: 'Are you sure?' }, role: 'button', class: 'btn btn-danger' %></div>
+</div>

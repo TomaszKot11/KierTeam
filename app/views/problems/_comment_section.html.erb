@@ -1,0 +1,14 @@
+<div class="container commentSection">
+  <% unless comments.nil? %>
+      <h3 class="commentSection-title">Comment section</h3>
+      <div class="row commentSection-headings">
+        <div class="col-md-2">User</div>
+        <div class="col-md-10">Comment</div>
+    </div>
+    <div class="commentSection-comments">
+      <% comments.each do |comment| %>
+        <%= render 'problems/comment', comment: comment %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

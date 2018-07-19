@@ -2,7 +2,7 @@
 class Problem < ApplicationRecord
 
   validates :title, :content, :references, presence: true
-  validates :title, length: {in: 5..60}
+  validates :title, length: {in: 5..80}
   validates :content, length: {in: 5..500}
   validates :references, length: {in: 5..500}
 

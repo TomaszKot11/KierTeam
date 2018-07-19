@@ -8,15 +8,12 @@ RSpec.describe ProblemUser, type: :model do
 	end
 
 	describe 'validators' do
-			it { should validate_presence_of (:problem_id)}
-			it { should validate_presence_of (:user_id)}
+		it { should validate_presence_of (:problem_id)}
+		it { should validate_presence_of (:user_id)}
 	end
 
-  describe 'relations' do
-
+	describe 'relations' do
 		it { should belong_to(:problem)}
 		it { should belong_to(:user)}
 	end
-
-
 end
