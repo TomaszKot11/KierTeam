@@ -3,6 +3,6 @@ FactoryBot.define do
     title 'MyString'
     content 'MyString'
     references 'MyString'
-    association :creator, factory: :user
+	association :creator, factory: :user
   end
 end
