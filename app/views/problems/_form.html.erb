@@ -7,6 +7,5 @@
   <%= f.text_area :references, cols: 5, rows: 5, placeholder: 'Insert here references', class: 'form-control' %>
   <%= f.submit 'Save', class: 'btn btn-primary mt-2' %>
 <% end %>
-  <% # chage this for plus , :onclick => "show_back()%>
-  <% # becauese button sends post %>
+  <hr />
   <%= link_to 'Add contributor', add_contributor_path(format: :js), remote: true, role: 'button', class: 'btn btn-primary' %>
