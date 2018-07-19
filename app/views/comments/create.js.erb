@@ -1,0 +1,7 @@
+<% if @comment.problem.comments.count == 1 %>
+  $('.commentSection').replaceWith('<%= j render 'problems/comment_section', comments: @comment.problem.comments %>');
+<% else %>
+  $('.commentSection-comments').prepend('<%= j render 'problems/comment', comment: @comment %>');
+<% end %>
+$('.error_explanation').fadeOut(1000);
+$("textarea").val('');

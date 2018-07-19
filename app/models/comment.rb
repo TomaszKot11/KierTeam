@@ -5,5 +5,5 @@ class Comment < ApplicationRecord
   	validates :references, length: {in: 5..500}
 
 	belongs_to :problem
-
+	belongs_to :user
 end

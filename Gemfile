@@ -52,6 +52,9 @@ group :development, :test do
   gem 'faker'
   # for Rspec controller testing
   gem 'rails-controller-testing'
+
+  gem 'jquery-rails'
+
 end
 
 
