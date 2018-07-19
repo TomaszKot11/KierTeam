@@ -1,41 +1,48 @@
 <div class="container">
-    <br> 
-    Name:
-    <%= "#{@user.name}" %>
-    <br> <br>
-    Surname:
-    <%= "#{@user.surname}" %>
-    <br><br>
-    Position:
-    <%= "#{@user.position}" %>
-    <br><br>
-    Created_problems:
+    <br>
+    <div class="row">
+        <div class="col-xs-10 col-md-11">
+            <h4> Name: <%= "#{@user.name}" %> </h4>
+        </div>
+        <div class="col-xs-10 col-md-11">
+            <h4> Surname: <%= "#{@user.surname}" %> </h4>
+        </div>
+        <div class="col-xs-10 col-md-11">
+            <h4> Position: <%= "#{@user.position}" %> </h4>
+        </div>
+        <div class="col-xs-10 col-md-11">
+            <h4> Email: <%= "#{@user.email}" %> </h4>
+        </div>
+    </div>
+    
+
+     <% unless current_user == nil %>
+        <% if current_user.id==@user.id %>
+            <hr/>
+             <%= link_to "Edit Profile", edit_user_registration_path, role: 'button', class: 'btn btn-primary' %>
+        <% end %>
+    <% end %>
+
+    <hr/>
+    
+    <h2> Created_problems: </h2>
     <% if @problems.any? %>
         <% @problems.each do |problem| %>
-            <li> 
-                <b><%= problem.title %></b>
-                from
-                <b><%= problem.created_at %></b>
-                (last modification at
-                <b><%= problem.updated_at %></b>)
-                <br />
-                <%= problem.content %>
-                <br /><br />
-            </li>
+            <div class="row">
+                <div class="col-xs-10 col-md-11">
+                    <h4> <%= link_to problem.title, problem_path(id: problem.id) %> </h4>
+                    Created at: <%= localize(problem.created_at, :format => :long) %> <br>
+                    <hr/>
+
+                </div>
+            </div>
+            
         <% end %>
     <% else %>
-        <i>None</i>
+        <i>No problems created</i>
     <% end %>
-    <hr>
+    
 	
-    <% unless current_user == nil %>
-        <% if current_user.id==@user.id %>
-             <%= link_to "Edit Profile", edit_user_registration_path, role: 'button', class: 'btn btn-primary' %>
-             <%= link_to 'Back to Users', users_path, role: 'button', class: 'btn btn-primary' %>
-        <% else %>
-            <%= link_to 'Back to Users', users_path, role: 'button', class: 'btn btn-primary' %>
-        <% end %>
-    <% end %>
    
 
 </div>
