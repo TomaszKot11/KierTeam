@@ -40,6 +40,7 @@ gem 'haml-rails'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
+
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Rspec for convinient testing
@@ -52,6 +53,8 @@ group :development, :test do
   gem 'faker'
   # for Rspec controller testing
   gem 'rails-controller-testing'
+
+  gem 'bundler-audit'
 
   gem 'jquery-rails'
 

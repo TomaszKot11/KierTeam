@@ -37,6 +37,7 @@ class ProblemsController < ApplicationController
     # show specific problem
     def show 
         @problem = Problem.find(params[:id])
+        @user=current_user
         @comment = Comment.new
         if @problem.comments.any?
           @comments = Comment.where(problem_id: params[:id]).order(created_at: :desc)
