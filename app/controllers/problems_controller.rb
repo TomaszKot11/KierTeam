@@ -18,10 +18,6 @@ class ProblemsController < ApplicationController
         @problem = Problem.new(problem_params.merge(creator_id: current_user.id))
         @all_users_mapped = User.all.map { |p| [ "#{p.name} #{p.surname}", p.id ] }
 
-        p '@!#!##@'
-        p @problem.errors.full_messages
-        p '##!@##@'
-
         if @problem.save 
             redirect_to root_path, notice: 'You created post successfully!'
         else
@@ -50,11 +46,6 @@ class ProblemsController < ApplicationController
         @problem = Problem.find(params[:id])
     end
 
-    # # simply appends the new contributor in problem creation
-    # def add_collaborator
-    #     id = params[:user_id]
-    #     @user_chosen = User.find(id)
-    # end
 
     private 
         # params from form whic are required

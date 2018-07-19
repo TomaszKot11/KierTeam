@@ -9,4 +9,4 @@
 <% end %>
   <% # chage this for plus , :onclick => "show_back()%>
   <% # becauese button sends post %>
-  <%= link_to 'Add contributor', add_contributor_path(format: :js), remote: true %>
+  <%= link_to 'Add contributor', add_contributor_path(format: :js), remote: true, role: 'button', class: 'btn btn-primary' %>
