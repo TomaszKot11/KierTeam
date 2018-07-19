@@ -28,11 +28,13 @@
     <% end %>
     <hr>
 	
-    <% if current_user.id==@user.id %>
-         <%= link_to "Edit Profile", edit_user_registration_path, role: 'button', class: 'btn btn-primary' %>
-         <%= link_to 'Back to Users', users_path, role: 'button', class: 'btn btn-primary' %>
-    <% else %>
-        <%= link_to 'Back to Users', users_path, role: 'button', class: 'btn btn-primary' %>
+    <% unless current_user == nil %>
+        <% if current_user.id==@user.id %>
+             <%= link_to "Edit Profile", edit_user_registration_path, role: 'button', class: 'btn btn-primary' %>
+             <%= link_to 'Back to Users', users_path, role: 'button', class: 'btn btn-primary' %>
+        <% else %>
+            <%= link_to 'Back to Users', users_path, role: 'button', class: 'btn btn-primary' %>
+        <% end %>
     <% end %>
    
 
