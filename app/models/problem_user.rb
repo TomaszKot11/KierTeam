@@ -1,9 +1,9 @@
 
 class ProblemUser < ApplicationRecord
 
-	validates :problem_id, :user_id, presence: true
+	# validates :problem_id, :user_id, presence: true
 
-	belongs_to :problem 
+	belongs_to :problem, optional: true 
 	belongs_to :user
 
 

@@ -10,7 +10,7 @@ class Problem < ApplicationRecord
 
   has_many :comments
 
-  has_many :problem_users
+  has_many :problem_users, inverse_of: :problem
   has_many :users, through: :problem_users
 
   has_many :problem_tags
