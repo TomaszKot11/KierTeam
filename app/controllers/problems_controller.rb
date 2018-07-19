@@ -17,14 +17,7 @@ class ProblemsController < ApplicationController
     def create 
         @problem = Problem.new(problem_params.merge(creator_id: current_user.id))
         @all_users_mapped = User.all.map { |p| [ "#{p.name} #{p.surname}", p.id ] }
-        #
-        params.each do |key,value|
-            Rails.logger.warn "Param #{key}: #{value}"
-        end
-
-
-        @problem.save
-        puts @problem.errors.inspect
+        
 
         if @problem.save 
             redirect_to root_path, notice: 'You created post successfully!'

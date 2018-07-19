@@ -1,0 +1,4 @@
+  <%= f.fields_for :problem_users, ProblemUser.new  do |problem_form| %>
+    <%= problem_form.label :user_id %>
+    <%= problem_form.select :user_id, options_for_select( @all_users_mapped)  %>
+  <% end %>
