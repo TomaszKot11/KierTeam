@@ -70,6 +70,16 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'letter_opener'
+
+  gem 'capistrano'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+  gem 'capistrano-rvm'
+end
+
+group :production do
+  gem 'pg'
+  gem 'unicorn'
 end
 
 group :test do
