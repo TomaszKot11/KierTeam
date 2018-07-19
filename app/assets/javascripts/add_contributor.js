@@ -1,8 +1,7 @@
 $(function() {
  
     $('#addContributorID').click(function () {
-           // append new contributor partial
-           
+           $('#newProblemID').append("<%= escape_javascript(render 'add_contributor_block') %>");
     });
 
 
