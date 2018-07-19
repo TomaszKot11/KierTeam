@@ -1,0 +1,11 @@
+<%= form_for @problem, html: { id: 'newProblemID', class: 'form-group' } do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title, placeholder: 'Title', class: 'form-control' %>
+  <%= f.label :content %>
+  <%= f.text_area :content, cols: 5, rows: 5, placeholder: 'Content', class: 'form-control' %>
+  <%= f.label :references %>
+  <%= f.text_area :references, cols: 5, rows: 5, placeholder: 'Insert here references', class: 'form-control' %>
+  <%= f.submit 'Save', class: 'btn btn-primary mt-2' %>
+<% end %>
+  <hr />
+  <%= link_to 'Add contributor', add_contributor_path(format: :js), remote: true, role: 'button', class: 'btn btn-primary' %>

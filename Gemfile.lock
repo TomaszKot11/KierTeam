@@ -306,6 +306,7 @@ DEPENDENCIES
   faker
   haml-rails
   jbuilder (~> 2.5)
+  jquery-ui-rails
   letter_opener
   listen (>= 3.0.5, < 3.2)
   pg

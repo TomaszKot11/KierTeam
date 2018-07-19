@@ -10,17 +10,24 @@ class ProblemsController < ApplicationController
     # FOR USER LOG IN CREATION
     def new_logged_user
         @problem = Problem.new
+        @all_users_mapped = User.all.map { |p| [ "#{p.name} #{p.surname}", p.id ] }
     end
 
 
     def create 
         @problem = Problem.new(problem_params.merge(creator_id: current_user.id))
-        
+        @all_users_mapped = User.all.map { |p| [ "#{p.name} #{p.surname}", p.id ] }
+
         if @problem.save 
             redirect_to root_path, notice: 'You created post successfully!'
         else
            render :new_logged_user
         end
+    end
+
+    # for adding many contributors
+    def add_contributor
+        @all_users_mapped = User.all.map { |p| [ "#{p.name} #{p.surname}", p.id ] }
     end
 
     # searches for problems
@@ -53,9 +60,10 @@ class ProblemsController < ApplicationController
         end
      end
 
+
     private 
         # params from form whic are required
         def problem_params
-            params.require(:problem).permit(:title, :content, :references)
+            params.require(:problem).permit(:title, :content, :references, problem_users_attributes: [:id, :user_id])
         end
 end
