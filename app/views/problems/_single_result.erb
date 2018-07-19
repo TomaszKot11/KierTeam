@@ -1,17 +1,15 @@
 <div class="row">
     <div class="col-xs-10 col-md-11">
         <div>
-              <%= link_to problem.title, problem_path(id: problem.id) %>
-                <div class="mic-info">
-                    <!-- TODO: add here user and link_to his profile -->
-                    By: <a href="#">Sample user</a> <%= localize(problem.created_at, :format => :long) %>
-                </div>
-        </div>
-                <div class="comment-text">
-                   <%= truncate( problem.content, length: 30, omission: ' (...)') %>
-                </div>                    
-                <div class="action">
-                        <%= link_to 'Show more', problem_path(id: problem.id), type: 'button' , class: 'btn btn-primary' %> 
-                </div>
+            <h4> <%= link_to problem.title, problem_path(id: problem.id) %> </h4>
+            <div class="mic-info">
+                Author: <%= link_to "#{problem.creator.name} #{problem.creator.surname}", user_path(id: problem.creator.id )   %> <br>
+                Created at: <%= localize(problem.created_at, :format => :long) %> <br>
+            </div>
+        </div> 
+            <br>                   
+            <div class="action">
+                <%= link_to 'Show more information', problem_path(id: problem.id), type: 'button' , class: 'btn btn-primary' %> 
+            </div>
         </div>
 </div>
