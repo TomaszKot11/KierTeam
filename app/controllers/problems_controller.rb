@@ -17,13 +17,21 @@ class ProblemsController < ApplicationController
     def create 
         @problem = Problem.new(problem_params.merge(creator_id: current_user.id))
         @all_users_mapped = User.all.map { |p| [ "#{p.name} #{p.surname}", p.id ] }
-        
+
+        p '@!#!##@'
+        p @problem.errors.full_messages
+        p '##!@##@'
 
         if @problem.save 
             redirect_to root_path, notice: 'You created post successfully!'
         else
            render :new_logged_user
         end
+    end
+
+    # for adding many contributors
+    def add_contributor
+        @all_users_mapped = User.all.map { |p| [ "#{p.name} #{p.surname}", p.id ] }
     end
 
     # searches for problems

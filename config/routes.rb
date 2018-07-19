@@ -17,17 +17,14 @@ Rails.application.routes.draw do
 
   # for post searching
   get '/problems/search_problems', to: 'problems#search_problems', as: :problem_search
+  get '/problems/add_contributor', to: 'problems#add_contributor', as: :add_contributor
 
   get '/problems/:id', to: 'problems#show', as: :problem
+
 
 
   get '/users/:id/', to: 'users#show', as: :user
   get '/users',   to: 'users#index', as: :users
   
-  resources :users, only: [:show]
- 
-
- # get '/problems/add_collaborator', to: 'problems#add_collaborator'
-
-
+#   resources :users, only: [:show]
 end
