@@ -56,7 +56,7 @@ group :development, :test do
 
   gem 'bundler-audit'
 
-  gem 'jquery-rails'
+  
 
 end
 
