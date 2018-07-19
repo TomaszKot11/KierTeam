@@ -27,8 +27,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show]
  
 
-
-  get '/problem_users/new', to: 'problem_users#new', as: :add_collaborator
+ # get '/problems/add_collaborator', to: 'problems#add_collaborator'
 
 
 end

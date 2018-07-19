@@ -15,4 +15,8 @@ class Problem < ApplicationRecord
 
   has_many :problem_tags
   has_many :tags, through: :problem_tags
+
+
+  # to test
+  accepts_nested_attributes_for :problem_users
 end

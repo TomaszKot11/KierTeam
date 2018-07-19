@@ -40,6 +40,12 @@ class ProblemsController < ApplicationController
         @problem = Problem.find(params[:id])
     end
 
+    # # simply appends the new contributor in problem creation
+    # def add_collaborator
+    #     id = params[:user_id]
+    #     @user_chosen = User.find(id)
+    # end
+
     private 
         # params from form whic are required
         def problem_params

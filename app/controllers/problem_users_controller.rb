@@ -1,21 +1,21 @@
 class ProblemUsersController < ApplicationController
 
-        def new 
-            @problem_user = ProblemUser.new
-        end
+        # def new 
+        #     @problem_user = ProblemUser.new
+        # end
 
-        def create 
-                @problem_user = ProblemUser.new(problem_user_params)
+        # def create 
+        #         @problem_user = ProblemUser.new(problem_user_params)
                 
-                if @problem_user.save 
+        #         if @problem_user.save 
                 
-                else
+        #         else
                 
-                end
-        end
+        #         end
+        # end
 
-        private 
-                def problem_user_params
-                        params.require(:problem_user).permit(:problem_id, :user_id)
-                end
+        # private 
+        #         def problem_user_params
+        #                 params.require(:problem_user).permit(:problem_id, :user_id)
+        #         end
 end
