@@ -64,6 +64,6 @@ class ProblemsController < ApplicationController
     private 
         # params from form whic are required
         def problem_params
-            params.require(:problem).permit(:title, :content, :references, problem_users_attributes: [:id, :user_id])
+            params.require(:problem).permit(:title, :content, :references,:tag_ids => [], problem_users_attributes: [:id, :user_id])
         end
 end
