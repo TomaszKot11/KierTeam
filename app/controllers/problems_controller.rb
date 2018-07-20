@@ -64,6 +64,7 @@ class ProblemsController < ApplicationController
     private 
         # params from form whic are required
         def problem_params
+            # this is tested using capybara
             params.require(:problem).permit(:title, :content, :references,:tag_ids => [], problem_users_attributes: [:id, :user_id])
         end
 end

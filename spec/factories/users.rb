@@ -15,5 +15,5 @@ FactoryBot.define do
     name "John"
     surname "Kovalsky"
     position "white-collar worker"
-  end
+  end 
 end
