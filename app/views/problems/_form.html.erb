@@ -5,6 +5,7 @@
   <%= f.text_area :content, cols: 5, rows: 5, placeholder: 'Content', class: 'form-control' %>
   <%= f.label :references %>
   <%= f.text_area :references, cols: 5, rows: 5, placeholder: 'Insert here references', class: 'form-control' %>
+  <%= f.collection_select :tag_ids, Tag.all, :id, :name,{}, { multiple: true, class: 'chosen-select mt-3' }  %>
   <%= f.submit 'Save', class: 'btn btn-primary mt-2' %>
 <% end %>
   <hr />
