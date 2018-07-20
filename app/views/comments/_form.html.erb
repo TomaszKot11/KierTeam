@@ -17,15 +17,27 @@
     </div>
     <%= f.select :user_id, locals[:users].all.map { |user| [user.name, user.id] }, {}, class: 'custom-select' %>
   </div>
-<%= f.label :title, class: 'input-group-text' %>
-  <%= f.text_area :title, size: '24x6', class: 'form-control' %>
+    <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <%= f.label :title, class: 'input-group-text' %>
+    </div>
+  <%= f.text_field :title, size: '24x6', class: 'form-control' %>
+  </div>
 </hr>
-  <%= f.label :content, class: 'input-group-text' %>
+
+   <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <%= f.label :content, class: 'input-group-text' %>
+    </div>
   <%= f.text_area :content, size: '24x6', class: 'form-control' %>
-  </hr>
- <%= f.label :references, class: 'input-group-text' %>
-  <%= f.text_area :references, size: '24x6', class: 'form-control' %>
-</hr>
+  </div>
+
+    <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <%= f.label :references, class: 'input-group-text' %>
+    </div>
+  <%= f.text_field :references, size: '24x6', class: 'form-control' %>
+  </div>
 
   <%= f.hidden_field(:problem_id, value: locals[:problem_id]) %>
 
