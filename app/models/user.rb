@@ -14,6 +14,8 @@ class User < ApplicationRecord
   has_many :problems, through: :problem_users
   has_many :comments
 
-
+  def fullname
+      "#{name} #{surname}"
+  end  
 end
 

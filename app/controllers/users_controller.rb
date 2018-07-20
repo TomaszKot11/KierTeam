@@ -14,7 +14,5 @@ class UsersController < ApplicationController
     @problems=Problem.where(creator_id:params[:id]).find_each	 
   end
 
-  def fullname
-   	"#{name} #{surname}"
-  end  
+  
 end
