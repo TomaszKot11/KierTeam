@@ -71,9 +71,21 @@ RSpec.describe ProblemsController, type: :controller do
 
             it 'should assign users_mapped' do
                 valid_post               
-
                 expect(assigns(:all_users_mapped)).not_to be_nil
             end
+
+            it 'should create tags associated with problem' do 
+                pending "implement #{__FILE__}"
+            end
+
+            it 'should create users associated with problem' do 
+                pending "implement #{__FILE__}"
+            end
+
+            it 'should create both users and tags associated with problem' do 
+                pending "implement #{__FILE__}"
+            end
+
         end
     end
 
@@ -90,11 +102,27 @@ RSpec.describe ProblemsController, type: :controller do
 
     describe '#show' do 
         let(:problem_sud) { create(:problem) }
+        let(:problem_sud2) { create(:problem_2) }
+        let(:comment_one) { create(:comment) }
+        let(:comment_two) { create(:comment_1) }
+
+        before(:each) do
+            get :show, params: { id: problem_sud.id }
+        end
 
         it 'should redner proper template' do 
-            get :show, params: { id: problem_sud.id }
             expect(response).to render_template('show')
         end
+
+        # TODO: test this
+        it 'comments variable should not be nil when comments present' do 
+            pending "implement #{__FILE__}"
+        end
+
+        it 'comments variable should be nil when comments are not present' do 
+            pending "implement #{__FILE__}"
+        end
+
     end
 
     describe '#search_problems' do 
