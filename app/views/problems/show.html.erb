@@ -19,8 +19,9 @@
 
                 <tfoot>
                     <tr>
-                            <% # here you can add some buttons to navigate to other views %>
-
+                        <% if current_user.id == @creator_id %>
+                            <%=  link_to 'Delete my problem', problem_remove_path(id: @problem.id), method: :delete, data: {confirm: "You sure?"} %>
+                        <% end %>
                     </tr>
                 </tfoot>
             </tbody>

@@ -46,6 +46,8 @@ class ProblemsController < ApplicationController
         @problem = Problem.find(params[:id])
         @user=current_user
         @comment = Comment.new
+        @creator_id = @problem.creator.id
+
         if @problem.comments.any?
           @comments = Comment.where(problem_id: params[:id]).order(created_at: :desc)
         else
@@ -59,6 +61,12 @@ class ProblemsController < ApplicationController
           @comment_errors = {}
         end
      end
+
+     def destroy 
+        @problem = Problem.find(params[:id])        
+        @problem.destroy
+        redirect_to root_path, alert: 'Your problem was successfully destroyed!'
+    end
 
 
     private 
