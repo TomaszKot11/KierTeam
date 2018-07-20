@@ -98,4 +98,22 @@ RSpec.describe ProblemsController, type: :controller do
         end
 
     end
+
+    describe '#index' do 
+        let(:problem_one) { create(:problem) }
+        let(:problem_two) { create(:problme_2) } 
+
+        before(:each) do
+            get :index
+        end
+
+        it 'index should assign variable with whole collection' do
+            expect(assigns(:problems)).to match_array(  [problem_one, problem_two] )
+        end
+
+        it 'should render proper template' do 
+            expect(response).to render_template('index')   
+        end
+    end
+
 end

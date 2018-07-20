@@ -7,9 +7,9 @@ RSpec.describe ProblemUser, type: :model do
 		end
 	end
 
-	describe 'validators' do
-		it { should validate_presence_of (:problem_id)}
-		it { should validate_presence_of (:user_id)}
+	describe 'should not validate presence of due to nested attributes' do 
+		it { should_not validate_presence_of (:problem_id)}
+		it { should_not validate_presence_of (:user_id)}
 	end
 
 	describe 'relations' do

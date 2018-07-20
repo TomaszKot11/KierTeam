@@ -18,7 +18,7 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
-  describe "#show" do
+  describe '#show' do
   	let!(:user1) { create(:user) }
   	before { get :show, params: {id: user1.id} }
 
