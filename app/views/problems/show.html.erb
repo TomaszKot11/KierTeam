@@ -19,26 +19,27 @@
 
                 <tfoot>
                     <tr>
-                        <% if current_user.id == @creator_id %>
+                        <% if @creator_id == current_user.id %>
                             <%=  link_to 'Delete my problem', problem_remove_path(id: @problem.id), method: :delete, data: {confirm: "You sure?"} %>
                         <% end %>
                     </tr>
                 </tfoot>
             </tbody>
         </table>
-
-          <%= render 'comment_section', comments: @comments %>
-
-                <div class="container">
-                  <div class="commentSection-add">
-                    <h3 class="commentSection-title">Add comment</h3>
-                    <%= render 'comments/form', object: @comment, errors: @comment_errors, locals: { problem_id: @problem.id, users: @users } %>
-                    <hr/>
-                  </div>
+        
+        <%= render 'comment_section', comments: @comments %>
+        
+        <% if @is_current_contributor %>
+            <div class="container">
+                <div class="commentSection-add">
+                            <h3 class="commentSection-title">Add comment</h3>
+                            <%= render 'comments/form', object: @comment, errors: @comment_errors, locals: { problem_id: @problem.id, users: @users } %>
+                        <hr/>
+                    </div>
                 </div>
-                <div class="container">
-                  <%= link_to 'Back', problems_path, role: 'button', class: 'btn btn-primary' %>
-                </div>
-
+        <% end %>
+        <div class="container">
+            <%= link_to 'Back', problems_path, role: 'button', class: 'btn btn-primary' %>
+        </div>
 </div>
 </div>

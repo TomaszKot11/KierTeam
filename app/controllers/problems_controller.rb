@@ -47,6 +47,8 @@ class ProblemsController < ApplicationController
         @user=current_user
         @comment = Comment.new
         @creator_id = @problem.creator.id
+        # methods can't be too long ;) 
+        @is_current_contributor = is_current_user_contributor()
 
         if @problem.comments.any?
           @comments = Comment.where(problem_id: params[:id]).order(created_at: :desc)
@@ -74,5 +76,17 @@ class ProblemsController < ApplicationController
         def problem_params
             # this is tested using capybara
             params.require(:problem).permit(:title, :content, :references,:tag_ids => [], problem_users_attributes: [:id, :user_id])
+        end
+
+        # checks whether the current logged user is contributor to showed 
+        # problem and can add comments
+        def is_current_user_contributor
+            @contributors = @problem.users
+            @contributors.each  do |contributor|  
+                if contributor.id == current_user.id
+                    return true
+                end
+            end
+            false
         end
 end
