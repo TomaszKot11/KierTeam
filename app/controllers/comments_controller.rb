@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
 
   def create
-    @comment = Comment.new(comment_params)
+    @comment = Comment.new(comment_params.merge(user_id: current_user.id))
     respond_to do |format|
       if @comment.save
         format.html { redirect_to problem_url(params[:comment][:problem_id]), notice: 'Comment added' }
@@ -28,7 +28,7 @@ class CommentsController < ApplicationController
   private
 
     def comment_params
-      params.require(:comment).permit(:problem_id, :content,:title,:references, :user_id)
+      params.require(:comment).permit(:problem_id, :content,:title,:references)
     end
     
 end

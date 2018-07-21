@@ -11,12 +11,7 @@
 
 <%= form_for @comment, remote: true do |f| %>
 
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <%= f.label :user_id, class: 'input-group-text' %>
-    </div>
-    <%= f.select :user_id, locals[:users].all.map { |user| [user.name, user.id] }, {}, class: 'custom-select' %>
-  </div>
+
     <div class="input-group mb-3">
     <div class="input-group-prepend">
       <%= f.label :title, class: 'input-group-text' %>
@@ -24,7 +19,6 @@
   <%= f.text_field :title, size: '24x6', class: 'form-control' %>
   </div>
 </hr>
-
    <div class="input-group mb-3">
     <div class="input-group-prepend">
       <%= f.label :content, class: 'input-group-text' %>
