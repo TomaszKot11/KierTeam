@@ -35,7 +35,8 @@ gem 'will_paginate', '~> 3.1.0'
 gem 'haml-rails'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
-
+# for avatars
+gem "paperclip", "~> 6.0.0"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
