@@ -49,6 +49,10 @@ GEM
     archive-zip (0.11.0)
       io-like (~> 0.3.0)
     arel (9.0.0)
+    avatarly (1.5.1)
+      rfc822
+      rmagick
+      unicode_utils
     bcrypt (3.1.12)
     bindex (0.5.0)
     bootsnap (1.3.1)
@@ -221,6 +225,8 @@ GEM
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
+    rfc822 (0.1.5)
+    rmagick (2.16.0)
     rspec-core (3.7.1)
       rspec-support (~> 3.7.0)
     rspec-expectations (3.7.0)
@@ -288,6 +294,7 @@ GEM
       thread_safe (~> 0.1)
     uglifier (4.1.15)
       execjs (>= 0.3.0, < 3)
+    unicode_utils (1.4.0)
     unicorn (5.4.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
@@ -309,6 +316,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  avatarly
   bootsnap (>= 1.1.0)
   bundler-audit
   byebug

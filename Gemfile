@@ -36,7 +36,9 @@ gem 'haml-rails'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 # for avatars
-gem "paperclip", "~> 6.0.0"
+gem 'paperclip', "~> 6.0.0"
+# for Gmail-like avatars generation when no avatar present
+gem 'avatarly'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
