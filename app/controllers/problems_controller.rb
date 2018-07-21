@@ -49,6 +49,7 @@ class ProblemsController < ApplicationController
         @creator_id = @problem.creator.id
         # methods can't be too long ;) 
         @is_current_contributor = is_current_user_contributor()
+        @is_creator = check_if_creator()
 
         if @problem.comments.any?
           @comments = Comment.where(problem_id: params[:id]).order(created_at: :desc)
@@ -88,5 +89,9 @@ class ProblemsController < ApplicationController
                 end
             end
             false
+        end
+
+        def check_if_creator
+            ( current_user.id == @problem.creator_id ) ? true : false
         end
 end

@@ -19,7 +19,7 @@
 
                 <tfoot>
                     <tr>
-                        <% if @creator_id == current_user.id %>
+                        <% if @is_creator %>
                             <%=  link_to 'Delete my problem', problem_remove_path(id: @problem.id), method: :delete, data: {confirm: "You sure?"} %>
                         <% end %>
                     </tr>
@@ -29,7 +29,7 @@
         
         <%= render 'comment_section', comments: @comments %>
         
-        <% if @is_current_contributor %>
+        <% if @is_current_contributor || @is_creator %>
             <div class="container">
                 <div class="commentSection-add">
                             <h3 class="commentSection-title">Add comment</h3>
