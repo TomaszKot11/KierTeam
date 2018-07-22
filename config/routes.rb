@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  
+
+  #TODO: refactor this
+
  # get 'users/index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   default_url_options :host => "example.com"
@@ -21,11 +23,16 @@ Rails.application.routes.draw do
 
   get '/problems/:id', to: 'problems#show', as: :problem
 
+  get '/tags/new', to: 'tags#new', as: :new_tag
+  post '/problems', to: 'tags#create'
+
+  resources :tags, only: [:new, :create]
 
 
   get '/users/:id/', to: 'users#show', as: :user
   get '/users',   to: 'users#index', as: :users
   
+
 
   resources :problems, only: [:destroy], as: :problem_remove
   resources :users, only: [:show]

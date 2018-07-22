@@ -1,0 +1,5 @@
+<%= form_for @tag, html: { class: 'form-group' } do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name, placeholder: 'Name of tag', class: 'form-control' %>
+  <%= f.submit 'Save', class: 'btn btn-primary mt-2' %>
+<% end %>
