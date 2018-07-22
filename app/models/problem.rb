@@ -1,10 +1,8 @@
 
 class Problem < ApplicationRecord
-
   validates :title, :content, :references, presence: true
   validates :title, length: {in: 5..80}
-  validates :content, length: {in: 5..500}
-  validates :references, length: {in: 5..500}
+  validates :content,:references, length: {in: 5..500}
 
   belongs_to :creator, class_name: 'User'
 
@@ -15,7 +13,6 @@ class Problem < ApplicationRecord
 
   has_many :problem_tags
   has_many :tags, through: :problem_tags
-
 
   # to test
   accepts_nested_attributes_for :problem_users

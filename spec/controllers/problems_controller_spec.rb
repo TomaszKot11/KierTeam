@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe ProblemsController, type: :controller do 
 
-    describe 'problems creating' do 
+    describe 'problem creating' do 
 
         let!(:user_sud) { create(:user) }
  
@@ -14,10 +14,8 @@ RSpec.describe ProblemsController, type: :controller do
             end
 
             it 'logged in user should be able to create new post' do 
-                # we confirm the user registration
                 user_sud.confirm
                 sign_in(user_sud)
-
                 get :new_logged_user
                 expect(response).to render_template('new_logged_user')       
             end
@@ -25,9 +23,7 @@ RSpec.describe ProblemsController, type: :controller do
             it 'should assign variables' do
                 user_sud.confirm
                 sign_in(user_sud)
-
                 get :new_logged_user
-                
                 expect(assigns(:problem)).not_to be_nil
                 expect(assigns(:all_users_mapped)).not_to be_nil
             end
@@ -155,18 +151,17 @@ RSpec.describe ProblemsController, type: :controller do
 
     describe '#index' do 
         let(:problem_one) { create(:problem) }
-        let(:problem_two) { create(:problme_2) } 
+        let(:problem_two) { create(:problme) } 
 
         before(:each) do
             get :index
         end
 
-        it 'index should assign variable with whole collection' do
-            expect(assigns(:problems)).to match_array(  [problem_one, problem_two] )
-        end
+        it { should respond_with(200..300)}
+        it { should render_template('index')}
 
-        it 'should render proper template' do 
-            expect(response).to render_template('index')   
+        it 'should return all problems' do
+            expect(assigns(:problems)).to match_array( [problem_one, problem_two])
         end
     end
 

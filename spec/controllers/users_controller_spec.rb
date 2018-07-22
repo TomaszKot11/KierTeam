@@ -30,12 +30,9 @@ RSpec.describe UsersController, type: :controller do
   	end 
 	end
 	
+  # TODO 
 	describe '#edit' do 
-			let(:user1) { create(:user) }
-
-			 it 'user variable should be present' do 
-				pending "implement #{__FILE__}"
-		 	end
+    	
 	end
 
 end
