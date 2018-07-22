@@ -1,50 +1,66 @@
-<div class="container">
+
     <br>
-    <div class="row">
-        <div class="col-xs-10 col-md-11">
-            <h4> Name: <%= "#{@user.name}" %> </h4>
-        </div>
-        <div class="col-xs-10 col-md-11">
-            <h4> Surname: <%= "#{@user.surname}" %> </h4>
-        </div>
-        <div class="col-xs-10 col-md-11">
-            <h4> Position: <%= "#{@user.position}" %> </h4>
-        </div>
-        <div class="col-xs-10 col-md-11">
-            <h4> Email: <%= "#{@user.email}" %> </h4>
-        </div>
-        <div class="col-xs-10 col-md-11">
-            <%= image_tag @user_img %>
-        </div>
-    </div>
-    
-     <% unless current_user == nil %>
-        <% if current_user.id==@user.id %>
-            <hr/>
-             <%= link_to "Edit Profile", edit_user_registration_path, role: 'button', class: 'btn btn-primary' %>
-        <% end %>
-    <% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-9">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-12 lead "><h3>User profile</h3><hr></div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 text-center">
+              <%= image_tag @user_img %>
 
-    <hr/>
-    
-    <h2> Created_problems: </h2>
-    <% if @problems.any? %>
-        <% @problems.each do |problem| %>
-            <div class="row">
-                <div class="col-xs-10 col-md-11">
-                    <h4> <%= link_to problem.title, problem_path(id: problem.id) %> </h4>
-                    Created at: <%= localize(problem.created_at, :format => :long) %> <br>
-                    <hr/>
-
-                </div>
             </div>
-            
-        <% end %>
-    <% else %>
-        <i>No problems created</i>
-    <% end %>
-    
-	
-   
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-12">
+                  <h1 class="only-bottom-margin"><%= "#{@user.fullname}" %></h1>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <span class="text-muted">Email:</span> <%= "#{@user.email}" %><br>
+                  <span class="text-muted">Position:</span><%= " #{@user.position}" %><br>
+                  <small class="text-muted"><%= "#{@user.created_at}" %></small>
+                </div>
+                <div class="col-md-6">
+                     <% unless current_user == nil %>
+                        <% if current_user.id==@user.id %>
+                          
+                             <%= link_to "Edit Profile", edit_user_registration_path, role: 'button', class: 'btn btn-primary' %>
+                        <% end %>
+                  <% end %>    
 
+                  </div>        
+                </div>
+              </div>
+            </div>
+            <hr><br>
+               <h2> Created_problems: </h2>
+                <% if @problems.any? %>
+                    <% @problems.each do |problem| %>
+                        <div class="row">
+                            <div class="col-xs-10 col-md-11">
+                                <h4> <%= link_to problem.title, problem_path(id: problem.id) %> </h4>
+                                Created at: <%= localize(problem.created_at, :format => :long) %> <br>
+                                <hr/>
+
+                            </div>
+                        </div>
+                        
+                    <% end %>
+                <% else %>
+                    <i>No problems created</i>
+                <% end %>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+    
+ 
