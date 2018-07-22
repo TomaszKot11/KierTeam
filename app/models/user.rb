@@ -11,35 +11,33 @@ class User < ApplicationRecord
   validates :name, :surname, :position, presence: true
   validates :name, :surname, :position, length: {in: 3..80}
   
-  has_many :created_problems, foreign_key: :creator_id, class_name: 'Probleclear'
-
+  has_many :created_problems, foreign_key: :creator_id, class_name: 'Problem'
   has_many :problem_users
   has_many :problems, through: :problem_users
   has_many :comments
 
   after_create :random_avatar, if: :no_avatar
 
-  # full_name ;) snake ;) 
   def fullname
       "#{name} #{surname}"
   end 
   
   private 
-
     # generates default (Gmail-alike) avater 
     def random_avatar
-          file = Tempfile.new([self.fullname, ".jpg"])
-          file.binmode
-          file.write(Avatarly.generate_avatar(self.name, format: "jpg", size: 300))
-          file.read 
-          begin
-            self.avatar = File.open(file.path)
-          ensure
-            file.close
-            file.unlink
-          end
-          self.save 
+      file = Tempfile.new([self.fullname, ".jpg"])
+      file.binmode
+      file.write(Avatarly.generate_avatar(self.name, format: "jpg", size: 300))
+      file.read 
+      begin
+        self.avatar = File.open(file.path)
+      ensure
+        file.close
+        file.unlink
+      end
+      self.save 
     end
+
     # checks if avatar was set by user 
     def no_avatar
       self.avatar_file_name.nil?
