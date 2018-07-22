@@ -11,7 +11,7 @@ class TagsController < ApplicationController
         if @tag.save 
             redirect_to root_path, notice: 'You created tag successfully!'
         else
-           render :new
+            render :new
         end
     end
 
