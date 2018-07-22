@@ -14,7 +14,16 @@
       <%= f.label :email %><br />
       <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
     </div>
-
+     <% if @user.avatar? %>
+        <div class='field mt-3'>
+          <%= label_tag   'Your current image' %>
+          <%= image_tag @user.avatar.url(:thumb) %>
+        </div>
+      <% end %>
+       <div class='field mt-3'>  
+            <%= f.label :avatar, 'Change your image' %>
+            <%= f.file_field :avatar %>
+        </div>
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
     <% end %>

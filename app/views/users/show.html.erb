@@ -13,9 +13,11 @@
         <div class="col-xs-10 col-md-11">
             <h4> Email: <%= "#{@user.email}" %> </h4>
         </div>
+        <div class="col-xs-10 col-md-11">
+            <%= image_tag @user_img %>
+        </div>
     </div>
     
-
      <% unless current_user == nil %>
         <% if current_user.id==@user.id %>
             <hr/>
