@@ -1,5 +1,5 @@
 <!-- <div class ='jumbotron text-center'><h1> Welcome on Binar::Stack </h1></div> -->
-<div class="jumbotron  text-center">
+<div style="background:transparent !important" class="jumbotron text-center">
   <div class="container">
     <p>
   	  <%= image_tag("binlogo.png", class: "img-responsive center-block") %>
@@ -7,6 +7,7 @@
 
       <%= form_tag problem_search_path, method: :get do %>
         <%= text_field_tag :lookup, nil, placeholder: "Please, tell me your problem", class: 'form-control ' %>
+        <br>
           <%= submit_tag 'Search',name: nil, class: 'btn btn-success' %>
       <% end %>
   
