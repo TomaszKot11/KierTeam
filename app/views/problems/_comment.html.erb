@@ -5,13 +5,16 @@
 
                           <div class="col-md-2">
                                 <% # TODO: make it circular %>
-                                <%= image_tag(comment.user.avatar.url(:thumb), class: "img img-rounded img-fluid") %>
-                                <p class="text-secondary text-center"><%= comment.user.fullname%></p>
+                               
+                                   <p class="text-secondary"><%= comment.user.fullname%></p>
+                              
+                               <div><%= image_tag(comment.user.avatar.url(:thumb), class: "img-rounded") %></div>
+                             
                           </div>
                           <div class="col-md-10">
-                              <p>title: <%= comment.title %></p>
+                              <p><h5>title: <%= comment.title %></h5></p>
                               <p>content: <%= comment.content %></p>
-                              <hr><p>references: <%= comment.references %></p>
+                              <hr><small><p>references: <%= comment.references %></p></small>
                               <p>
                                   <%= link_to 'Delete', comment_path(comment.id), method: :delete, remote: true, data: { confirm: 'Are you sure?' }, role: 'button', class: 'float-right btn btn-danger ml-2r' %>
                              </p>

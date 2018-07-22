@@ -14,21 +14,21 @@
     <div class="input-group-prepend">
       <%= f.label :title, class: 'input-group-text' %>
     </div>
-  <%= f.text_field :title, size: '24x6', class: 'form-control' %>
+  <%= f.text_field :title, size: '24x6',placeholder: 'Insert title', class: 'form-control' %>
   </div>
 </hr>
    <div class="input-group mb-3">
     <div class="input-group-prepend">
       <%= f.label :content, class: 'input-group-text' %>
     </div>
-  <%= f.text_area :content, size: '24x6', class: 'form-control' %>
+  <%= f.text_area :content, size: '24x6',placeholder: 'Insert content', class: 'form-control' %>
   </div>
 
     <div class="input-group mb-3">
     <div class="input-group-prepend">
       <%= f.label :references, class: 'input-group-text' %>
     </div>
-  <%= f.text_field :references, size: '24x6', class: 'form-control' %>
+  <%= f.text_field :references, size: '24x6',placeholder: 'Insert references', class: 'form-control' %>
   </div>
 
   <%= f.hidden_field(:problem_id, value: locals[:problem_id]) %>
