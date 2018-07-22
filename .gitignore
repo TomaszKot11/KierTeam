@@ -30,4 +30,4 @@
 /config/master.key
 
 # Ignore avatar files created locally
-/public/system/users/avatars
+/public/system/users/avatars/
