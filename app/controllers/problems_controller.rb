@@ -46,6 +46,11 @@ class ProblemsController < ApplicationController
         @problem = Problem.find(params[:id])
         @user=current_user
         @comment = Comment.new
+        @creator_id = @problem.creator.id
+        # methods can't be too long ;) 
+        @is_current_contributor = is_current_user_contributor()
+        @is_creator = check_if_creator()
+
         if @problem.comments.any?
           @comments = Comment.where(problem_id: params[:id]).order(created_at: :desc)
         else
@@ -60,10 +65,33 @@ class ProblemsController < ApplicationController
         end
      end
 
+     def destroy 
+        @problem = Problem.find(params[:id])        
+        @problem.destroy
+        redirect_to root_path, alert: 'Your problem was successfully destroyed!'
+    end
+
 
     private 
         # params from form whic are required
         def problem_params
+            # this is tested using capybara
             params.require(:problem).permit(:title, :content, :references,:tag_ids => [], problem_users_attributes: [:id, :user_id])
+        end
+
+        # checks whether the current logged user is contributor to showed 
+        # problem and can add comments
+        def is_current_user_contributor
+            @contributors = @problem.users
+            @contributors.each  do |contributor|  
+                if contributor.id == current_user.id
+                    return true
+                end
+            end
+            false
+        end
+
+        def check_if_creator
+            ( current_user.id == @problem.creator_id ) ? true : false
         end
 end

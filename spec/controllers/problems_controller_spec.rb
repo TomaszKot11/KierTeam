@@ -21,6 +21,16 @@ RSpec.describe ProblemsController, type: :controller do
                 get :new_logged_user
                 expect(response).to render_template('new_logged_user')       
             end
+
+            it 'should assign variables' do
+                user_sud.confirm
+                sign_in(user_sud)
+
+                get :new_logged_user
+                
+                expect(assigns(:problem)).not_to be_nil
+                expect(assigns(:all_users_mapped)).not_to be_nil
+            end
         end
 
         context 'problem creation for logged user' do
@@ -59,16 +69,60 @@ RSpec.describe ProblemsController, type: :controller do
                 expect(response).to render_template('new_logged_user')
             end
 
+            it 'should assign users_mapped' do
+                valid_post               
+                expect(assigns(:all_users_mapped)).not_to be_nil
+            end
+
+            it 'should create tags associated with problem' do 
+                pending "implement #{__FILE__}"
+            end
+
+            it 'should create users associated with problem' do 
+                pending "implement #{__FILE__}"
+            end
+
+            it 'should create both users and tags associated with problem' do 
+                pending "implement #{__FILE__}"
+            end
+
+        end
+    end
+
+    # whole action for simplicity is tested using capybara
+    describe '#add_contributor' do 
+        let!(:user_one) { create(:user_1) }
+        let!(:user_two) { create(:user) }
+
+        it 'should assign users_mapped' do 
+            get :add_contributor, xhr: true
+            expect(assigns(:all_users_mapped)).to match_array([ ["#{user_one.name} #{user_one.surname}", user_one.id],  ["#{user_two.name} #{user_two.surname}", user_two.id] ])
         end
     end
 
     describe '#show' do 
         let(:problem_sud) { create(:problem) }
+        let(:problem_sud2) { create(:problem_2) }
+        let(:comment_one) { create(:comment) }
+        let(:comment_two) { create(:comment_1) }
+
+        before(:each) do
+            get :show, params: { id: problem_sud.id }
+        end
 
         it 'should redner proper template' do 
-            get :show, params: { id: problem_sud.id }
             expect(response).to render_template('show')
         end
+
+        # TODO: test this
+        it 'comments variable should not be nil when comments present' do 
+            pending "implement #{__FILE__}"
+        end
+
+        it 'comments variable should be nil when comments are not present' do 
+            pending "implement #{__FILE__}"
+        end
+
     end
 
     describe '#search_problems' do 
@@ -98,4 +152,22 @@ RSpec.describe ProblemsController, type: :controller do
         end
 
     end
+
+    describe '#index' do 
+        let(:problem_one) { create(:problem) }
+        let(:problem_two) { create(:problme_2) } 
+
+        before(:each) do
+            get :index
+        end
+
+        it 'index should assign variable with whole collection' do
+            expect(assigns(:problems)).to match_array(  [problem_one, problem_two] )
+        end
+
+        it 'should render proper template' do 
+            expect(response).to render_template('index')   
+        end
+    end
+
 end
