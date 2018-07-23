@@ -1,71 +1,64 @@
 class ProblemsController < ApplicationController
-   
-    before_action :authenticate_user!, :only => [:new_logged_user, :create]
+  before_action :authenticate_user!, only: %i[new create]
 
-    def index
-        @problems = Problem.all
+  def index
+    @problems = Problem.all
+  end
+
+  def new
+    @problem = Problem.new
+    @all_users_mapped = User.all.map { |p| [p.full_name, p.id] }
+  end
+
+  def create
+    @problem = Problem.new(problem_params.merge(creator_id: current_user.id))
+    @all_users_mapped = User.all.map { |p| [p.full_name, p.id] }
+
+    if @problem.save
+      redirect_to root_path, notice: 'You created post successfully!'
+    else
+      render :new
     end
+  end
 
-    def new
-        @problem = Problem.new
-        @all_users_mapped = User.all.map { |p| [ p.full_name, p.id ] }
-    end
+  def add_contributor
+    @all_users_mapped = User.all.map { |p| [p.full_name, p.id] }
+  end
 
+  def search_problems
+    query = params[:lookup]
+    redirect_to root_path, alert: 'Searching query should not be blank!' if query.blank?
+    @problems = Problem.where('title LIKE ? OR content LIKE ?', "%#{query}%", "%#{query}%").
+      paginate(per_page: 5, page: params[:page])
+  end
 
-    def create 
-        @problem = Problem.new(problem_params.merge(creator_id: current_user.id))
-        @all_users_mapped = User.all.map { |p| [ p.full_name, p.id ] }
+  def show
+    @problem = Problem.find(params[:id])
+    @comment = Comment.new
+    @creator_id = @problem.creator.id
+    @is_current_contributor = @problem.current_user_contributor?
+    @is_creator = @problem.creator?
 
-        if @problem.save 
-            redirect_to root_path, notice: 'You created post successfully!'
-        else
-           render :new
-        end
-    end
+    @comments = Comment.where(problem_id: params[:id]).order(created_at: :desc) if @problem.comments.any?
+    @users = User.all
+    @comment_errors = params[:errors] || {}
+  end
 
-    def add_contributor
-        @all_users_mapped = User.all.map { |p| [ p.full_name, p.id ] }
-    end
+  def destroy
+    @problem = Problem.find(params[:id])
+    @problem.destroy
+    redirect_to root_path, alert: 'Your problem was successfully destroyed!'
+  end
 
-    def search_problems
-        query = params[:lookup]
-        unless query.blank?
-            @problems = Problem.where("title LIKE ? OR content LIKE ?", "%#{query}%", "%#{query}%").paginate(:per_page => 5, :page => params[:page])
-        else
-            redirect_to root_path, alert: 'Searching query should not be blank!'
-        end
-    end
+  private
 
-    def show 
-        @problem = Problem.find(params[:id])
-        @comment = Comment.new
-        @creator_id = @problem.creator.id 
-        @is_current_contributor = @problem.current_user_contributor?
-        @is_creator = @problem.creator?
-
-        if @problem.comments.any?
-          @comments = Comment.where(problem_id: params[:id]).order(created_at: :desc)
-        end
-
-        @users = User.all
-        if params[:errors]
-          @comment_errors = params[:errors]
-        else
-          @comment_errors = {}
-        end
-     end
-
-     def destroy 
-        @problem = Problem.find(params[:id])        
-        @problem.destroy
-        redirect_to root_path, alert: 'Your problem was successfully destroyed!'
-    end
-
-
-    private 
-
-    def problem_params
-        params.require(:problem).permit(:title, :content, :references,:tag_ids => [], problem_users_attributes: [:id, :user_id])
-    end
-
+  def problem_params
+    params.require(:problem).permit(
+      :title,
+      :content,
+      :references,
+      tag_ids: [],
+      problem_users_attributes: %i[id user_id]
+    )
+  end
 end

@@ -1,7 +1,6 @@
 require 'rails_helper'
 
-
-RSpec.describe ProblemsController, type: :controller do 
+RSpec.describe ProblemsController, type: :controller do
 
     describe 'problem creating' do
 
