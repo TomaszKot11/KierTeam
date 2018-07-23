@@ -2,10 +2,64 @@ require 'rails_helper'
 
 RSpec.describe ProblemsController, type: :controller do
 
+  # https://github.com/rspec/rspec-collection_matchers
+
+  describe '#index' do
+
+    subject(:get_index) { get :index }
+
+    before :each do
+      get_index
+    end
+
+    it 'should render index template' do
+      expect(response).to render_template('index')
+    end
+
+    it 'should assing @problems variable' do
+      expect(assigns(:problems)).not_to be_nil
+    end
+
+  end
+
+  describe '#new' do
+
+    let!(:user_sud) { create(:user) }
+
+    subject(:get_new)  { get :new }
+
+    context 'logged in user' do
+      before :each do
+        user_sud.confirm
+        sign_in(user_sud)
+        get_new
+      end
+
+      it 'should render new template' do
+        expect(response).to render_template('new')
+      end
+
+      it 'should assign @problem' do
+        expect(assigns(:problem)).not_to be_nil
+      end
+
+      it 'should assign @all_users_mapped' do
+        expect(assigns(:all_users_mapped)).not_to be_nil
+        expect(assigns(:all_users_mapped)).to include([ user_sud.full_name, user_sud.id])
+      end
+
+    end
+
+      it 'not logged in user should be redirected to log_in' do
+      get_new
+      redirect_to :sign_in
+    end
+  end
+
     # describe 'problem creating' do
 
     #     let!(:user_sud) { create(:user) }
- 
+
     #     context 'restrictions' do
     #         it 'not logged user should be restricted from creating new problems' do
     #             get :new_logged_user
@@ -47,7 +101,7 @@ RSpec.describe ProblemsController, type: :controller do
     #         it 'should not create problem with invalid attributes' do
     #             expect { invalid_post }.to change { Problem.count }.by(0)
     #         end
-            
+
     #         it 'should flash notice after creation with valid attributes' do
     #             valid_post
     #             expect(flash[:notice]).to be_present
@@ -120,21 +174,21 @@ RSpec.describe ProblemsController, type: :controller do
     # end
 
     # describe '#search_problems' do
-    #     let(:problem_included) { create(:problem, title: 'Hello') } 
+    #     let(:problem_included) { create(:problem, title: 'Hello') }
     #     let(:problem_excluded) { create(:problem, title: 'Bye bye')}
-        
+
     #     it 'should return proper data' do
     #         get :search_problems, params: { lookup: 'Hello' }
 
     #         expect(assigns(:problems)).to match_array([ problem_included ])
     #     end
-    
+
     #     it 'should not return not proper data' do
     #         get :search_problems, params: { lookup: 'Hello' }
 
     #         expect(assigns(:problems)).not_to match_array([ problem_excluded ])
     #     end
-      
+
     #     it 'when query blank should redirect to root with alert' do
     #         get :search_problems, params: { lookup: nil }
 
@@ -146,7 +200,7 @@ RSpec.describe ProblemsController, type: :controller do
 
     # describe '#index' do
     #     let(:problem_one) { create(:problem) }
-    #     let(:problem_two) { create(:problme) } 
+    #     let(:problem_two) { create(:problme) }
 
     #     before(:each) do
     #         get :index
