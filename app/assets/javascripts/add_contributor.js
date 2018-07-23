@@ -1,6 +1,0 @@
-// $(function() {
- 
-//     $('#addContributorID').click(function () {
-          
-//     });
-// } );
