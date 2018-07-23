@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
-
-  describe "#index" do
-  	before { get :index }
+		
+describe "#index" do
+			before { get :index }
 
     it { should respond_with(200..300)}
     it { should render_template('index')}
