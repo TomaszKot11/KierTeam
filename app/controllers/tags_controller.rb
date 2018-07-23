@@ -1,4 +1,7 @@
 class TagsController < ApplicationController
+
+  before_action :authenticate_user!, only: %i[new create destroy]
+
   # TODO: restrict the tag creation only for admin
   def new
     @tag = Tag.new

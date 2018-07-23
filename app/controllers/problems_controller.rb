@@ -58,6 +58,7 @@ class ProblemsController < ApplicationController
       :content,
       :references,
       tag_ids: [],
+      user_ids: [],
       problem_users_attributes: %i[id user_id]
     )
   end
