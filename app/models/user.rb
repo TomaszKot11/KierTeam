@@ -1,10 +1,4 @@
 class User < ApplicationRecord
-  # for user authentication
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :confirmable
-  # for avatars
-  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }
-  # TODO: restrict this to jpg jpeg png gif :) 
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
   validates_attachment :avatar, size: {in: 0..3.megabytes}
 
@@ -17,6 +11,11 @@ class User < ApplicationRecord
   has_many :problems, through: :problem_users
 
   after_create :random_avatar, if: :no_avatar
+
+  devise :database_authenticatable, :registerable,
+    :recoverable, :rememberable, :trackable, :validatable, :confirmable
+
+  as_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }
 
   def full_name
       "#{name} #{surname}"
