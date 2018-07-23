@@ -1,5 +1,4 @@
-# frozen_string_literal: true
-
+# Creates basic User model with columns for devise
 class DeviseCreateUsers < ActiveRecord::Migration[5.2]
   def change
     create_table :users do |t|

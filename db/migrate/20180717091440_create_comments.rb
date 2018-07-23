@@ -4,7 +4,7 @@ class CreateComments < ActiveRecord::Migration[5.2]
       t.string :title
       t.string :content
       t.string :references
-      t.integer :problem_id, index:true
+      t.integer :problem_id, index: true
 
       t.timestamps
     end
