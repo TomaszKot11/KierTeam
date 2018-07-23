@@ -6,8 +6,11 @@ class CommentsController < ApplicationController
         format.html { redirect_to problem_url(params[:comment][:problem_id]), notice: 'Comment added' }
         format.js
       else
-        format.html 
-        { redirect_to problem_url(params[:comment][:problem_id], errors: @comment.errors.full_messages), alert: 'Something went wrong' }
+        format.html do
+          redirect_to problem_url(params[:comment][:problem_id],
+            errors: @comment.errors.full_messages),
+            alert: 'Something went wrong'
+        end
       end
     end
   end
@@ -27,7 +30,7 @@ class CommentsController < ApplicationController
 
   private
 
-    def comment_params
-      params.require(:comment).permit(:problem_id, :content,:title,:references)
-    end
+  def comment_params
+    params.require(:comment).permit(:problem_id, :content, :title, :references)
+  end
 end

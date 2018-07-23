@@ -1,4 +1,4 @@
 # Controller for main page
 class HomeController < ApplicationController
-  def welcome end
+  def welcome; end
 end
