@@ -1,9 +1,10 @@
 Style/FrozenStringLiteralComment:
- Enabled: false
+  Enabled: false
 AllCops:
- Exclude:
-     - 'vendor/**/*'
-     - 'bin/**/*'
-     - 'db/**/*'
-     - 'config/**/*'
-     - 'node_modules/**/*'
+  Exclude:
+      - 'vendor/**/*'
+      - 'bin/**/*'
+      - 'db/**/*'
+      - 'config/**/*'
+      - 'node_modules/**/*'
+

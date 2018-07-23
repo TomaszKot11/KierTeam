@@ -8,13 +8,13 @@ class ProblemsController < ApplicationController
 
     def new
         @problem = Problem.new
-        @all_users_mapped = User.all.map { |p| [ "#{p.name} #{p.surname}", p.id ] }
+        @all_users_mapped = User.all.map { |p| [ p.full_name, p.id ] }
     end
 
 
     def create 
         @problem = Problem.new(problem_params.merge(creator_id: current_user.id))
-        @all_users_mapped = User.all.map { |p| [ "#{p.name} #{p.surname}", p.id ] }
+        @all_users_mapped = User.all.map { |p| [ p.full_name, p.id ] }
 
         if @problem.save 
             redirect_to root_path, notice: 'You created post successfully!'
@@ -24,13 +24,12 @@ class ProblemsController < ApplicationController
     end
 
     def add_contributor
-        @all_users_mapped = User.all.map { |p| [ "#{p.name} #{p.surname}", p.id ] }
+        @all_users_mapped = User.all.map { |p| [ p.full_name, p.id ] }
     end
 
     def search_problems
         query = params[:lookup]
-        if query.blank? != true 
-            # to avoid SQL Injection
+        unless query.blank?
             @problems = Problem.where("title LIKE ? OR content LIKE ?", "%#{query}%", "%#{query}%").paginate(:per_page => 5, :page => params[:page])
         else
             redirect_to root_path, alert: 'Searching query should not be blank!'
@@ -39,17 +38,13 @@ class ProblemsController < ApplicationController
 
     def show 
         @problem = Problem.find(params[:id])
-        @user=current_user
         @comment = Comment.new
-        @creator_id = @problem.creator.id
-        # methods can't be too long ;) 
-        @is_current_contributor = is_current_user_contributor()
-        @is_creator = check_if_creator()
+        @creator_id = @problem.creator.id 
+        @is_current_contributor = @problem.current_user_contributor?
+        @is_creator = @problem.creator?
 
         if @problem.comments.any?
           @comments = Comment.where(problem_id: params[:id]).order(created_at: :desc)
-        else
-          @comments = nil
         end
 
         @users = User.all
@@ -68,27 +63,9 @@ class ProblemsController < ApplicationController
 
 
     private 
-        # params from form whic are required
-        def problem_params
-            # this is tested using capybara
-            params.require(:problem).permit(:title, :content, :references,:tag_ids => [], problem_users_attributes: [:id, :user_id])
-        end
 
-        # checks whether the current logged user is contributor to showed 
-        # problem and can add comments
-        def is_current_user_contributor
-            @contributors = @problem.users
-            return false if @current_user.nil?
-            @contributors.each  do |contributor|  
-                if contributor.id == current_user.id
-                    return true
-                end
-            end
-            false
-        end
+    def problem_params
+        params.require(:problem).permit(:title, :content, :references,:tag_ids => [], problem_users_attributes: [:id, :user_id])
+    end
 
-        def check_if_creator
-            return false if current_user.nil?
-            ( current_user.id == @problem.creator_id ) ? true : false
-        end
 end
