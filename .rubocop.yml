@@ -1,10 +1,48 @@
-Style/FrozenStringLiteralComment:
-  Enabled: false
 AllCops:
   Exclude:
-      - 'vendor/**/*'
-      - 'bin/**/*'
-      - 'db/**/*'
-      - 'config/**/*'
-      - 'node_modules/**/*'
-
+    Include:
+    - '**/Rakefile'
+    - '**/config.ru'
+    - '**/*.rake'
+    - '**/Gemfile'
+    - '**/Capfile'
+    - '**/*.rb'
+  Exclude:
+    - 'vendor/**/*'
+    - 'bin/**/*'
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'spec/**/*'
+    - 'node_modules/**/*'
+  TargetRubyVersion:                   2.5.1
+Metrics/LineLength:
+  Max:                                 120
+Metrics/MethodLength:
+  Max:                                 25
+Metrics/AbcSize:
+  Max:                                 50
+Metrics/ClassLength:
+  Enabled:                             false
+Rails:
+  Enabled:                             true
+Style/Documentation:
+  Enabled:                             false
+Layout/AlignParameters:
+  EnforcedStyle:                       with_fixed_indentation
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle:                       indented
+Layout/DotPosition:
+  EnforcedStyle:                       trailing
+Layout/MultilineHashBraceLayout:
+  Enabled:                             false
+Style/Lambda:
+  Enabled:                             false
+Style/CharacterLiteral:
+  Enabled:                             false
+Style/CharacterLiteral:
+  Enabled:                             false
+Style/ClassAndModuleChildren:
+  Enabled:                             false
+Style/FrozenStringLiteralComment:
+  Enabled:                             false
