@@ -13,6 +13,7 @@ class Problem < ApplicationRecord
     has_many :problem_tags
     has_many :tags, through: :problem_tags
 
+
     accepts_nested_attributes_for :problem_users
 
     # checks whether the current logged user is contributor to showed 
@@ -32,5 +33,4 @@ class Problem < ApplicationRecord
       return true if (  current_user.id == self.creator_id )
       false 
     end
-
 end
