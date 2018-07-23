@@ -36,10 +36,9 @@ class ProblemsController < ApplicationController
     @problem = Problem.find(params[:id])
     @comment = Comment.new
     @creator_id = @problem.creator.id
-    @is_current_contributor = @problem.current_user_contributor?
-    @is_creator = @problem.creator?
-
-    @comments = Comment.where(problem_id: params[:id]).order(created_at: :desc) if @problem.comments.any?
+    @is_current_contributor = @problem.current_user_contributor?(current_user)
+    @is_creator = @problem.creator?(current_user)
+    @comments = Comment.where(problem_id: params[:id]).order(created_at: :desc)
     @users = User.all
     @comment_errors = params[:errors] || {}
   end
