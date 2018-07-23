@@ -4,7 +4,7 @@
       <div class="col-md-2">
         <% # TODO: make it circular %>
         <%= image_tag(comment.user.avatar.url(:thumb), class: "img img-rounded img-fluid") %>
-        <p class="text-secondary text-center"><%= comment.user.fullname%></p>
+        <p class="text-secondary text-center"><%= comment.user.full_name%></p>
       </div>
       <div class="col-md-10">
         <p>title: <%= comment.title %></p>

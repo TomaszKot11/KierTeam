@@ -9,16 +9,17 @@ class Problem < ApplicationRecord
   has_many :problem_tags
   has_many :tags, through: :problem_tags
   accepts_nested_attributes_for :problem_users
+
   def current_user_contributor?(user)
     if user.nil?
       false
-    else
+    elsif self.users.exists?(:id => user.id)
       true
     end
   end
 
   def creator?(user)
-    if user.nil? || user.id != @problem.creator.id
+    if user.nil? || user.id != self.creator.id
       false
     else
       true
