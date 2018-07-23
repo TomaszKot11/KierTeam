@@ -45,6 +45,9 @@ gem 'avatarly'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
+# rubocop which checks code
+gem 'rubocop', require: false
+
 group :development, :test do
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
