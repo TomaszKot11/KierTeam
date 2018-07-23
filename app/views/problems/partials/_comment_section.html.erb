@@ -5,7 +5,7 @@
             <% unless comments.nil? %>
               <div class="commentSection-comments">
                 <% comments.each do |comment| %>
-                  <%= render 'problems/comment', comment: comment %>
+                  <%= render 'problems/partials/comment', comment: comment %>
                 <% end %>
               </div>
             <% end %>

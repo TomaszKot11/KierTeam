@@ -27,7 +27,7 @@
             </tbody>
         </table>
         
-        <%= render 'comment_section', comments: @comments %>
+        <%= render 'problems/partials/comment_section', comments: @comments %>
         
         <% if @is_current_contributor || @is_creator %>
             <div class="container">

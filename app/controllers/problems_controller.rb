@@ -6,8 +6,7 @@ class ProblemsController < ApplicationController
         @problems = Problem.all
     end
 
-    # FOR USER LOG IN CREATION
-    def new_logged_user
+    def new
         @problem = Problem.new
         @all_users_mapped = User.all.map { |p| [ "#{p.name} #{p.surname}", p.id ] }
     end
@@ -20,16 +19,14 @@ class ProblemsController < ApplicationController
         if @problem.save 
             redirect_to root_path, notice: 'You created post successfully!'
         else
-           render :new_logged_user
+           render :new
         end
     end
 
-    # for adding many contributors
     def add_contributor
         @all_users_mapped = User.all.map { |p| [ "#{p.name} #{p.surname}", p.id ] }
     end
 
-    # searches for problems
     def search_problems
         query = params[:lookup]
         if query.blank? != true 
@@ -40,7 +37,6 @@ class ProblemsController < ApplicationController
         end
     end
 
-    # show specific problem
     def show 
         @problem = Problem.find(params[:id])
         @user=current_user
