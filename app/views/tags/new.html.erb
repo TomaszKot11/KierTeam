@@ -1,0 +1,6 @@
+<div class='container'>
+    <% if @tag.errors.any? %>
+        <%= render './tags/partials/form_errors' %>
+    <% end %>
+    <%= render './tags/partials/form'%>
+</div>

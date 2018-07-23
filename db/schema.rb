@@ -76,12 +76,12 @@ ActiveRecord::Schema.define(version: 2018_07_21_151449) do
     t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name"
-    t.string "surname"
-    t.string "position"
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
+    t.string "name"
+    t.string "surname"
+    t.string "position"
     t.string "avatar_file_name"
     t.string "avatar_content_type"
     t.integer "avatar_file_size"
