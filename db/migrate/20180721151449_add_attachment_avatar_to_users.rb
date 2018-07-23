@@ -1,3 +1,4 @@
+# adds columns for avatar storing to User model
 class AddAttachmentAvatarToUsers < ActiveRecord::Migration[5.2]
   def self.up
     change_table :users do |t|

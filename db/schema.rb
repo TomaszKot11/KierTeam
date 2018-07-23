@@ -12,82 +12,82 @@
 
 ActiveRecord::Schema.define(version: 2018_07_21_151449) do
 
-  create_table "comments", force: :cascade do |t|
-    t.string "title"
-    t.string "content"
-    t.string "references"
-    t.integer "problem_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.index ["problem_id"], name: "index_comments_on_problem_id"
+  create_table 'comments', force: :cascade do |t|
+    t.string 'title'
+    t.string 'content'
+    t.string 'references'
+    t.integer 'problem_id'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.integer 'user_id'
+    t.index ['problem_id'], name: 'index_comments_on_problem_id'
   end
 
-  create_table "problem_tags", force: :cascade do |t|
-    t.integer "problem_id"
-    t.integer "tag_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'problem_tags', force: :cascade do |t|
+    t.integer 'problem_id'
+    t.integer 'tag_id'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  create_table "problem_users", force: :cascade do |t|
-    t.integer "problem_id"
-    t.integer "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["problem_id"], name: "index_problem_users_on_problem_id"
-    t.index ["user_id"], name: "index_problem_users_on_user_id"
+  create_table 'problem_users', force: :cascade do |t|
+    t.integer 'problem_id'
+    t.integer 'user_id'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['problem_id'], name: 'index_problem_users_on_problem_id'
+    t.index ['user_id'], name: 'index_problem_users_on_user_id'
   end
 
-  create_table "problems", force: :cascade do |t|
-    t.string "title"
-    t.string "content"
-    t.string "references"
-    t.integer "creator_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'problems', force: :cascade do |t|
+    t.string 'title'
+    t.string 'content'
+    t.string 'references'
+    t.integer 'creator_id'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  create_table "projects", force: :cascade do |t|
-    t.string "title"
-    t.string "description"
-    t.datetime "started_at"
-    t.datetime "ended_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'projects', force: :cascade do |t|
+    t.string 'title'
+    t.string 'description'
+    t.datetime 'started_at'
+    t.datetime 'ended_at'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  create_table "tags", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'tags', force: :cascade do |t|
+    t.string 'name'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
-    t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string "current_sign_in_ip"
-    t.string "last_sign_in_ip"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string "name"
-    t.string "surname"
-    t.string "position"
-    t.string "avatar_file_name"
-    t.string "avatar_content_type"
-    t.integer "avatar_file_size"
-    t.datetime "avatar_updated_at"
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  create_table 'users', force: :cascade do |t|
+    t.string 'email', default: '', null: false
+    t.string 'encrypted_password', default: '', null: false
+    t.string 'reset_password_token'
+    t.datetime 'reset_password_sent_at'
+    t.datetime 'remember_created_at'
+    t.integer 'sign_in_count', default: 0, null: false
+    t.datetime 'current_sign_in_at'
+    t.datetime 'last_sign_in_at'
+    t.string 'current_sign_in_ip'
+    t.string 'last_sign_in_ip'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.string 'confirmation_token'
+    t.datetime 'confirmed_at'
+    t.datetime 'confirmation_sent_at'
+    t.string 'name'
+    t.string 'surname'
+    t.string 'position'
+    t.string 'avatar_file_name'
+    t.string 'avatar_content_type'
+    t.integer 'avatar_file_size'
+    t.datetime 'avatar_updated_at'
+    t.index ['email'], name: 'index_users_on_email', unique: true
+    t.index ['reset_password_token'], name: 'index_users_on_reset_password_token', unique: true
   end
 
 end
