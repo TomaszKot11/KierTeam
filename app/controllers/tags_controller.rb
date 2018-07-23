@@ -1,34 +1,33 @@
 class TagsController < ApplicationController
-    #TODO: restrict the tag creation only for admin
+  # TODO: restrict the tag creation only for admin
+  def new
+    @tag = Tag.new
+  end
 
-    def new
-        @tag = Tag.new
+  def create
+    @tag = Tag.new(tag_params)
+    if @tag.save
+      redirect_to root_path, notice: 'You created tag successfully!'
+    else
+      render :new
     end
+  end
 
-    def create
-        @tag = Tag.new(tag_params)
-        if @tag.save 
-            redirect_to root_path, notice: 'You created tag successfully!'
-        else
-            render :new
-        end
-    end
+  # TODO: add button somewhere
+  def destroy
+    @tag = Tag.find(params[:id])
+    @tag.destroy
+    redirect_to root_path, alert: 'Selected tag was successfully destroyed!'
+  end
 
-    # TODO: add button somewhere
-    def destroy
-        @tag = Tag.find(params[:id])        
-        @tag.destroy
-        redirect_to root_path, alert: 'Selected tag was successfully destroyed!'
-    end
+  # for managment
+  def index
+    @tags = Tag.all
+  end
 
-    # for managment
-    def index
-       @tags = Tag.all 
-    end
+  private
 
-    private 
-        def tag_params
-            params.require(:tag).permit(:name)
-        end
-
+  def tag_params
+    params.require(:tag).permit(:name)
+  end
 end
