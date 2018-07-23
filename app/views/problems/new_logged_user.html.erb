@@ -1,0 +1,28 @@
+  
+<div class="container">
+	<%= form_for @problem, html: { id: 'newProblemID', class: 'form-group' } do |f| %>
+	  	<%= f.label :title %>
+	  	<%= f.text_field :title, placeholder: 'Title', class: 'form-control' %>
+	 	<%= f.label :content %>
+	  	<%= f.text_area :content, cols: 5, rows: 5, placeholder: 'Content', class: 'form-control' %>
+	  	<%= f.label :references %>
+	 	<%= f.text_area :references, cols: 5, rows: 5, placeholder: 'Insert here references', class: 'form-control' %>
+	 	<%= f.collection_select :tag_ids, Tag.all, :id, :name,{}, { multiple: true, class: 'chosen-select mt-3' }  %>
+	  	<br>
+	  	<div class="row">
+	    	<div class="col">
+	      		<%= link_to 'Add contributor', add_contributor_path(format: :js), remote: true, role: 'button', class: 'btn btn-primary' %>
+	    	</div>
+
+	    	<div class="col">
+	     	 	<div class="added_contributors">
+	        		<ul class="list-group">
+	        		</ul>
+	      		</div>
+	    	</div>
+	  	</div>
+
+	    <br>
+	  	<%= f.submit 'Save', class: 'btn btn-primary mt-2' %>
+	<% end %>
+</div>
