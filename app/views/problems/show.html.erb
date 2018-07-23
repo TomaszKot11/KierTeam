@@ -21,9 +21,9 @@
 
                 <tfoot>
                     <tr>
-                        <% if @is_creator %>
+                        
                             <%=  link_to 'Delete my problem', problem_remove_path(id: @problem.id), method: :delete, data: {confirm: "You sure?"} %>
-                        <% end %>
+                       
                     </tr>
                 </tfoot>
             </tbody>

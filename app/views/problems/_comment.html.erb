@@ -16,7 +16,11 @@
                               <p>content: <%= comment.content %></p>
                               <hr><small><p>references: <%= comment.references %></p></small>
                               <p>
-                                  <%= link_to 'Delete', comment_path(comment.id), method: :delete, remote: true, data: { confirm: 'Are you sure?' }, role: 'button', class: 'float-right btn btn-danger ml-2r' %>
+                                 <% if current_user.id==comment.user.id %>
+                                    <%= link_to 'Delete', comment_path(comment.id), method: :delete, remote: true, data: { confirm: 'Are you sure?' }, role: 'button', class: 'float-right btn btn-danger ml-2r' %>
+
+                                <% end %>
+                             
                              </p>
                           </div>
                       </div>
