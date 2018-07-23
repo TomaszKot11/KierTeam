@@ -14,7 +14,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :created_problems, foreign_key: :creator_id, class_name: 'Problem', dependent: :destroy
   has_many :problem_users
-  has_many :problems, through: :problem_users, dependent: :destroy
+  has_many :problems, through: :problem_users
 
   after_create :random_avatar, if: :no_avatar
 
