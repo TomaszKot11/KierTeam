@@ -18,6 +18,7 @@ class Problem < ApplicationRecord
       users.include?(current_user)
     end
   end
+
   # checks if current logged in user is creator of given problem
   def creator?
     return false if current_user.nil?

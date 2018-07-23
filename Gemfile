@@ -48,7 +48,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # rubocop which checks code
 gem 'rubocop', require: false
 
-gem "bootstrap_form", ">= 4.0.0.alpha1"
+gem 'bootstrap_form', '>= 4.0.0.alpha1'
 
 group :development, :test do
   gem 'bundler-audit'
