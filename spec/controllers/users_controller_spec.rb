@@ -20,10 +20,10 @@ RSpec.describe UsersController, type: :controller do
 
   describe '#show' do
   	let(:user1) { create(:user) }
-  	before { get :show, params: {id: user1.id} }
+  	before { get :show, params: { id: user1.id } }
 
-  	it { should respond_with(200..300)}
-  	it { should render_template('show')}
+  	it { should respond_with(200..300) }
+  	it { should render_template('show') }
 
   	context 'user' do 
   		it { expect(assigns(:user)).to eq(user1) }
