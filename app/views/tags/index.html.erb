@@ -1,0 +1,19 @@
+<div class="container">
+    <table class='table'>
+     <thead>
+            <tr>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+	        <% @tags.each do |tag| %>
+                <tr>
+                    <td><%= tag.name %></td>
+                    <td><%= link_to 'Delete this row', tag_path(id: tag.id), method: :delete, data: {confirm: "You sure?"} %></td>
+                </tr>
+	        <% end %>
+          </tbody>
+        </table>
+</div>
+

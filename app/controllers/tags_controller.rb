@@ -22,6 +22,11 @@ class TagsController < ApplicationController
         redirect_to root_path, alert: 'Selected tag was successfully destroyed!'
     end
 
+    # for managment
+    def index
+       @tags = Tag.all 
+    end
+
     private 
         def tag_params
             params.require(:tag).permit(:name)

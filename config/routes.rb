@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   get '/tags/new', to: 'tags#new', as: :new_tag
   post '/problems', to: 'tags#create'
 
-  resources :tags, only: [:new, :create]
+  resources :tags, only: [:new, :create, :index, :destroy]
 
 
   get '/users/:id/', to: 'users#show', as: :user
