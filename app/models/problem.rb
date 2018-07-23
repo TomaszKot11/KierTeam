@@ -6,7 +6,7 @@ class Problem < ApplicationRecord
 
   belongs_to :creator, class_name: 'User'
 
-  has_many :comments
+  has_many :comments, dependent: :destroy
 
   has_many :problem_users, inverse_of: :problem
   has_many :users, through: :problem_users
