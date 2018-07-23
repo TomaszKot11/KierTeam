@@ -1,0 +1,7 @@
+language:      ruby
+cache:         bundler
+script:
+  - "bundle exec rspec spec"
+  - "bundle exec bundle-audit check --update"
+  - "bundle exec brakeman --quiet"
+  - "bundle exec rubocop"

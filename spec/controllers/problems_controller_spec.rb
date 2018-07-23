@@ -28,6 +28,7 @@ RSpec.describe ProblemsController, type: :controller do
             end
         end
 
+        # cos tam interesujacego
         context 'problem creation for logged user' do
             let(:valid_attributes) {  { problem: attributes_for(:problem) } }
             let(:invalid_attributes) {  { problem: attributes_for(:problem, title: nil) } }
