@@ -1,2 +1,9 @@
 Style/FrozenStringLiteralComment:
   Enabled: false
+AllCops:
+  Exclude:
+      - 'vendor/**/*'
+      - 'bin/**/*'
+      - 'db/**/*'
+      - 'config/**/*'
+      - 'node_modules/**/*'

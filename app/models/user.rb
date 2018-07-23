@@ -18,7 +18,7 @@ class User < ApplicationRecord
 
   after_create :random_avatar, if: :no_avatar
 
-  def fullname
+  def full_name
       "#{name} #{surname}"
   end 
   
