@@ -1,4 +1,4 @@
 class ProblemTag < ApplicationRecord
-	belongs_to :problem 
-	belongs_to :tag
+  belongs_to :problem
+  belongs_to :tag
 end
