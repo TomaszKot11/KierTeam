@@ -78,6 +78,7 @@ class ProblemsController < ApplicationController
         # problem and can add comments
         def is_current_user_contributor
             @contributors = @problem.users
+            return false if @current_user.nil?
             @contributors.each  do |contributor|  
                 if contributor.id == current_user.id
                     return true
@@ -87,6 +88,7 @@ class ProblemsController < ApplicationController
         end
 
         def check_if_creator
+            return false if current_user.nil?
             ( current_user.id == @problem.creator_id ) ? true : false
         end
 end
