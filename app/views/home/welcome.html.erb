@@ -4,12 +4,23 @@
     <p>
   	  <%= image_tag("binlogo.png", class: "img-responsive center-block") %>
     </p>
-
-      <%= form_tag problem_search_path, method: :get do %>
-        <%= text_field_tag :lookup, nil, placeholder: "Please, tell me your problem", class: 'form-control ' %>
-        <br>
+        <%= form_tag problem_search_path, method: :get do %>
+          <%= text_field_tag :lookup, nil, placeholder: "Please, tell me your problem", class: 'form-control ' %>
+          <hr />
+          Advanced search
+          <%= check_box_tag :advanced_search?, nil, false %>
+          <hr />
+          With tags:
+          <%= collection_select :tag_names, nil, Tag.all, :name, :name, {}, { multiple: true, class: 'chosen-select' } %>
+          <hr />
+          Serach within content?
+          <%= check_box_tag :content?, nil, false %>
+          <hr />
+          Search within title?
+          <%= check_box_tag :title?, nil, false %>
+          <hr />
           <%= submit_tag 'Search',name: nil, class: 'btn btn-success' %>
-      <% end %>
-  
+        <% end %>
+
   </div>
 </div>
