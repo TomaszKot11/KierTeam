@@ -55,6 +55,75 @@ RSpec.describe ProblemsController, type: :controller do
     end
   end
 
+  describe '#create' do
+
+    let!(:user_sud) { create(:user) }
+    let(:valid_attributes) {  { problem: attributes_for(:problem) } }
+    let(:invalid_attributes) {  { problem: attributes_for(:problem, title: nil) } }
+
+    subject(:valid_post)  { post :create, params: valid_attributes }
+    subject(:invalid_post) { post :create, params: invalid_attributes }
+
+    context 'logged in user' do
+
+      before :each do
+        user_sud.confirm
+        sign_in(user_sud)
+      end
+
+      it 'shoudl create problem with valid attributes' do
+        expect { valid_post }.to change { Problem.count }.by(1)
+      end
+
+      it 'should not create problem with not valid attributes' do
+        expect { invalid_post }.to change { Problem.count }.by(0)
+      end
+
+      it 'should assign proper variables' do
+        valid_post
+        expect(assigns(:problem)).not_to be_nil
+        expect(assigns(:all_users_mapped)).not_to be_nil
+        expect(assigns(:all_users_mapped)).to include([ user_sud.full_name, user_sud.id])
+      end
+
+      it 'should redirect to root with notice when valid post' do
+        valid_post
+        expect(response).to redirect_to(root_path)
+        expect(flash[:notice]).to be_present
+      end
+
+      it 'should re-render new view with not valid post' do
+        invalid_post
+        expect(response).to render_template('new')
+      end
+
+      # ???
+      # it 'should create problem without tags with valid attributes' do
+      # end
+
+      # it 'should create problem without contributors with valid attributes' do
+      # end
+
+      # it 'should create problem without tags and contributors with valid attributes' do
+      # end
+    end
+
+    it 'not logged user should be restricted from creating problem' do
+      valid_post
+      redirect_to :sign_in
+    end
+  end
+
+
+  describe '#add_contributor' do
+
+      context 'logged in user' do
+
+      end
+
+
+  end
+
     # describe 'problem creating' do
 
     #     let!(:user_sud) { create(:user) }
