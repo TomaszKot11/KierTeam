@@ -45,7 +45,6 @@ RSpec.describe ProblemsController, type: :controller do
 
       it 'should assign @all_users_mapped' do
         expect(assigns(:all_users_mapped)).not_to be_nil
-        expect(assigns(:all_users_mapped)).to include([ user_sud.full_name, user_sud.id])
       end
 
     end

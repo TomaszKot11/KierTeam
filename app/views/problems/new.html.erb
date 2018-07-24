@@ -4,7 +4,9 @@
 	  <%= f.text_area :content, cols: 5, rows: 5, placeholder: 'Content', class: 'form-control' %>
 	 	<%= f.text_area :references, cols: 5, rows: 5, placeholder: 'Insert here references', class: 'form-control' %>
 	 	<%= f.collection_select :tag_ids, Tag.all, :id, :name,{}, { multiple: true, class: 'chosen-select' }  %>
-	  <%= f.collection_select :user_ids, User.all, :id, :name,{}, { multiple: true, class: 'chosen-select' } %>
+
+	  <%= f.collection_select :user_ids, @all_users_mapped, :id, :name,{}, { multiple: true, class: 'chosen-select' } %>
+
 	  <%= f.submit 'Save', class: "btn btn-success" %>
 	<% end %>
 </div>
