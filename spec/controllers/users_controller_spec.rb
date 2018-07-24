@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
-		
+
 	# describe "#index" do
 	# 	before { get :index }
 
@@ -27,10 +27,10 @@ RSpec.describe UsersController, type: :controller do
 
   # 		context 'user' do
   # 			it { expect(assigns(:user)).to eq(user1) }
-  # 		end 
+  # 		end
 	# end
-	
- 
+
+
 	# describe '#edit' do
 	# end
 end
