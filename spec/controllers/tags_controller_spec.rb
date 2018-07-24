@@ -33,47 +33,47 @@ RSpec.describe TagsController, type: :controller do
     end
   end
 
-  describe '#create' do
-    let(:tag) { create(:tag) }
-    let!(:user_sud) { create(:user) }
+  # describe '#create' do
+  #   let(:tag) { create(:tag) }
+  #   let!(:user_sud) { create(:user) }
 
-    let(:valid_attributes) {  { tag: attributes_for(:tag) } }
-    let(:invalid_attributes) {  { tag: attributes_for(:tag, name: nil) } }
+  #   let(:valid_attributes) {  { tag: attributes_for(:tag) } }
+  #   let(:invalid_attributes) {  { tag: attributes_for(:tag, name: nil) } }
 
-    subject(:valid_post)  { post :create, params: valid_attributes }
-    subject(:invalid_post) { post :create, params: invalid_attributes }
+  #   subject(:valid_post)  { post :create, params: valid_attributes }
+  #   subject(:invalid_post) { post :create, params: invalid_attributes }
 
-    context 'user is logged in' do
-      before :each do
-        user_sud.confirm
-        sign_in(user_sud)
-      end
+  #   context 'user is logged in' do
+  #     before :each do
+  #       user_sud.confirm
+  #       sign_in(user_sud)
+  #     end
 
-      it 'should create tag with valid attributes and responses' do
-        expect{valid_post}.to change { Tag.count }.by(1)
-        valid_post
-        expect(response).to redirect_to :tags
-        expect(flash[:notice]).to be_present
-      end
+  #     it 'should create tag with valid attributes and responses' do
+  #       expect{valid_post}.to change { Tag.count }.by(1)
+  #       valid_post
+  #       expect(response).to redirect_to :tags
+  #       expect(flash[:notice]).to be_present
+  #     end
 
-      it 'should not create tag with invalid attributes' do
-        expect { invalid_post }.to change { Tag.count }.by(0)
-      end
+  #     it 'should not create tag with invalid attributes' do
+  #       expect { invalid_post }.to change { Tag.count }.by(0)
+  #     end
 
-      it 'should re-render new form with invalid attributes' do
-        invalid_post
-        expect(flash[:alert]).to be_present
-      end
-    end
+  #     it 'should re-render new form with invalid attributes' do
+  #       invalid_post
+  #       expect(flash[:alert]).to be_present
+  #     end
+  #   end
 
-    context 'user is not logged in' do
-      it 'should not be able to create' do
-        expect { valid_post }.to change { Tag.count }.by(0)
-        valid_post
-        expect(response).to redirect_to :new_user_session
-      end
-    end
-  end
+  #   context 'user is not logged in' do
+  #     it 'should not be able to create' do
+  #       expect { valid_post }.to change { Tag.count }.by(0)
+  #       valid_post
+  #       expect(response).to redirect_to :new_user_session
+  #     end
+  #   end
+  # end
 
   # describe '#destroy' do
 

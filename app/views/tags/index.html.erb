@@ -17,7 +17,7 @@
 
     <div class="tag_section">
       <% @tags.each do |tag| %>
-        <%= render 'tags/partials/tag'%>
+        <%= render 'tags/partials/tag', tag: tag%>
       <% end %>
     </div>
 
