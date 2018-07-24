@@ -18,7 +18,8 @@
           <tfoot>
             <tr>
               <% if @is_creator %>
-                <%=  link_to 'Delete my problem', problem_remove_path(id: @problem.id), method: :delete, data: {confirm: "You sure?"} %>
+                <%=  link_to 'Delete my problem  ', problem_remove_path(id: @problem.id), method: :delete, data: {confirm: "You sure?"} %>
+                <%=  link_to 'Edit my problem', edit_problem_path(id: @problem.id) %>
               <% end %>
             </tr>
           </tfoot>

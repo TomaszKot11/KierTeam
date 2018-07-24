@@ -11,6 +11,22 @@ class ProblemsController < ApplicationController
 
   end
 
+  def edit
+    @problem = Problem.find(params[:id])
+  end
+
+  def update
+    @problem = Problem.find(params[:id])
+    # @authors = Author.all.collect { |author| [ author.fullname, author.id ] }
+    if @problem.update(problem_params)
+      redirect_to problems_url, notice: 'Problem has been updated'
+    else
+      render :edit
+    end
+  end
+
+
+
   def create
     @problem = Problem.new(problem_params.merge(creator_id: current_user.id))
     @all_users_mapped = User.all.map { |p| [p.full_name, p.id] }
