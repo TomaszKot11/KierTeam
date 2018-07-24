@@ -1,4 +1,3 @@
-<% # TODO: clean CSS classes %>
 <nav class="navbar navbar-expand-lg" style='background-color: #271D36;'>
   <%= link_to root_path do  %>
     <%= image_tag 'binarapps_fb_logo.jpg',  size: '60x60'%>
@@ -9,32 +8,23 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="nav navbar-nav navbar-right ml-auto">
-    <li class="nav-item dropdown">
-        <a class="nav-link mr-3 dropdown-toggle btn btn btn-outline-warning" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Admin
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <%= link_to 'Create tag', new_tag_path, class: 'dropdown-item' %>
-          <% #<a class="dropdown-item" href="#">Another action</a> %>
-          <%= link_to  'All tags', tags_path, class: 'dropdown-item' %>
-          <%#<div class="dropdown-divider"></div> %>
-          <% #<a class="dropdown-item" href="#">Something else here</a> %>
+      <% if !current_user.nil? %>
+        <% if current_user.is_admin == true %>
+          <li> <%= link_to 'Tags menu', tags_path, role: 'button', class: 'nav-link mr-3 btn btn-outline-primary form-group' %></li>
+        <% end %>
+      <% end %>
 
-        <%#</div>%>
-      </li>
-       <li> <%= link_to 'All problems', problems_path, role: 'button', class: 'nav-link mr-3 btn btn-outline-primary form-group' %></li>
-       <li> <%= link_to 'All users', users_path, role: 'button', class: 'nav-link mr-3 btn btn-outline-primary form-group' %></li>
-        
-          <% if user_signed_in? %>
-            <li> <%= link_to current_user.email, user_path(id: current_user.id), role: 'button', class: 'nav-link mr-3 btn btn-outline-primary form-group' %></li>
-            <li><%= link_to 'Logout', destroy_user_session_path, role: 'button', method: :delete, class: 'nav-link mr-3  btn btn-outline-warning form-group' %></li>
-            <li><%= link_to 'Create new problem', new_problem_path, role: 'button', class: 'nav-link mr-3 btn btn-outline-success form-group' %></li>
+      <li> <%= link_to 'All problems', problems_path, role: 'button', class: 'nav-link mr-3 btn btn-outline-primary form-group' %></li>
+      <li> <%= link_to 'All users', users_path, role: 'button', class: 'nav-link mr-3 btn btn-outline-primary form-group' %></li>
 
-
-          <% else %>
-            <li><%=link_to 'Sign up', new_user_registration_path, role: 'button', class: 'nav-link mr-3 btn btn-outline-warning form-group' %></li>
-            <li><%=link_to 'Log in', new_user_session_path, role: 'button', class: 'nav-link mr-3 btn btn-outline-warning form-group' %></li>
-          <% end %>
+      <% if user_signed_in? %>
+        <li> <%= link_to current_user.email, user_path(id: current_user.id), role: 'button', class: 'nav-link mr-3 btn btn-outline-warning form-group' %></li>
+        <li><%= link_to 'Logout', destroy_user_session_path, role: 'button', method: :delete, class: 'nav-link mr-3  btn btn-outline-warning form-group' %></li>
+        <li><%= link_to 'Create new problem', new_problem_path, role: 'button', class: 'nav-link mr-3 btn btn-outline-success form-group' %></li>
+      <% else %>
+        <li><%=link_to 'Sign up', new_user_registration_path, role: 'button', class: 'nav-link mr-3 btn btn-outline-warning form-group' %></li>
+        <li><%=link_to 'Log in', new_user_session_path, role: 'button', class: 'nav-link mr-3 btn btn-outline-warning form-group' %></li>
+      <% end %>
     </ul>
   </div>
 </nav>
