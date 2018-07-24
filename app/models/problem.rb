@@ -9,20 +9,20 @@ class Problem < ApplicationRecord
   has_many :problem_tags
   has_many :tags, through: :problem_tags
   accepts_nested_attributes_for :problem_users
-  # checks whether the current logged user is contributor to showed
-  # problem and can add comments
-  def current_user_contributor?
-    if current_user.nil?
+
+  def current_user_contributor?(user)
+    if user.nil?
       false
-    else
-      users.include?(current_user)
+    elsif users.exists?(id: user.id)
+      true
     end
   end
 
-  # checks if current logged in user is creator of given problem
-  def creator?
-    return false if current_user.nil?
-    return true if current_user.id == creator_id
-    false
+  def creator?(user)
+    if user.nil? || user.id != creator.id
+      false
+    else
+      true
+    end
   end
 end
