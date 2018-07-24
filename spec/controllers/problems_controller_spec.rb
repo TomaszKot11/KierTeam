@@ -56,6 +56,38 @@ RSpec.describe ProblemsController, type: :controller do
     end
   end
 
+  describe '#create' do
+    let!(:user_sud) { create(:user) }
+
+    context 'logged in user' do
+
+      it 'shoudl create problem with valid attributes' do
+      end
+
+      it 'should not create problem with not valid attributes' do
+      end
+
+      it 'should render proper template' do
+      end
+
+      it 'should assign proper variables' do
+      end
+
+      it 'should create problem without tags with valid attributes' do
+      end
+
+      it 'should create problem without contributors with valid attributes' do
+      end
+
+      it 'should create problem without tags and contributors with valid attributes' do
+      end
+    end
+
+    it 'not logged user should be restricted from creating problem' do
+
+    end
+  end
+
     # describe 'problem creating' do
 
     #     let!(:user_sud) { create(:user) }
