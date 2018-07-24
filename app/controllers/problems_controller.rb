@@ -7,7 +7,7 @@ class ProblemsController < ApplicationController
 
   def new
     @problem = Problem.new
-    @all_users_mapped = User.all.map { |p| [p.full_name, p.id] }
+    @all_users_mapped = User.all.reject { |user| user == current_user }
   end
 
   def create
