@@ -26,17 +26,20 @@ class ProblemsController < ApplicationController
   end
 
   def search_problems
-    query = params[:lookup]
-    redirect_to root_path, alert: 'Searching query should not be blank!' if query.blank?
-    @problems = Problem.where('title LIKE ? OR content LIKE ?', "%#{@query}%", "%#{@query}%").
-      paginate(per_page: 5, page: params[:page])
-    # for advance searching
-   # @problems = @problems.where('created_at > ?', params[:date_from]) if params[:date_from]
-   # we can as well store ids but it will cause multiple queries to db
-    params[:tag_names].each do |tag_name|
-       # make query for tag_names here
+    #query = params[:lookup]
+    redirect_to root_path, alert: 'Searching query should not be blank!' unless params[:lookup].present?
+    if params[:advanced_search_on].present?
+      @problems = perform_advanced_search
+    else
+      @problems = Problem.where('title LIKE ? OR content LIKE ?', "%#{@query}%", "%#{@query}%").
+        paginate(per_page: 5, page: params[:page])
     end
+  end
 
+  def perform_advanced_search
+    params[:tag_names].each do |tag_name|
+    end
+    return []
   end
 
   def show
@@ -63,6 +66,9 @@ class ProblemsController < ApplicationController
       :title,
       :content,
       :references,
+      :advanced_search_on,
+      :content_on,
+      :title_on,
       tag_ids: [],
       user_ids: [],
       tag_names: [],

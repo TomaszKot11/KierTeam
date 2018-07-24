@@ -8,16 +8,16 @@
           <%= text_field_tag :lookup, nil, placeholder: "Please, tell me your problem", class: 'form-control ' %>
           <hr />
           Advanced search
-          <%= check_box_tag :advanced_search?, nil, false %>
+          <%= check_box_tag :advanced_search_on, nil, false %>
           <hr />
           With tags:
           <%= collection_select :tag_names, nil, Tag.all, :name, :name, {}, { multiple: true, class: 'chosen-select' } %>
           <hr />
           Serach within content?
-          <%= check_box_tag :content?, nil, false %>
+          <%= check_box_tag :content_on, nil, false %>
           <hr />
           Search within title?
-          <%= check_box_tag :title?, nil, false %>
+          <%= check_box_tag :title_on, nil, false %>
           <hr />
           <%= submit_tag 'Search',name: nil, class: 'btn btn-success' %>
         <% end %>
