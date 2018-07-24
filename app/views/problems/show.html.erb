@@ -15,6 +15,18 @@
             <th scope='row'>References:</th>
             <td><%= @problem.references %></td>
           </tr>
+           <tr>
+            <th scope='row'>status:</th>
+             <% if @problem.status? %>
+            <td>
+                published
+            </td>
+             <% else %>
+             <td><strong>
+                not published</strong>
+             </td>
+            <% end %>
+          </tr>
           <tfoot>
             <tr>
               <% if @is_creator %>
@@ -25,18 +37,18 @@
           </tfoot>
         </tbody>
     </table>
-
-    <%= render 'problems/partials/comment_section', comments: @comments %>
-    <% if @is_current_contributor || @is_creator %>
-      <div class="container">
-        <div class="commentSection-add">
-          <h3 class="commentSection-title">Add comment</h3>
-          <%= render 'comments/form', object: @comment, errors: @comment_errors, locals: { problem_id: @problem.id, users: @users } %>
-          <hr/>
-        </div>
-      </div>
+    <% if @problem.status? %>
+        <%= render 'problems/partials/comment_section', comments: @comments %>
+        <% if @is_current_contributor || @is_creator %>
+          <div class="container">
+            <div class="commentSection-add">
+              <h3 class="commentSection-title">Add comment</h3>
+              <%= render 'comments/form', object: @comment, errors: @comment_errors, locals: { problem_id: @problem.id, users: @users } %>
+              <hr/>
+            </div>
+          </div>
+        <% end %>
     <% end %>
-
     <div class="container">
         <%= link_to 'Back', problems_path, role: 'button', class: 'btn btn-primary' %>
     </div>

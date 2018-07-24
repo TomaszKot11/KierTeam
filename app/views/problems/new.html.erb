@@ -1,10 +1,4 @@
-<div class="container">
-	<%= bootstrap_form_for @problem,label_errors: true, html: { id: 'new_problem_id', class: 'form-group' } do |f| %>
-	  <%= f.text_field :title, placeholder: 'Title', class: 'form-control' %>
-	  <%= f.text_area :content, cols: 5, rows: 5, placeholder: 'Content', class: 'form-control' %>
-	 	<%= f.text_area :references, cols: 5, rows: 5, placeholder: 'Insert here references', class: 'form-control' %>
-	 	<%= f.collection_select :tag_ids, Tag.all, :id, :name,{}, { multiple: true, class: 'chosen-select' }  %>
-	  <%= f.collection_select :user_ids, User.all, :id, :name,{}, { multiple: true, class: 'chosen-select' } %>
-	  <%= f.submit 'Save', class: "btn btn-success" %>
-	<% end %>
+<div style="background:transparent !important" class="jumbotron text-center">
+	<p><h1>New Problem</h1></p>
+	<%= render 'problems/partials/form' %>
 </div>

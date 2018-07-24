@@ -17,15 +17,12 @@ class ProblemsController < ApplicationController
 
   def update
     @problem = Problem.find(params[:id])
-    # @authors = Author.all.collect { |author| [ author.fullname, author.id ] }
     if @problem.update(problem_params)
       redirect_to problems_url, notice: 'Problem has been updated'
     else
       render :edit
     end
   end
-
-
 
   def create
     @problem = Problem.new(problem_params.merge(creator_id: current_user.id))
@@ -73,6 +70,7 @@ class ProblemsController < ApplicationController
       :title,
       :content,
       :references,
+      :status,
       tag_ids: [],
       user_ids: [],
       problem_users_attributes: %i[id user_id]
