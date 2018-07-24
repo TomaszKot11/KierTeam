@@ -26,20 +26,25 @@ class ProblemsController < ApplicationController
   end
 
   def search_problems
-    #query = params[:lookup]
-    redirect_to root_path, alert: 'Searching query should not be blank!' unless params[:lookup].present?
     if params[:advanced_search_on].present?
-      @problems = perform_advanced_search
+      @problems = perform_advanced_search().paginate(per_page: 5, page: params[:page])
     else
-      @problems = Problem.where('title LIKE ? OR content LIKE ?', "%#{@query}%", "%#{@query}%").
-        paginate(per_page: 5, page: params[:page])
+      redirect_to root_path, alert: 'Searching query should not be blank!' unless params[:lookup].present?
+      @problems = Problem.default_search(params[:lookup]).paginate(per_page: 5, page: params[:page])
     end
   end
 
   def perform_advanced_search
-    params[:tag_names].each do |tag_name|
+    problems_loc = Problem.where(nil)
+
+    if params[:tag_names].present?
+      params[:tag_names].each do |tag_name|
+        problems_loc = problems_loc.tag_where(tag_name)
+      end
     end
-    return []
+
+
+      return problems_loc
   end
 
   def show

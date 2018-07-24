@@ -10,6 +10,9 @@ class Problem < ApplicationRecord
   has_many :tags, through: :problem_tags
   accepts_nested_attributes_for :problem_users
 
+  scope :default_search, -> (query) { where('title LIKE ? OR content LIKE ?', "%#{query}%", "%#{query}%") }
+  scope :tag_where, -> (tag_name) { joins(:tags).merge(Tag.where(name: tag_name)) }
+
   def current_user_contributor?(user)
     if user.nil?
       false
