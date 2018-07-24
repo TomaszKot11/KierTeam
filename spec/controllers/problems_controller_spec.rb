@@ -118,10 +118,10 @@ RSpec.describe ProblemsController, type: :controller do
 
   describe '#add_contributor' do
 
-
       context 'logged in user' do
 
       end
+
 
   end
 
