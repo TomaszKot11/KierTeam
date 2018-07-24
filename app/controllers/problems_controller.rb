@@ -8,7 +8,6 @@ class ProblemsController < ApplicationController
   def new
     @problem = Problem.new
     @all_users_mapped = User.all.map { |p| [p.full_name, p.id] }
-
   end
 
   def edit
@@ -27,7 +26,7 @@ class ProblemsController < ApplicationController
   def create
     @problem = Problem.new(problem_params.merge(creator_id: current_user.id))
     @all_users_mapped = User.all.map { |p| [p.full_name, p.id] }
-    @problem.status=false
+    @problem.status = false
     if @problem.save
       redirect_to root_path, notice: 'You created post successfully!'
     else
