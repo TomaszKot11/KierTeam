@@ -39,12 +39,36 @@ class ProblemsController < ApplicationController
 
     if params[:tag_names].present?
       params[:tag_names].each do |tag_name|
+        # AND
+        debug('szukam po tagach')
         problems_loc = problems_loc.tag_where(tag_name)
       end
     end
 
+    # problems_loc = problems_loc.content_where()
+    if params[:content_on].present? || params[:title_on].present?
+      redirect_to root_path, alert: 'Searching query should not be blank!' unless params[:lookup].present?
+       # content
+      if params[:content_on].present?
+        debug('szukam w content')
+        problems_loc = problems_loc.content_where(params[:lookup])
+      end
 
+      # title
+      if params[:title_on].present?
+        debug('szukam w title')
+        problems_loc = problems_loc.title_where(params[:lookup])
+      end
+    end
       return problems_loc
+  end
+
+  def debug(name)
+    p '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    p '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    p name
+    p '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+    p '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
   end
 
   def show
