@@ -1,0 +1,13 @@
+<div data-tag-id="<%=tag.id %>" class="tab_section">
+  <div class="row mt-3">
+    <div class="col">
+      <%= tag.name %>
+    </div>
+    <div class="col">
+      <%= link_to 'Delete this row', tag_path(id: tag.id),remote: true, method: :delete, data: {confirm: "You sure?"}, role: 'button', class: 'btn btn-danger ml-2r' %>
+    </div>
+  </div>
+  <hr/>
+</div>
+
+

@@ -1,19 +1,27 @@
-<div class="container">
-    <table class='table'>
-     <thead>
-            <tr>
-                <th>Name</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-	        <% @tags.each do |tag| %>
-                <tr>
-                    <td><%= tag.name %></td>
-                    <td><%= link_to 'Delete this row', tag_path(id: tag.id), method: :delete, data: {confirm: "You sure?"} %></td>
-                </tr>
-	        <% end %>
-          </tbody>
-        </table>
+<div style="background:transparent !important" class="jumbotron text-center">
+  <div class='container'>
+    <% if @tag.errors.any? %>
+        <%= render './tags/partials/form_errors' %>
+    <% end %>
+    <%= render './tags/partials/form'%>
+
+    <br><br><br>
+
+    <div class="row mt-3">
+      <div class="col">
+        Name
+      </div>
+      <div class="col">
+        Delete
+      </div>
+    </div>
+    <hr/>
+
+
+    <% @tags.each do |tag| %>
+      <%= render 'tags/partials/tag', tag: tag %>
+    <% end %>
+
+  </div>
 </div>
 

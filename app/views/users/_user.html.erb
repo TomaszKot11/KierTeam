@@ -1,8 +1,10 @@
-<li class="list-group-item">
-	<h5> <%= link_to user.email, user_path(id: user.id) %> </h5>
-		<%= "#{user.name} #{user.surname}" %><br>
-	<%= user.position %>
-</li>
-<br>
-<br>
+<% if user.is_admin.nil? %>
+  <li class="list-group-item">
+  	<h5> <%= link_to user.email, user_path(id: user.id) %> </h5>
+  		<%= "#{user.name} #{user.surname}" %><br>
+  	<%= user.position %>
+  </li>
+  <br>
+  <br>
+<% end %>
 
