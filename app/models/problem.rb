@@ -13,13 +13,13 @@ class Problem < ApplicationRecord
   def current_user_contributor?(user)
     if user.nil?
       false
-    elsif self.users.exists?(:id => user.id)
+    elsif users.exists?(id: user.id)
       true
     end
   end
 
   def creator?(user)
-    if user.nil? || user.id != self.creator.id
+    if user.nil? || user.id != creator.id
       false
     else
       true
