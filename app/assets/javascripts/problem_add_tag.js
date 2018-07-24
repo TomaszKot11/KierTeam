@@ -8,6 +8,7 @@ document.addEventListener("turbolinks:load", function() {
                 width: '200px'
             });
         });
-          
+
     }).call(this);
-}); 
+});
+

@@ -1,6 +1,6 @@
 <div class="new_tag">
   <%= form_for @tag,remote: true, html: { class: 'new-tag-form' } do |f| %>
-    <h3><%= f.label "Create a tag" %></h3>
+    <h3><%= f.label "Create a tag", class:'tag_label_name' %></h3>
     <%= f.text_field :name, style:'width:300px;margin: 0 auto;',placeholder: 'Name of tag', class: 'form-control' %>
     <%= f.submit 'Submit', style: 'width:100px;', class: 'btn btn-primary mt-2' %>
   <% end %>

@@ -17,10 +17,15 @@ class TagsController < ApplicationController
     @tag.destroy
   end
 
+  def update
+    @tag = Tag.find(params[:id])
+    @tag.update(tag_params)
+  end
+
   private
 
   def authorize_admin
-    redirect_to root_path, alert: "Permissions denied" unless
+    redirect_to root_path, alert: 'Permissions denied' unless
      current_user.is_admin?
   end
 
