@@ -10,16 +10,6 @@ class TagsController < ApplicationController
     @tags = Tag.all
     @tag = Tag.new(tag_params)
     @tag.save
-
-    # respond_to do |format|
-    #   format.html { render nothing: true }
-    # end
-
-    # respond_to do |format|
-    #   format.js
-    #   #format.html { render partial: 'tags/partials/tag', locals: { tab: @tab } }
-    #   format.html { render :index }
-    # end
   end
 
   def destroy

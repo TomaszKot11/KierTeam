@@ -1,8 +1,7 @@
-<% # TODO: use AJAX to rerender with errors %>
 <div class='alert alert-danger'>
   <ul>
-      <% @tag.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-      <% end %>
+    <% tag.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+    <% end %>
   </ul>
 </div>

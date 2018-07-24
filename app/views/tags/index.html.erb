@@ -1,26 +1,25 @@
 <div style="background:transparent !important" class="jumbotron text-center">
   <div class='container'>
-    <% if @tag.errors.any? %>
-        <%= render './tags/partials/form_errors' %>
-    <% end %>
+    <div class="tag_errors">
+    </div>
     <%= render './tags/partials/form'%>
-
-    <br><br><br>
+    <br><br>
 
     <div class="row mt-3">
       <div class="col">
-        Name
+        <h4>Name</h4>
       </div>
       <div class="col">
-        Delete
+        <h4>Delete</h4>
       </div>
     </div>
     <hr/>
 
-
-    <% @tags.each do |tag| %>
-      <%= render 'tags/partials/tag', tag: tag %>
-    <% end %>
+    <div class="tag_section">
+      <% @tags.each do |tag| %>
+        <%= render 'tags/partials/tag'%>
+      <% end %>
+    </div>
 
   </div>
 </div>
