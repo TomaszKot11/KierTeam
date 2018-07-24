@@ -1,5 +1,5 @@
 class TagsController < ApplicationController
-  before_action :authenticate_user!, only: %i[index create destroy]
+  before_action :authenticate_user!, :authorize_admin
 
   def index
     @tags = Tag.all
@@ -18,6 +18,11 @@ class TagsController < ApplicationController
   end
 
   private
+
+  def authorize_admin
+    redirect_to root_path, alert: "Permissions denied" unless
+     current_user.is_admin?
+  end
 
   def tag_params
     params.require(:tag).permit(:name)
