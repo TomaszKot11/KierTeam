@@ -1,45 +1,43 @@
 <div style="background:transparent !important" class="jumbotron">
-<div class='container'>
-    
+  <div class='container'>
     <h1 class='text-center'><%= @problem.title %></h1>
-        <table class='table'>
-            <tbody>
-                <tr>
-                    <th scope='row'>Title:</th>
-                    <td><%= @problem.title %></td>
-                </tr>
-                <tr>
-                    <th scope='row'>Content:</th>
-                    <td><%= @problem.content %></td>
-                </tr>
-                <tr>
-                    <th scope='row'>References:</th>
-                    <td><%= @problem.references %></td>
-                </tr>
+    <table class='table'>
+        <tbody>
+          <tr>
+            <th scope='row'>Title:</th>
+            <td><%= @problem.title %></td>
+          </tr>
+          <tr>
+            <th scope='row'>Content:</th>
+            <td><%= @problem.content %></td>
+          </tr>
+          <tr>
+            <th scope='row'>References:</th>
+            <td><%= @problem.references %></td>
+          </tr>
+          <tfoot>
+            <tr>
+              <% if @is_creator %>
+                <%=  link_to 'Delete my problem', problem_remove_path(id: @problem.id), method: :delete, data: {confirm: "You sure?"} %>
+              <% end %>
+            </tr>
+          </tfoot>
+        </tbody>
+    </table>
 
-                <tfoot>
-                    <tr>
-                        <% if @is_creator %>
-                            <%=  link_to 'Delete my problem', problem_remove_path(id: @problem.id), method: :delete, data: {confirm: "You sure?"} %>
-                        <% end %>
-                    </tr>
-                </tfoot>
-            </tbody>
-        </table>
-        
-        <%= render 'problems/partials/comment_section', comments: @comments %>
-        
-        <% if @is_current_contributor || @is_creator %>
-            <div class="container">
-                <div class="commentSection-add">
-                            <h3 class="commentSection-title">Add comment</h3>
-                            <%= render 'comments/form', object: @comment, errors: @comment_errors, locals: { problem_id: @problem.id, users: @users } %>
-                        <hr/>
-                    </div>
-                </div>
-        <% end %>
-        <div class="container">
-            <%= link_to 'Back', problems_path, role: 'button', class: 'btn btn-primary' %>
+    <%= render 'problems/partials/comment_section', comments: @comments %>
+    <% if @is_current_contributor || @is_creator %>
+      <div class="container">
+        <div class="commentSection-add">
+          <h3 class="commentSection-title">Add comment</h3>
+          <%= render 'comments/form', object: @comment, errors: @comment_errors, locals: { problem_id: @problem.id, users: @users } %>
+          <hr/>
         </div>
-</div>
+      </div>
+    <% end %>
+
+    <div class="container">
+        <%= link_to 'Back', problems_path, role: 'button', class: 'btn btn-primary' %>
+    </div>
+  </div>
 </div>
