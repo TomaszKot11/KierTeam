@@ -4,7 +4,7 @@ RSpec.describe Problem, type: :model do
 
   describe 'attributes' do
     it 'should have proper attributes' do
-    expect(subject.attributes).to include('title', 'content', 'references')
+      expect(subject.attributes).to include('title', 'content', 'references')
     end
   end
 
@@ -27,7 +27,7 @@ RSpec.describe Problem, type: :model do
   describe '#current_user_contributor?' do
     let!(:contributor) { create(:user) }
     let(:contributor_two) { create(:user_1) }
-    let!(:problem_sud) { create(:problem) }
+    let(:problem_sud) { create(:problem) }
 
     it 'if user is nil return false' do
       expect(
@@ -58,6 +58,9 @@ RSpec.describe Problem, type: :model do
       end
 
     end
+  end
+
+  describe '#creator?' do
 
   end
 
