@@ -10,6 +10,7 @@ class TagsController < ApplicationController
     @tags = Tag.all
     @tag = Tag.new(tag_params)
     @tag.save
+    render json: { success: true }
   end
 
   def destroy
