@@ -1,5 +1,5 @@
 class ProblemsController < ApplicationController
-  before_action :authenticate_user!, only: %i[new create add_contributor]
+  before_action :authenticate_user!, only: %i[new create add_contributor destroy]
 
   def index
     @problems = Problem.all

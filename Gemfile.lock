@@ -60,6 +60,7 @@ GEM
       msgpack (~> 1.0)
     bootstrap_form (4.0.0.alpha1)
       rails (>= 5.0)
+    brakeman (4.3.1)
     builder (3.2.3)
     bundler-audit (0.6.0)
       bundler (~> 1.2)
@@ -338,6 +339,7 @@ DEPENDENCIES
   avatarly
   bootsnap (>= 1.1.0)
   bootstrap_form (>= 4.0.0.alpha1)
+  brakeman
   bundler-audit
   byebug
   capistrano

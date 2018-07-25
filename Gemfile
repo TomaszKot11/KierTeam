@@ -64,6 +64,8 @@ group :development, :test do
   gem 'faker'
   # for Rspec controller testing
   gem 'rails-controller-testing'
+  # for security
+  gem 'brakeman'
 end
 
 group :development do

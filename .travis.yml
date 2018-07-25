@@ -4,3 +4,4 @@ script:
   - "bundle exec rspec spec"
   - "bundle exec bundle-audit check --update"
   - "bundle exec rubocop"
+  - "bundle exec brakeman --quiet"
