@@ -222,4 +222,38 @@ RSpec.describe ProblemsController, type: :controller do
     end
   end
 
+  describe 'Searching logic' do
+
+      context 'user-related behaviour' do
+        let(:user_sud) { create(:user) }
+        let!(:problem_sud) { create(:problem) }
+        subject(:general_search) { get :search_problems, params: { lookup: problem_sud.title } }
+
+        it 'guest should be able to search' do
+            general_search
+            expect(response).to render_template('search_problems')
+            # to even more guarantee proper results -> had many problems
+            # while refactoring etc
+            expect(assigns(:problems).count).to eq(1)
+        end
+
+        it 'logged in user should be able to search' do
+          user_sud.confirm
+          sign_in(user_sud)
+          general_search
+          expect(response).to render_template('search_problems')
+          # to even more guarantee proper results -> had many problems
+          # while refactoring etc
+          expect(assigns(:problems).count).to eq(1)
+        end
+      end
+
+      context 'basic search' do
+
+      end
+
+      context 'advanced search' do
+
+      end
+  end
 end
