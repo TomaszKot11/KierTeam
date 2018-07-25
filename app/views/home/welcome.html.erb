@@ -1,25 +1,27 @@
 <!-- <div class ='jumbotron text-center'><h1> Welcome on Binar::Stack </h1></div> -->
 <div style="background:transparent !important" class="jumbotron text-center">
   <div class="container">
-    <p>
-  	  <%= image_tag("binlogo.png", class: "img-responsive center-block") %>
-    </p>
+      <%= image_tag("binlogo.png", class: "img-responsive center-block") %>
         <%= form_tag problem_search_path, method: :get do %>
           <%= text_field_tag :lookup, nil, placeholder: "Please, tell me your problem", class: 'form-control ' %>
-          <hr />
-          Advanced search
-          <%= check_box_tag :advanced_search_on, nil, false %>
-          <hr />
-          With tags:
-          <%= collection_select :tag_names, nil, Tag.all, :name, :name, {include_hidden: false}, { multiple: true, class: 'chosen-select' } %>
-          <hr />
-          Serach within content?
-          <%= check_box_tag :content_on, nil, false %>
-          <hr />
-          Search within title?
-          <%= check_box_tag :title_on, nil, false %>
-          <hr />
-          <%= submit_tag 'Search',name: nil, class: 'btn btn-success' %>
+            <a class="btn btn-primary mt-2" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Advanced searching</a>
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                    Advanced search
+                    <%= check_box_tag :advanced_search_on, nil, false %>
+                    <hr />
+                    With tags:
+                    <%= collection_select :tag_names, nil, Tag.all, :name, :name, {include_hidden: false}, { multiple: true, class: 'chosen-select' } %>
+                    <hr />
+                    Serach within content?
+                    <%= check_box_tag :content_on, nil, false %>
+                    <hr />
+                    Search within title?
+                    <%= check_box_tag :title_on, nil, false %>
+                    <hr />
+                </div>
+            </div>
+          <%= submit_tag 'Search',name: nil, class: 'btn btn-success mt-2' %>
         <% end %>
 
   </div>
