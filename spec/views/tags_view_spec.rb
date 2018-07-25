@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "scenaria - visit page, create tag, destroy tag, edit tag", type: :feature do
+describe "scenario - visit page, create tag, destroy tag, edit tag", type: :feature do
 
   let!(:user_sud) { create(:user, email: 'user@example.com', password: 'password', is_admin: true) }
   let!(:tag1) {create(:tag, name: "Android")}
