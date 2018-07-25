@@ -1,5 +1,5 @@
 class ProblemsController < ApplicationController
-  before_action :authenticate_user!, only: %i[new create add_contributor]
+  before_action :authenticate_user!, only: %i[new create add_contributor destroy]
 
   def index
     @problems = Problem.all
@@ -12,6 +12,7 @@ class ProblemsController < ApplicationController
 
   def edit
     @problem = Problem.find(params[:id])
+    @all_users_mapped = User.all.reject { |user| user == current_user || user.is_admin == true }
   end
 
   def update

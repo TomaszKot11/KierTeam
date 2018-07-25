@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+
 RSpec.describe ProblemsController, type: :controller do
 
   # https://github.com/rspec/rspec-collection_matchers
@@ -117,169 +118,108 @@ RSpec.describe ProblemsController, type: :controller do
 
   describe '#add_contributor' do
 
+    let!(:user_sud) { create(:user) }
+    subject(:get_contributors)  { get :add_contributor }
+
       context 'logged in user' do
 
+        before :each do
+          user_sud.confirm
+          sign_in(user_sud)
+        end
+
+        it 'should not have html template' do
+          expect { get_contributors }.to raise_exception(ActionController::UnknownFormat)
+        end
+
+        it 'should assign @all_users_mapped' do
+          begin
+            get_contributors
+          rescue
+            expect(assigns(:all_users_mapped)).not_to be_nil
+          end
+        end
       end
 
-
+      it 'not logged in should be restricted' do
+        get_contributors
+        redirect_to :sign_in
+      end
   end
 
-    # describe 'problem creating' do
+  describe '#destroy' do
+    let!(:user_sud) { create(:user) }
+    let!(:problem_sud) { create(:problem) }
 
-    #     let!(:user_sud) { create(:user) }
+    subject(:delete_problem) { delete :destroy, params: { id: problem_sud.id } }
 
-    #     context 'restrictions' do
-    #         it 'not logged user should be restricted from creating new problems' do
-    #             get :new_logged_user
-    #             expect(response).to redirect_to(new_user_session_path)
-    #         end
+    context 'logged in' do
 
-    #         it 'logged in user should be able to create new post' do
-    #             user_sud.confirm
-    #             sign_in(user_sud)
-    #             get :new_logged_user
-    #             expect(response).to render_template('new_logged_user')
-    #         end
+      before :each do
+        user_sud.confirm
+        sign_in(user_sud)
+      end
 
-    #         it 'should assign variables' do
-    #             user_sud.confirm
-    #             sign_in(user_sud)
-    #             get :new_logged_user
-    #             expect(assigns(:problem)).not_to be_nil
-    #             expect(assigns(:all_users_mapped)).not_to be_nil
-    #         end
-    #     end
+      it 'should be able to destroy' do
+        expect{ delete_problem }.to change(Problem, :count).by(-1)
+      end
 
-    #     context 'problem creation for logged user' do
-    #         let(:valid_attributes) {  { problem: attributes_for(:problem) } }
-    #         let(:invalid_attributes) {  { problem: attributes_for(:problem, title: nil) } }
+      context 'behavipour after destroy' do
+        before(:each) { delete_problem }
 
-    #         subject(:valid_post)	{ post :create,	params:	valid_attributes }
-    #         subject(:invalid_post) { post :create, params: invalid_attributes }
+        it 'should redirect to root_path with alert after destroy' do
 
-    #         before :each do
-    #             user_sud.confirm
-    #             sign_in(user_sud)
-    #         end
+          expect(response).to redirect_to(root_path)
+          expect(flash[:alert]).to be_present
+        end
 
-    #         it 'should create problem with valid attributes' do
-    #             expect { valid_post }.to change { Problem.count }.by(1)
-    #         end
+        it 'should assign @destroy variable' do
+          expect(assigns(:problem)).not_to be_nil
+        end
+      end
+    end
 
-    #         it 'should not create problem with invalid attributes' do
-    #             expect { invalid_post }.to change { Problem.count }.by(0)
-    #         end
+    it 'not logged in user should be restricted from destroying' do
+      expect { delete_problem }.to change(Problem, :count).by(0)
+      redirect_to :sign_in
+    end
+  end
 
-    #         it 'should flash notice after creation with valid attributes' do
-    #             valid_post
-    #             expect(flash[:notice]).to be_present
-    #         end
+  describe '#show' do
 
-    #         it 'should redirect to root_path creation with valid attributes' do
-    #             valid_post
-    #             expect(response).to redirect_to(root_path)
-    #         end
+    let!(:problem_sud) { create(:problem) }
 
-    #         it 'should render new_logged_user template when not valid post' do
-    #             invalid_post
-    #             expect(response).to render_template('new_logged_user')
-    #         end
+    subject(:show_problem) { get :show, params: { id: problem_sud.id  } }
 
-    #         it 'should assign users_mapped' do
-    #             valid_post
-    #             expect(assigns(:all_users_mapped)).not_to be_nil
-    #         end
+    before(:each) { show_problem }
 
-    #         it 'should create tags associated with problem' do
-    #             pending "implement #{__FILE__}"
-    #         end
+    context 'logged in' do
+      let!(:user_sud) { create(:user) }
 
-    #         it 'should create users associated with problem' do
-    #             pending "implement #{__FILE__}"
-    #         end
+      before :each do
+        user_sud.confirm
+        sign_in(user_sud)
+      end
 
-    #         it 'should create both users and tags associated with problem' do
-    #             pending "implement #{__FILE__}"
-    #         end
+      it 'should see specific problem' do
+        expect(response).to render_template(:show)
+      end
+    end
 
-    #     end
-    # end
+    it 'not logged uswer should see specific problem' do
+      expect(response).to render_template(:show)
+    end
 
-    # # whole action for simplicity is tested using capybara
-    # describe '#add_contributor' do
-    #     let!(:user_one) { create(:user_1) }
-    #     let!(:user_two) { create(:user) }
-
-    #     it 'should assign users_mapped' do
-    #         get :add_contributor, xhr: true
-    #         expect(assigns(:all_users_mapped)).to match_array([ [user_one.full_name, user_one.id],
-    #         [user_two.full_name, user_two.id] ])
-    #     end
-    # end
-
-    # describe '#show' do
-    #     let(:problem_sud) { create(:problem) }
-    #     let(:problem_sud2) { create(:problem_2) }
-    #     let(:comment_one) { create(:comment) }
-    #     let(:comment_two) { create(:comment_1) }
-
-    #     before(:each) do
-    #         get :show, params: { id: problem_sud.id }
-    #     end
-
-    #     it 'should redner proper template' do
-    #         expect(response).to render_template('show')
-    #     end
-
-    #     it 'comments variable should not be nil when comments present' do
-    #         pending "implement #{__FILE__}"
-    #     end
-
-    #     it 'comments variable should be nil when comments are not present' do
-    #         pending "implement #{__FILE__}"
-    #     end
-
-    # end
-
-    # describe '#search_problems' do
-    #     let(:problem_included) { create(:problem, title: 'Hello') }
-    #     let(:problem_excluded) { create(:problem, title: 'Bye bye')}
-
-    #     it 'should return proper data' do
-    #         get :search_problems, params: { lookup: 'Hello' }
-
-    #         expect(assigns(:problems)).to match_array([ problem_included ])
-    #     end
-
-    #     it 'should not return not proper data' do
-    #         get :search_problems, params: { lookup: 'Hello' }
-
-    #         expect(assigns(:problems)).not_to match_array([ problem_excluded ])
-    #     end
-
-    #     it 'when query blank should redirect to root with alert' do
-    #         get :search_problems, params: { lookup: nil }
-
-    #         expect(flash[:alert]).to be_present
-    #         expect(response).to redirect_to(root_path)
-    #     end
-
-    # end
-    # VERY INTERESTING COMMENT
-    # describe '#index' do
-    #     let(:problem_one) { create(:problem) }
-    #     let(:problem_two) { create(:problme) }
-
-    #     before(:each) do
-    #         get :index
-    #     end
-
-    #     it { should respond_with(200..300) }
-    #     it { should render_template('index') }
-
-    #     it 'should return all problems' do
-    #         expect(assigns(:problems)).to match_array( [problem_one, problem_two] )
-    #     end
-    # end
+    it 'should assign all necessary variables' do
+      expect(assigns(:problem)).not_to be_nil
+      expect(assigns(:comment)).not_to be_nil
+      expect(assigns(:creator_id)).not_to be_nil
+      expect(assigns(:is_current_contributor)).not_to be_nil
+      expect(assigns(:is_creator)).not_to be_nil
+      expect(assigns(:comments)).not_to be_nil
+      expect(assigns(:users)).not_to be_nil
+      expect(assigns(:comment_errors)).not_to be_nil
+    end
+  end
 
 end
