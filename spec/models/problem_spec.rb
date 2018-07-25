@@ -61,6 +61,27 @@ RSpec.describe Problem, type: :model do
   end
 
   describe '#creator?' do
+    let!(:creator) { create(:user) }
+    let(:not_creator) { create(:user_1) }
+    let(:problem_sud) { create(:problem, creator_id: creator.id) }
+
+    it 'if nil is passed then false' do
+      expect(
+        problem_sud.creator?(nil)
+      ).to eq(false)
+    end
+
+    it 'if current_user is not creator then false' do
+      expect(
+        problem_sud.creator?(not_creator)
+      ).to eq(false)
+    end
+
+    it 'if current_user is creator then true' do
+      expect(
+        problem_sud.creator?(creator)
+      ).to eq(true)
+    end
 
   end
 
