@@ -4,7 +4,7 @@
       <%= image_tag("binlogo.png", class: "img-responsive center-block") %>
         <%= form_tag problem_search_path, method: :get do %>
           <%= text_field_tag :lookup, nil, placeholder: "Please, tell me your problem", class: 'form-control ' %>
-            <a class="btn btn-primary mt-2" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Advanced searching</a>
+            <a class="btn btn-primary mt-2 advanced-search-btn" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Advanced searching</a>
             <div class="collapse" id="collapseExample">
                 <div class="card card-body">
                   <%= render './home/partials/advanced_search'%>
