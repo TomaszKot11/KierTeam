@@ -1,5 +1,5 @@
 class TagsController < ApplicationController
-  before_action :authenticate_user!, only: %i[index create destroy]
+  before_action :authenticate_user!, :authorize_admin
 
   def index
     @tags = Tag.all
@@ -17,7 +17,25 @@ class TagsController < ApplicationController
     @tag.destroy
   end
 
+  def edit
+    @tag = Tag.find(params[:id])
+  end
+
+  def update
+    @tag = Tag.find(params[:id])
+    if @tag.update(tag_params)
+      redirect_to tags_path, notice: 'Tag edited'
+    else
+      redirect_to tags_path, alert: 'Tag not edited :(, something went wrong'
+    end
+  end
+
   private
+
+  def authorize_admin
+    redirect_to root_path, alert: 'Permissions denied' unless
+     current_user.is_admin?
+  end
 
   def tag_params
     params.require(:tag).permit(:name)

@@ -4,10 +4,11 @@
       <%= tag.name %>
     </div>
     <div class="col">
-      <%= link_to 'Delete this row', tag_path(id: tag.id),remote: true, method: :delete, data: {confirm: "You sure?"}, role: 'button', class: 'btn btn-danger ml-2r' %>
+      <%= link_to 'Delete', tag_path(id: tag.id),remote: true, method: :delete, data: {confirm: "You sure?"}, role: 'button', class: 'btn btn-danger ml-2r' %>
+    </div>
+    <div class="col">
+      <%= link_to 'Edit', edit_tag_path(id: tag.id), method: :get,role: 'button', class: 'btn btn btn-primary' %>
     </div>
   </div>
   <hr/>
 </div>
-
-
