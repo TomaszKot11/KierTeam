@@ -145,6 +145,50 @@ RSpec.describe ProblemsController, type: :controller do
         get_contributors
         redirect_to :sign_in
       end
+  end
+
+  describe '#destroy' do
+    let!(:user_sud) { create(:user) }
+    let!(:problem_sud) { create(:problem) }
+
+    subject(:delete_problem) { delete :destroy, params: { id: problem_sud.id  } }
+
+
+
+  #   expect{
+  #    r, :user => {:password => @user.password}
+  #  }.to change(User, :count).by(-1)
+
+    context 'logged in' do
+
+      before :each do
+        user_sud.confirm
+        sign_in(user_sud)
+      end
+
+      it 'should be able to destroy' do
+        expect{ delete_problem }.to change(Problem, :count).by(-1)
+      end
+
+      context 'behavipour after destroy' do
+        before(:each) { delete_problem }
+
+        it 'should redirect to root_path with alert after destroy' do
+
+          expect(response).to redirect_to(root_path)
+          expect(flash[:alert]).to be_present
+        end
+
+        it 'should assign @destroy variable' do
+          expect(assigns(:problem)).not_to be_nil
+        end
+      end
+    end
+
+    it 'not logged in user should be restricted from destroying' do
+      expect { delete_problem }.to change(Problem, :count).by(0)
+      redirect_to :sign_in
+    end
 
   end
 
