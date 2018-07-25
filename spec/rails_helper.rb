@@ -58,7 +58,6 @@ RSpec.configure do |config|
 
   # for controllers testing
   config.include Devise::Test::ControllerHelpers, type: :controller
-
 end
 
 Shoulda::Matchers.configure do |config|
