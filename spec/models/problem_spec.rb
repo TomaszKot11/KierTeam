@@ -133,5 +133,4 @@ RSpec.describe Problem, type: :model do
     end
 
   end
-
 end
