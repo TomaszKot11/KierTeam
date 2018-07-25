@@ -1,0 +1,8 @@
+<h2>Advanced search</h2>
+<%= check_box_tag :advanced_search_on, nil, false %>
+<%= label_tag 'With tags:', nil %>
+<%= collection_select :tag_names, nil, Tag.all, :name, :name, {include_hidden: false}, { multiple: true, class: 'chosen-select' } %>
+<%= label_tag 'Serach within content?', nil %>
+<%= check_box_tag :content_on, nil, false %>
+<%= label_tag 'Search within title?', nil %>
+<%= check_box_tag :title_on, nil, false %>

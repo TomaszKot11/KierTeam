@@ -60,7 +60,7 @@ class ProblemsController < ApplicationController
 
   # Tags search is specific beacuse doesn't need any quey to be present
   def tag_search_without_query
-    tag_names = params[:tag_names].present?
+    tag_names = params[:tag_narmes].present?
     problems_loc = Problem.where(nil)
     params[:tag_names].each { |tag_name| problems_loc = Problem.tag_where(tag_name) } if tag_names
     problems_loc
