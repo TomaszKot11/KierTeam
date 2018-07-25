@@ -1,33 +1,41 @@
 class TagsController < ApplicationController
-  before_action :authenticate_user!, only: %i[new create destroy]
+  before_action :authenticate_user!, :authorize_admin
 
-  # TODO: restrict the tag creation only for admin
-  def new
+  def index
+    @tags = Tag.all
     @tag = Tag.new
   end
 
   def create
+    @tags = Tag.all
     @tag = Tag.new(tag_params)
-    if @tag.save
-      redirect_to root_path, notice: 'You created tag successfully!'
-    else
-      render :new
-    end
+    @tag.save
   end
 
-  # TODO: add button somewhere
   def destroy
     @tag = Tag.find(params[:id])
     @tag.destroy
-    redirect_to root_path, alert: 'Selected tag was successfully destroyed!'
   end
 
-  # for managment
-  def index
-    @tags = Tag.all
+  def edit
+    @tag = Tag.find(params[:id])
+  end
+
+  def update
+    @tag = Tag.find(params[:id])
+    if @tag.update(tag_params)
+      redirect_to tags_path, notice: 'Tag edited'
+    else
+      redirect_to tags_path, alert: 'Tag not edited :(, something went wrong'
+    end
   end
 
   private
+
+  def authorize_admin
+    redirect_to root_path, alert: 'Permissions denied' unless
+     current_user.is_admin?
+  end
 
   def tag_params
     params.require(:tag).permit(:name)
