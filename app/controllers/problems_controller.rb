@@ -10,10 +10,23 @@ class ProblemsController < ApplicationController
     @all_users_mapped = User.all.reject { |user| user == current_user }
   end
 
+  def edit
+    @problem = Problem.find(params[:id])
+  end
+
+  def update
+    @problem = Problem.find(params[:id])
+    if @problem.update(problem_params)
+      redirect_to problems_url, notice: 'Problem has been updated'
+    else
+      render :edit
+    end
+  end
+
   def create
     @problem = Problem.new(problem_params.merge(creator_id: current_user.id))
     @all_users_mapped = User.all.map { |p| [p.full_name, p.id] }
-
+    @problem.status = false
     if @problem.save
       redirect_to root_path, notice: 'You created post successfully!'
     else
@@ -56,6 +69,7 @@ class ProblemsController < ApplicationController
       :title,
       :content,
       :references,
+      :status,
       tag_ids: [],
       user_ids: [],
       problem_users_attributes: %i[id user_id]

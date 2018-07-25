@@ -11,7 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 2018_07_24_113627) do
-
+  
   create_table "comments", force: :cascade do |t|
     t.string "title"
     t.string "content"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 2018_07_24_113627) do
     t.integer "creator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "status"
   end
 
   create_table "projects", force: :cascade do |t|
