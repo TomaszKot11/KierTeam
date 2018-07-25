@@ -1,17 +1,14 @@
-
 <div data-tag-id="<%=tag.id %>" class="tab_section2">
-  <%= form_for @tag,remote: true, method: "put", url: tag_path(id: tag.id) do |f| %>
   <div class="row mt-3">
     <div class="col">
-       <%= f.text_field :name, value: tag.name %><br>
+      <%= tag.name %>
     </div>
     <div class="col">
       <%= link_to 'Delete', tag_path(id: tag.id),remote: true, method: :delete, data: {confirm: "You sure?"}, role: 'button', class: 'btn btn-danger ml-2r' %>
     </div>
     <div class="col">
-      <%= f.submit "Edit", role: 'button', class: 'btn btn btn-primary' %>
+      <%= link_to 'Edit', edit_tag_path(id: tag.id), method: :get,role: 'button', class: 'btn btn btn-primary' %>
     </div>
   </div>
-  <% end %>
   <hr/>
 </div>

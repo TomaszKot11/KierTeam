@@ -17,9 +17,17 @@ class TagsController < ApplicationController
     @tag.destroy
   end
 
+  def edit
+    @tag = Tag.find(params[:id])
+  end
+
   def update
     @tag = Tag.find(params[:id])
-    @tag.update(tag_params)
+    if @tag.update(tag_params)
+      redirect_to tags_path, notice: 'Tag edited'
+    else
+      redirect_to tags_path, alert: 'Tag not edited :(, something went wrong'
+    end
   end
 
   private
