@@ -6,7 +6,7 @@ FactoryBot.define do
         association :creator, factory: :user
     end
 
-    factory :problem_2, class: Problem do 
+    factory :problem_2, class: Problem do
         title { Faker::Internet.username(5..80) }
         content { Faker::Internet.username(5..500) }
         references { Faker::Internet.username(5..500) }

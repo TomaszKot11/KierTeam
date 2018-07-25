@@ -52,7 +52,7 @@ RSpec.describe ProblemsController, type: :controller do
 
       it 'not logged in user should be redirected to log_in' do
       get_new
-      redirect_to :sign_in
+      expect(response).to redirect_to(new_user_session_path)
     end
   end
 
@@ -111,7 +111,7 @@ RSpec.describe ProblemsController, type: :controller do
 
     it 'not logged user should be restricted from creating problem' do
       valid_post
-      redirect_to :sign_in
+      expect(response).to redirect_to(new_user_session_path)
     end
   end
 
@@ -143,7 +143,7 @@ RSpec.describe ProblemsController, type: :controller do
 
       it 'not logged in should be restricted' do
         get_contributors
-        redirect_to :sign_in
+        expect(response).to redirect_to(new_user_session_path)
       end
   end
 
@@ -181,7 +181,7 @@ RSpec.describe ProblemsController, type: :controller do
 
     it 'not logged in user should be restricted from destroying' do
       expect { delete_problem }.to change(Problem, :count).by(0)
-      redirect_to :sign_in
+      expect(response).to redirect_to(new_user_session_path)
     end
   end
 
@@ -226,7 +226,7 @@ RSpec.describe ProblemsController, type: :controller do
 
       context 'user-related behaviour' do
         let(:user_sud) { create(:user) }
-        let!(:problem_sud) { create(:problem) }
+        let(:problem_sud) { create(:problem) }
         subject(:general_search) { get :search_problems, params: { lookup: problem_sud.title } }
 
         it 'guest should be able to search' do
@@ -249,10 +249,37 @@ RSpec.describe ProblemsController, type: :controller do
       end
 
       context 'basic search' do
+        let(:problem_one) { create(:problem) }
+        let(:problem_two) { create(:problem_2) }
+
+        # Almost the same as some tests above - on purspose
+        it 'should search using title with proper result' do
+          get :search_problems, params: { lookup: problem_one.title }
+          expect(assigns(:problems)).to include(problem_one)
+          expect(assigns(:problems)).not_to include(problem_two)
+        end
+        # NOTE: default_scope was tested in model?
+        it 'should search using content with proper result' do
+          get :search_problems, params: { lookup: problem_one.content }
+          expect(assigns(:problems)).to include(problem_one)
+          expect(assigns(:problems)).not_to include(problem_two)
+        end
+
+        # in progress
+        # it 'should search using references' do
+        # end
+
+        it 'should redirect to root_path with alert when query blank' do
+          get :search_problems, params: { lookup: "" }
+          expect(response).to redirect_to(root_path)
+          expect(flash[:alert]).to be_present
+        end
 
       end
 
       context 'advanced search' do
+
+
 
       end
   end
