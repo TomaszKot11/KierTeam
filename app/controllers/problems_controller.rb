@@ -7,7 +7,7 @@ class ProblemsController < ApplicationController
 
   def new
     @problem = Problem.new
-    @all_users_mapped = User.all.reject { |user| user == current_user }
+    @all_users_mapped = User.all.reject { |user| user == current_user || user.is_admin == true  }
   end
 
   def edit
