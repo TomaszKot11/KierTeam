@@ -1,14 +1,15 @@
 <div style="background:transparent !important" class="jumbotron text-center">
   <div class="container">
-    <p>
-  	  <%= image_tag("binlogo.png", class: "img-responsive center-block") %>
-    </p>
-
-      <%= form_tag problem_search_path, method: :get do %>
-        <%= text_field_tag :lookup, nil, placeholder: "Please, tell me your problem", class: 'form-control ' %>
-        <br>
-          <%= submit_tag 'Search',name: nil, class: 'btn btn-success' %>
-      <% end %>
-  
+      <%= image_tag("binlogo.png", class: "img-responsive center-block") %>
+        <%= form_tag problem_search_path, method: :get do %>
+          <%= text_field_tag :lookup, nil, placeholder: "Please, tell me your problem", class: 'form-control ' %>
+            <a class="btn btn-primary mt-2 advanced-search-btn" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Advanced searching</a>
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                  <%= render './home/partials/advanced_search'%>
+                </div>
+            </div>
+          <%= submit_tag 'Search',name: nil, class: 'btn btn-success mt-2' %>
+        <% end %>
   </div>
 </div>
