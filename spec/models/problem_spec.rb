@@ -17,11 +17,60 @@ RSpec.describe Problem, type: :model do
     it { should validate_length_of(:references).is_at_least(5).is_at_most(500) }
   end
 
-    describe 'relations' do
+  describe 'relations' do
     it { should belong_to(:creator) }
     it { should have_many(:comments) }
     it { should have_many(:users).through(:problem_users) }
     it { should have_many(:tags).through(:problem_tags) }
+  end
+
+  describe 'scopes' do
+
+    let!(:problem_one) { create(:problem) }
+    let!(:problem_two) { create(:problem_2) }
+    let(:tag_one) { create(:tag) }
+    let(:tag_two) { create(:tag_1) }
+
+    it 'should have working default_search' do
+      expect(
+        Problem.default_search(problem_one.title)
+      ).to include(problem_one)
+
+      expect(
+        Problem.default_search(problem_two.content)
+      ).to include(problem_two)
+    end
+
+    it 'should have working tag_where' do
+      problem_one.tags << tag_one
+      problem_two.tags << tag_two
+      expect(
+        Problem.tag_where(tag_one.name)
+      ).to include(problem_one)
+
+      expect(
+        Problem.tag_where(tag_one.name)
+      ).not_to include(problem_two)
+
+      expect(
+        Problem.tag_where(tag_two.name)
+      ).to include(problem_two)
+    end
+
+    it 'should have working content_where' do
+      sub_content = problem_one.content[0..3]
+      expect(
+        Problem.content_where(sub_content)
+      ).to include(problem_one)
+    end
+
+    it 'should have working title_where' do
+      sub_title = problem_one.title[0..3]
+      expect(
+        Problem.title_where(sub_title)
+      ).to include(problem_one)
+    end
+
   end
 
   describe '#current_user_contributor?' do
