@@ -151,13 +151,7 @@ RSpec.describe ProblemsController, type: :controller do
     let!(:user_sud) { create(:user) }
     let!(:problem_sud) { create(:problem) }
 
-    subject(:delete_problem) { delete :destroy, params: { id: problem_sud.id  } }
-
-
-
-  #   expect{
-  #    r, :user => {:password => @user.password}
-  #  }.to change(User, :count).by(-1)
+    subject(:delete_problem) { delete :destroy, params: { id: problem_sud.id } }
 
     context 'logged in' do
 
@@ -189,7 +183,43 @@ RSpec.describe ProblemsController, type: :controller do
       expect { delete_problem }.to change(Problem, :count).by(0)
       redirect_to :sign_in
     end
+  end
 
+  describe '#show' do
+
+    let!(:problem_sud) { create(:problem) }
+
+    subject(:show_problem) { get :show, params: { id: problem_sud.id  } }
+
+    before(:each) { show_problem }
+
+    context 'logged in' do
+      let!(:user_sud) { create(:user) }
+
+      before :each do
+        user_sud.confirm
+        sign_in(user_sud)
+      end
+
+      it 'should see specific problem' do
+        expect(response).to render_template(:show)
+      end
+    end
+
+    it 'not logged uswer should see specific problem' do
+      expect(response).to render_template(:show)
+    end
+
+    it 'should assign all necessary variables' do
+      expect(assigns(:problem)).not_to be_nil
+      expect(assigns(:comment)).not_to be_nil
+      expect(assigns(:creator_id)).not_to be_nil
+      expect(assigns(:is_current_contributor)).not_to be_nil
+      expect(assigns(:is_creator)).not_to be_nil
+      expect(assigns(:comments)).not_to be_nil
+      expect(assigns(:users)).not_to be_nil
+      expect(assigns(:comment_errors)).not_to be_nil
+    end
   end
 
 end
