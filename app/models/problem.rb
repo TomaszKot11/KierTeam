@@ -7,7 +7,7 @@ class Problem < ApplicationRecord
   has_many :problem_users, inverse_of: :problem
   has_many :users, through: :problem_users, dependent: :destroy
   has_many :problem_tags
-  has_many :tags, through: :problem_tags
+  has_many :tags, through: :problem_tags, dependent: :destroy
   accepts_nested_attributes_for :problem_users
 
   scope :default_search, ->(query) { where('title LIKE ? OR content LIKE ?', "%#{query}%", "%#{query}%") }

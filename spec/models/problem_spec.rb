@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Problem, type: :model do
- 
+
 	describe 'attributes' do
 		it 'should have proper attributes' do
 			expect(subject.attributes).to include('title', 'content', 'references')
@@ -18,9 +18,9 @@ RSpec.describe Problem, type: :model do
 	end
 
 	describe 'relations' do
-		it { should belong_to(:creator) }
-		it { should have_many(:comments) }
-		it { should have_many(:users).through(:problem_users) }
-		it { should have_many(:tags).through(:problem_tags) }
+		it { should belong_to(:creator).class_name('User') }
+		it { should have_many(:comments).dependent(:destroy) }
+		it { should have_many(:users).through(:problem_users).dependent(:destroy) }
+		it { should have_many(:tags).through(:problem_tags).dependent(:destroy) }
 	end
 end
