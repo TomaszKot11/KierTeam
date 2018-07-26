@@ -86,6 +86,8 @@ end
 group :production do
   gem 'pg'
   gem 'unicorn'
+    # for fake data for tests
+  gem 'faker'
 end
 
 group :test do
