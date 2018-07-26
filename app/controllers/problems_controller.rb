@@ -7,12 +7,12 @@ class ProblemsController < ApplicationController
 
   def new
     @problem = Problem.new
-    @all_users_mapped = User.all.reject { |user| user == current_user || current_user.is_admin == true }
+    @all_users_mapped = User.all.reject { |user| user == current_user || user.is_admin == true }
   end
 
   def edit
     @problem = Problem.find(params[:id])
-    @all_users_mapped = User.all.reject { |user| user == current_user || current_user.is_admin == true}
+    @all_users_mapped = User.all.reject { |user| user == current_user || user.is_admin == true}
   end
 
   def update
