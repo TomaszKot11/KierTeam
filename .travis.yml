@@ -1,15 +1,16 @@
 language:      ruby
 cache:         bundler
-before_script:
-  - export DISPLAY=:99.0 && sh -e /etc/init.d/xvfb start && sleep 3
 script:
   - "bundle exec rspec spec"
   - "bundle exec bundle-audit check --update"
   - "bundle exec rubocop"
   - "bundle exec brakeman --quiet"
 addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
+  - chrome: stable
+before_install:
+  - wget http://chromedriver.storage.googleapis.com/2.32/chromedriver_linux64.zip
+  - unzip chromedriver_linux64.zip
+  - rm chromedriver_linux64.zip
+  - sudo mv -f chromedriver /usr/local/bin/
+  - sudo chmod +x /usr/local/bin/chromedriver
+  - google-chrome-stable --headless --no-sandbox
