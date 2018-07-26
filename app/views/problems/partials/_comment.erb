@@ -12,7 +12,7 @@
         <hr><p>references: <%= comment.reference_list %></p>
         <p>
         <%if user_signed_in? %>
-          <% if current_user.id==comment.user.id %>
+          <% if current_user.id==comment.user.id || current_user.is_admin?%>
             <%= link_to 'Delete', comment_path(comment.id), method: :delete, remote: true, data: { confirm: 'Are you sure?' }, role: 'button', class: 'float-right btn btn-danger ml-2r' %>
           <% end %>
         <% end %>

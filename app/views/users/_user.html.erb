@@ -3,6 +3,9 @@
   	<h5> <%= link_to user.email, user_path(id: user.id) %> </h5>
   		<%= "#{user.name} #{user.surname}" %><br>
   	<%= user.position %>
+	  <% if current_user.is_admin==true%>
+	  	<%= link_to 'Delete', user_path(id: user.id),remote: true, method: :delete, data: {confirm: "You sure?"}, role: 'button', class: 'btn btn-danger ml-2r' %>
+	  <%end%>		
   </li>
   <br>
   <br>
