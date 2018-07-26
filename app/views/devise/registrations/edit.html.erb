@@ -16,8 +16,12 @@
     <% end %>
     <div class='field mt-3'>
       <i>(To change avatar, upload an image)</i>
-      <%= f.file_field :avatar %>
+      <%= f.file_field :avatar, class: 'avatar-preview' %>
     </div>
+      <div id="target">
+      </div>
+
+
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
