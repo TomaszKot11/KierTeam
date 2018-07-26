@@ -103,7 +103,7 @@ class ProblemsController < ApplicationController
     params.require(:problem).permit(
       :title,
       :content,
-      :references,
+      :reference_list,
       :advanced_search_on,
       :content_on,
       :title_on,

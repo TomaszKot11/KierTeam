@@ -9,7 +9,7 @@
       <div class="col-md-10">
         <p>title: <%= comment.title %></p>
         <p>content: <%= comment.content %></p>
-        <hr><p>references: <%= comment.references %></p>
+        <hr><p>references: <%= comment.reference_list %></p>
         <p>
         <%if user_signed_in? %>
           <% if current_user.id==comment.user.id %>
