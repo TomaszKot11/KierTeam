@@ -15,12 +15,12 @@
       <% end %>
 
       <li> <%= link_to 'All problems', problems_path, role: 'button', class: 'nav-link mr-3 btn btn-outline-primary form-group' %></li>
-      <li> <%= link_to 'All users', users_path, role: 'button', class: 'nav-link mr-3 btn btn-outline-primary form-group' %></li>
 
       <% if user_signed_in? %>
+        <li> <%= link_to 'All users', users_path, role: 'button', class: 'nav-link mr-3 btn btn-outline-primary form-group' %></li>
         <li> <%= link_to current_user.email, user_path(id: current_user.id), role: 'button', class: 'nav-link mr-3 btn btn-outline-warning form-group' %></li>
         <li><%= link_to 'Logout', destroy_user_session_path, role: 'button', method: :delete, class: 'nav-link mr-3  btn btn-outline-warning form-group' %></li>
-        <li><%= link_to 'Create new problem', new_problem_path, role: 'button', class: 'nav-link mr-3 btn btn-outline-success form-group' %></li>
+        <li><%= link_to 'Create a new solution', new_problem_path, role: 'button', class: 'nav-link mr-3 btn btn-outline-success form-group' %></li>
       <% else %>
         <li><%=link_to 'Sign up', new_user_registration_path, role: 'button', class: 'nav-link mr-3 btn btn-outline-warning form-group' %></li>
         <li><%=link_to 'Log in', new_user_session_path, role: 'button', class: 'nav-link mr-3 btn btn-outline-warning form-group' %></li>

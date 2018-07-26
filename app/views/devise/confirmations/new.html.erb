@@ -1,19 +1,16 @@
 
-<div class="container">
+<div class="container" style='width:550px;margin: 0 auto;'>
 
 	<br>
   	<div class="page-header">
    	  <h2>Resend confirmation instructions</h2>
  	</div>
 
-	<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-	  <%= devise_error_messages! %>
+	<%= bootstrap_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
 
 	  <div class="field">
-	    <%= f.label :email %><br />
 	    <%= f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
 	  </div>
-
 	  <hr/>
 
 	  <div class="row justify-content-start">
@@ -28,6 +25,6 @@
 
 	<% end %>
 
-	
+
 
 </div>
