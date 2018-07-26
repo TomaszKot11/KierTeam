@@ -50,6 +50,9 @@ gem 'rubocop', require: false
 
 gem 'bootstrap_form', '>= 4.0.0.alpha1'
 
+  # for fake data for tests
+  gem 'faker'
+
 group :development, :test do
   gem 'bundler-audit'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -60,8 +63,6 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 3.1'
   # for creating data for bots
   gem 'factory_bot_rails'
-  # for fake data for tests
-  gem 'faker'
   # for Rspec controller testing
   gem 'rails-controller-testing'
   # for security
