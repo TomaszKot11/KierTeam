@@ -19,9 +19,9 @@
 
     <div class="input-group mb-3">
       <div class="input-group-prepend">
-        <%= f.label :references, class: 'input-group-text' %>
+        <%= f.label "References", class: 'input-group-text' %>
       </div>
-    <%= f.text_field :references, class: 'form-control' %>
+    <%= f.text_field :reference_list, class: 'form-control' %>
     </div>
 
     <%= f.hidden_field(:problem_id, value: locals[:problem_id]) %>
