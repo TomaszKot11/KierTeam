@@ -15,6 +15,6 @@ module DeviseHelper
     </div>
     HTML
     content_tag(html)
-    # html.html_safe
+    html.html_safe
   end
 end
