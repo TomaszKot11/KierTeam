@@ -9,5 +9,5 @@ User.create(email:'admin@aa.pl',name:'admin',surname:'admin',password:'admin',po
 
 #Seeds for Problems
 for i in 0..500
- Problem.create(title: Faker::GreekPhilosophers.quote, content: Faker::GreekPhilosophers.name, references: Faker::LordOfTheRings.character, creator_id: User.last.id, status: true, created_at: Faker::Date.between(2.months.ago, Date.today))
+ Problem.create(title: Faker::GreekPhilosophers.quote, content: Faker::GreekPhilosophers.name, reference_list: Faker::LordOfTheRings.character, creator_id: User.last.id, status: true, created_at: Faker::Date.between(2.months.ago, Date.today))
 end
