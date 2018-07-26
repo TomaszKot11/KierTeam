@@ -73,4 +73,3 @@ namespace :deploy do
       execute 'sudo systemctl restart $USER-unicorn.service'
     end
   end
-end
