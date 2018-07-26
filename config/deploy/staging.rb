@@ -59,23 +59,21 @@
 #     auth_methods: %w(publickey password)
 #     # password: "please use keys"
 #   }
-
-server "staging01.binarapps.com", user: "stack.binarlab.com", roles: %w{app db web}
-set :rvm_ruby_version, '2.5.1@BinarStack'
-set :branch, 'master'
+server "staging01.binarapps.com", user: "USER.binarlab.com", roles: %w{app db web}
+set :rvm_ruby_version, '2.5.1@GEMSET'
+set :branch, 'BRANCH'
 set :rails_env, 'production'
-set :deploy_to, '/home/stack.binarlab.com/www/'
+set :deploy_to, '/home/USER.binarlab.com/www/'
 
 namespace :deploy do
   desc 'Restart application'
   task :restart do
-    on roles(:app), in: :sequence, wait: 10
+    on roles(:app), in: :sequence, wait: 10 do
       execute 'sudo systemctl restart $USER-unicorn.service'
     end
   end
 
-    after :publishing, :restart
-  end
-
+  after :publishing, :restart
+end
 
 
