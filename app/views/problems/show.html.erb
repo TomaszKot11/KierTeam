@@ -1,60 +1,32 @@
 <div style="background:transparent !important" class="jumbotron">
   <div class='container'>
-    <h1 class='text-center'><%= @problem.title %></h1>
-    <table class='table'>
-        <tbody>
-          <tr>
-            <th scope='row'>Title:</th>
-            <td><%= @problem.title %></td>
-          </tr>
-          <tr>
-            <th scope='row'>Content:</th>
-            <td><%= @problem.content %></td>
-          </tr>
-          <tr>
-            <th scope='row'>References:</th>
-            <td><%= @problem.reference_list %></td>
-          </tr>
-           <tr>
-            <th scope='row'>status:</th>
-             <% if @problem.status? %>
-            <td>
-                published
-            </td>
-             <% else %>
-             <td><strong>
-                not published</strong>
-             </td>
-            <% end %>
-          </tr>
-          <tfoot>
-            <tr>
-              <% if @is_creator %>
-                <%=  link_to 'Delete my problem  ', problem_remove_path(id: @problem.id), method: :delete, data: {confirm: "You sure?"} %>
-                <%=  link_to 'Edit my problem', edit_problem_path(id: @problem.id) %>
-              <% end %>
-            </tr>
-          </tfoot>
-        </tbody>
-    </table>
-
-    <hr/>
+    <div class="card" style="width: 100%;">
+      <div class="card-body">
+        <h2 class="card-title"><%= @problem.title %></h2>
+        <hr/>
+        <p class="card-text"><%= @problem.content %></p>
+        <hr/>
+        <h5> Reference list </h5>
+        <p class="card-text"><%= @problem.reference_list %></p>
+        <% if user_signed_in? %>
+          <% if @is_creator %>
+            <%=  link_to 'Delete my problem  ', problem_remove_path(id: @problem.id), method: :delete, data: {confirm: "You sure?"},role: 'button', class: 'btn btn-danger' %>
+            <%=  link_to 'Edit my problem', edit_problem_path(id: @problem.id),role: 'button', class: 'btn btn-primary' %>
+            <%= link_to 'Back', problems_path, role: 'button', class: 'btn btn-primary',role: 'button', class: 'btn btn-primary' %>
+           <% end %>
+        <% end %>
+      </div>
+    </div>
 
     <% if @problem.status? %>
         <%= render 'problems/partials/comment_section', comments: @comments %>
-
         <% if @is_current_contributor || @is_creator %>
-
-            <div class="commentSection-add">
-              <h3 class="commentSection-title">Add comment</h3>
-              <%= render 'comments/form', object: @comment, errors: @comment_errors, locals: { problem_id: @problem.id, users: @users } %>
-              <hr/>
-            </div>
-
+          <div class="commentSection-add">
+            <h3 class="commentSection-title">Add comment</h3>
+            <%= render 'comments/form', object: @comment, errors: @comment_errors, locals: { problem_id: @problem.id, users: @users } %>
+            <hr/>
+          </div>
         <% end %>
     <% end %>
-    <div class="container">
-        <%= link_to 'Back', problems_path, role: 'button', class: 'btn btn-primary' %>
-    </div>
   </div>
 </div>
