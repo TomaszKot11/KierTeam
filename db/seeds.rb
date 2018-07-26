@@ -1,3 +1,4 @@
+require 'faker'
 # Seeds for Tags
 Tag.create(name: 'Android')
 Tag.create(name: 'iOS')
