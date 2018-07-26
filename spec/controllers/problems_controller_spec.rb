@@ -323,20 +323,20 @@ RSpec.describe ProblemsController, type: :controller do
             expect(response).not_to redirect_to(root_path)
           end
 
-          # it 'gives valid results' do
-          #   problem_one.tags << sample_tag_a
-          #   problem_one.tags << sample_tag_b
-          #   problem_two.tags << sample_tag_a
+          it 'gives valid results' do
+            problem_one.tags << sample_tag_a
+            problem_one.tags << sample_tag_b
+            problem_two.tags << sample_tag_a
 
-          #   get :search_problems,
-          #     params: {
-          #     advanced_search_on: 'on',
-          #     tag_names: [ sample_tag_a.name, sample_tag_b.name],
-          #     lookup: 'a'
-          #   }
+            get :search_problems,
+              params: {
+              advanced_search_on: 'on',
+              tag_names: [ sample_tag_a.name, sample_tag_b.name],
+              lookup: 'a'
+            }
 
-          #   expect(assigns(:problems)).to contain_exactly(problem_one)
-          # end
+            expect(assigns(:problems)).to contain_exactly(problem_one)
+          end
 
         end
 
