@@ -69,12 +69,12 @@ set :deploy_to, '/home/stack.binarlab.com/www/'
 namespace :deploy do
   desc 'Restart application'
   task :restart do
-    on roles(:app), in: :sequence, wait: 10
+    on roles(:app), in: :sequence, wait: 10 do
       execute 'sudo systemctl restart $USER-unicorn.service'
     end
   end
 
-after :publishing, :restart
-
+  after :publishing, :restart
+end
 
 
