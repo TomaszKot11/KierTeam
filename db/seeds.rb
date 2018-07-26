@@ -5,7 +5,10 @@ Tag.create(name: 'Ruby on Rails')
 Tag.create(name: 'Spring')
 
 # Seeds for admins
-User.create(email:'admin@aa.pl',name:'admin',surname:'admin',password:'admin',position:'admin',is_admin:true).confirm
+# User.create(email:'admin@aa.pl',name:'admin',surname:'admin',password:'admin',position:'admin',is_admin:true).confirm
+
+
+Problem.create(title: Faker::GreekPhilosophers.quote, content: Faker::GreekPhilosophers.name, reference_list: Faker::LordOfTheRings.character, creator_id: User.last.id, status: true, created_at: Faker::Date.between(2.months.ago, Date.today))
 
 #Seeds for Problems
 for i in 0..500
