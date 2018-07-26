@@ -1,5 +1,4 @@
 class CommentsController < ApplicationController
-
   def create
     @comment = Comment.new(comment_params.merge(user_id: current_user.id))
     @comment.save
