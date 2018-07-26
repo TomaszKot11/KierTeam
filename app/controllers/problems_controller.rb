@@ -27,7 +27,6 @@ class ProblemsController < ApplicationController
   def create
     @problem = Problem.new(problem_params.merge(creator_id: current_user.id))
     @all_users_mapped = User.all.map { |p| [p.full_name, p.id] }
-    @problem.status = false
     if @problem.save
       redirect_to root_path, notice: 'You created post successfully!'
     else
@@ -42,8 +41,7 @@ class ProblemsController < ApplicationController
   def search_problems
     # for only tag searching searching phrase is not necessary
     if params[:advanced_search_on].present?
-      @problems = perform_advanced_search || Problem.none
-      @problems = @problems.paginate(per_page: 5, page: params[:page])
+      @problems = perform_advanced_search.paginate(per_page: 5, page: params[:page])
     else
       is_lookup = params[:lookup].present?
       redirect_to root_path, alert: 'Searching query should not be blank!' unless is_lookup
@@ -74,9 +72,9 @@ class ProblemsController < ApplicationController
 
   # Tags search is specific beacuse doesn't need any quey to be present
   def tag_search_without_query
-    tag_names = params[:tag_narmes].present?
+    tag_names = params[:tag_names].present?
     problems_loc = Problem.where(nil)
-    params[:tag_names].each { |tag_name| problems_loc = Problem.tag_where(tag_name) } if tag_names
+    params[:tag_names].each { |tag_name| problems_loc = problems_loc.tag_where(tag_name) } if tag_names
     problems_loc
   end
 

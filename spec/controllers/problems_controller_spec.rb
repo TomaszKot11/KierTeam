@@ -5,6 +5,16 @@ RSpec.describe ProblemsController, type: :controller do
 
   # https://github.com/rspec/rspec-collection_matchers
 
+  subject(:root_alert_redirect) do
+    expect(response).to redirect_to(root_path)
+    expect(flash[:alert]).to be_present
+  end
+
+  subject(:root_notice_redirect) do
+    expect(response).to redirect_to(root_path)
+    expect(flash[:notice]).to be_present
+  end
+
   describe '#index' do
 
     subject(:get_index) { get :index }
@@ -52,7 +62,7 @@ RSpec.describe ProblemsController, type: :controller do
 
       it 'not logged in user should be redirected to log_in' do
       get_new
-      redirect_to :sign_in
+      expect(response).to redirect_to(new_user_session_path)
     end
   end
 
@@ -89,8 +99,7 @@ RSpec.describe ProblemsController, type: :controller do
 
       it 'should redirect to root with notice when valid post' do
         valid_post
-        expect(response).to redirect_to(root_path)
-        expect(flash[:notice]).to be_present
+        root_notice_redirect
       end
 
       it 'should re-render new view with not valid post' do
@@ -111,7 +120,7 @@ RSpec.describe ProblemsController, type: :controller do
 
     it 'not logged user should be restricted from creating problem' do
       valid_post
-      redirect_to :sign_in
+      expect(response).to redirect_to(new_user_session_path)
     end
   end
 
@@ -143,7 +152,7 @@ RSpec.describe ProblemsController, type: :controller do
 
       it 'not logged in should be restricted' do
         get_contributors
-        redirect_to :sign_in
+        expect(response).to redirect_to(new_user_session_path)
       end
   end
 
@@ -168,9 +177,7 @@ RSpec.describe ProblemsController, type: :controller do
         before(:each) { delete_problem }
 
         it 'should redirect to root_path with alert after destroy' do
-
-          expect(response).to redirect_to(root_path)
-          expect(flash[:alert]).to be_present
+          root_alert_redirect
         end
 
         it 'should assign @destroy variable' do
@@ -181,7 +188,7 @@ RSpec.describe ProblemsController, type: :controller do
 
     it 'not logged in user should be restricted from destroying' do
       expect { delete_problem }.to change(Problem, :count).by(0)
-      redirect_to :sign_in
+      expect(response).to redirect_to(new_user_session_path)
     end
   end
 
@@ -222,4 +229,144 @@ RSpec.describe ProblemsController, type: :controller do
     end
   end
 
+  describe 'Searching logic' do
+
+      context 'user-related behaviour' do
+        let(:user_sud) { create(:user) }
+        let(:problem_sud) { create(:problem) }
+        subject(:general_search) { get :search_problems, params: { lookup: problem_sud.title } }
+
+        it 'guest should be able to search' do
+            general_search
+            expect(response).to render_template('search_problems')
+            # to even more guarantee proper results -> had many problems
+            # while refactoring etc
+            expect(assigns(:problems).count).to eq(1)
+        end
+
+        it 'logged in user should be able to search' do
+          user_sud.confirm
+          sign_in(user_sud)
+          general_search
+          expect(response).to render_template('search_problems')
+          # to even more guarantee proper results -> had many problems
+          # while refactoring etc
+          expect(assigns(:problems).count).to eq(1)
+        end
+      end
+
+      context 'basic search' do
+        let(:problem_one) { create(:problem) }
+        let(:problem_two) { create(:problem_2) }
+
+        # Almost the same as some tests above - on purspose
+        it 'should search using title with proper result' do
+          get :search_problems, params: { lookup: problem_one.title }
+          expect(assigns(:problems)).to contain_exactly(problem_one)
+        end
+        # NOTE: default_scope was tested in model?
+        it 'should search using content with proper result' do
+          get :search_problems, params: { lookup: problem_one.content }
+          expect(assigns(:problems)).to contain_exactly(problem_one)
+        end
+
+        # in progress
+        # it 'should search using references' do
+        # end
+
+        it 'should redirect to root_path with alert when query blank' do
+          get :search_problems, params: { lookup: "" }
+          root_alert_redirect
+        end
+
+      end
+
+      context 'advanced search' do
+        let(:problem_one) { create(:problem) }
+        let(:problem_two) { create(:problem_2) }
+        let(:sample_tag_a) { create(:tag) }
+
+        context 'advanced title and content searching' do
+
+          it 'title blank query redirect to root_path with alert' do
+            get :search_problems, params: { advanced_search_on: 'on', title_on: 'on', lookup: '' }
+            root_alert_redirect
+          end
+
+          it 'content blank query redirect to root_path with alert' do
+            get :search_problems, params: { advanced_search_on: 'on', content_on: 'on', lookup: '' }
+            root_alert_redirect
+          end
+
+          # maybe more examples should be provided?
+          it 'title gives valid results' do
+            get :search_problems, params: { advanced_search_on: 'on', title_on: 'on', lookup: problem_one.title }
+            expect(assigns(:problems)).to contain_exactly(problem_one)
+          end
+
+          it 'content gives valid results' do
+            get :search_problems, params: { advanced_search_on: 'on', content_on: 'on', lookup: problem_one.content }
+            expect(assigns(:problems)).to contain_exactly(problem_one)
+          end
+
+          # the same tests pattern for references
+
+        end
+
+        context 'advanced tag filtering' do
+          let(:sample_tag_b) { create(:tag_1) }
+
+          # somehow specific behaviour - should be persisted
+          # while refactoring
+          it 'query blank no redirection' do
+            get :search_problems, params: { advanced_search_on: 'on', tag_names: ['Ruby on Rails'], lookup: '' }
+            expect(response).not_to redirect_to(root_path)
+          end
+
+          it 'gives valid results' do
+            problem_one.tags << sample_tag_a
+            problem_one.tags << sample_tag_b
+            problem_two.tags << sample_tag_a
+
+            get :search_problems,
+              params: {
+              advanced_search_on: 'on',
+              tag_names: [ sample_tag_a.name, sample_tag_b.name],
+              lookup: 'a'
+            }
+
+            expect(assigns(:problems)).to contain_exactly(problem_one)
+          end
+
+        end
+
+        # temporary behaviour
+        it 'should return all problems when no criteria specified' do
+          get :search_problems, params: { advanced_search_on: 'on' }
+          # laziness
+          problem_one.title
+          problem_two.title
+          expect(assigns(:problems)).to contain_exactly(problem_one, problem_two)
+        end
+
+        # ignore advanced options when advanced_search_on not on
+        context 'ignore advanced options search when not explicitly on' do
+          # override
+          let(:problem_one) { create(:problem) }
+          let(:problem_two) { create(:problem_2, content: problem_one.title) }
+
+          it 'should use default search' do
+
+          get :search_problems, params: {
+            title_on: 'on',
+            content_on: 'on',
+            tag_names: [sample_tag_a.name],
+            lookup: problem_one.title
+          }
+          # or is between
+          expect(assigns(:problems)).to contain_exactly(problem_one, problem_two)
+          end
+        end
+      end
+  end
 end

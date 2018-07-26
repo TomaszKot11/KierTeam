@@ -3,7 +3,7 @@
     <div>
       <h4> <%= link_to problem.title, problem_path(id: problem.id) %> </h4>
       <div class="mic-info">
-        Author: <%= link_to "#{problem.creator.name} #{problem.creator.surname}", user_path(id: problem.creator.id )   %>
+        Author: <%= link_to "#{problem.creator.name} #{problem.creator.surname}", user_path(id: problem.creator.id ) %>
         <br>
         Created at: <%= localize(problem.created_at, :format => :long) %>
         <br>
