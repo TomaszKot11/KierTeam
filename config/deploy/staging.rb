@@ -69,10 +69,14 @@ set :deploy_to, '/home/stack.binarlab.com/www/'
 namespace :deploy do
   desc 'Restart application'
   task :restart do
-    on roles(:app), in: :sequence, wait: 10 do
+    on roles(:app), in: :sequence, wait: 10
       execute 'sudo systemctl restart $USER-unicorn.service'
     end
   end
 
-  after :publishing, :restart
-end
+namespace :deploy do
+  desc "reload the database with seed data"
+    task :seed do
+      run "cd #{current_path}; bundle exec rake db:seed RAILS_ENV=#{rails_env}"
+    end
+  end
