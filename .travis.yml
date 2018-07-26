@@ -1,7 +1,13 @@
 language:      ruby
 cache:         bundler
+env:
+  - TEST_SUITE=controllers
+  - TEST_SUITE=models
 script:
-  - "bundle exec rspec spec"
+  - "bundle exec rake spec:$TEST_SUITE"
   - "bundle exec bundle-audit check --update"
   - "bundle exec rubocop"
   - "bundle exec brakeman --quiet"
+  env:
+  - TEST_SUITE=controllers
+  - TEST_SUITE=models
