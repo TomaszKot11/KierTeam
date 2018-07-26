@@ -1,7 +1,10 @@
-<% if @comment.problem.comments.count == 1 %>
-  $('.commentSection').replaceWith('<%= j render 'problems/comment_section', comments: @comment.problem.comments %>');
+<% if @comment.persisted? %>
+  $('.comment_form_errors').empty();
+  $('.commentSection-comments').append("<%= j render 'problems/partials/comment', comment: @comment %>");
 <% else %>
-  $('.commentSection-comments').prepend('<%= j render 'problems/comment', comment: @comment %>');
+  $('.comment_form_errors').empty();
+  $('.comment_form_errors').append("<%= j render 'comments/form_errors', comment: @comment %>");
 <% end %>
-$('.error_explanation').fadeOut(1000);
-$("textarea").val('');
+
+$('.comment_new').find('input[type="text"]').val('');
+$('#new_comment').find('textarea').val('');
