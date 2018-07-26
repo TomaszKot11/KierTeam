@@ -225,7 +225,6 @@ RSpec.describe ProblemsController, type: :controller do
     it 'should assign all necessary variables' do
       expect(assigns(:problem)).not_to be_nil
       expect(assigns(:comment)).not_to be_nil
-      expect(assigns(:creator_id)).not_to be_nil
       expect(assigns(:is_current_contributor)).not_to be_nil
       expect(assigns(:is_creator)).not_to be_nil
       expect(assigns(:comments)).not_to be_nil

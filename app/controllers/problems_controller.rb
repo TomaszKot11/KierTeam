@@ -83,7 +83,6 @@ class ProblemsController < ApplicationController
   def show
     @problem = Problem.find(params[:id])
     @comment = Comment.new
-    # @creator_id = @problem.creator.id
     @is_current_contributor = @problem.current_user_contributor?(current_user)
     @is_creator = @problem.creator?(current_user)
     @comments = Comment.where(problem_id: params[:id]).order(created_at: :desc)
