@@ -3,7 +3,7 @@ lock "~> 3.11.0"
 
 set :application, "binarstack"
 set :repo_url, "git@github.com:TomKo1/KierTeam.git"
-append :linked_files, "config/unicorn.rb", "config/database.yml"
+append :linked_files, "config/unicorn.rb", "config/database.yml", "config/master.key"
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
