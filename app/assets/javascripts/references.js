@@ -18,29 +18,22 @@ document.addEventListener("turbolinks:load", function() {
 
     function checkFormat(){
         var text = $input.val().trim();
-       //. $input.val
+        // avoid futher bugs within helper in Rails
+        $input.val(text);
         split = text.split(/[\r\n]+/);
-      //  alert($input);
-        // remove the potentially empty line
-        // one line
         if(split.size == 0){
-           // alert('errors -1');
             makeRedBackground();
             return 1;
         }else if(split.size == 1){
             array = s.split(" ");
             if(array.size == 1){
                 if(!isValidURL(array[0])){
-                    //alert('errors -2');
                     makeRedBackground();
-                }else if(array.size == 2){ //!!!!!
+                }else if(array.size == 2){
                     if(!isValidURL(array[0])){
-                       // alert('errors -3');
                        makeRedBackground();
                     }
                 }else{
-                    // more than 2 words
-                   // alert('errors -4');
                    makeRedBackground();
                 }
             }
@@ -48,7 +41,6 @@ document.addEventListener("turbolinks:load", function() {
         }
         if(split[split.length -1] == "") split.pop();
        for (s of split) {
-          // alert(s);
         s.trim();
         array = s.split(" ");
         // alert(array[0]);
