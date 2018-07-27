@@ -2,13 +2,13 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @users = User.all
+    @users = User.all.paginate(per_page: 5, page: params[:page])
   end
 
-  def destroy
-    @user = User.find(params[:id])
-    @user.destroy
-  end
+  # def destroy
+  #   @user = User.find(params[:id])
+  #   @user.destroy
+  # end
 
   def edit
     @user = User.find(params[:id])
