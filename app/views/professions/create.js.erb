@@ -1,0 +1,9 @@
+<% if @profession.persisted? %>
+  $('.profession_errors').empty();
+  $('.profession_section').append("<%= j render 'professions/partials/profession', profession: @profession %>");
+<% else %>
+  $('.profession_errors').empty();
+  $('.profession_errors').append("<%= j render 'professions/partials/form_errors', profession: @profession %>");
+<% end %>
+
+$('.new_profession').find('input[type="text"], input[type="number"]').val('');

@@ -11,6 +11,7 @@
       <% if !current_user.nil? %>
         <% if current_user.is_admin == true %>
           <li> <%= link_to 'Tags menu', tags_path, role: 'button', class: 'nav-link mr-3 btn btn-outline-primary form-group' %></li>
+          <li> <%= link_to 'Professions menu', professions_path, role: 'button', class: 'nav-link mr-3 btn btn-outline-primary form-group' %></li>
         <% end %>
       <% end %>
 
