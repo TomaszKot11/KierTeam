@@ -34,19 +34,26 @@ RSpec.describe Problem, type: :model do
     it 'should have working default_search' do
       expect(
         Problem.default_search(problem_one.title)
-      ).to include(problem_one)
+      ).to contain_exactly(problem_one)
 
       expect(
         Problem.default_search(problem_two.content)
-      ).to include(problem_two)
+      ).to contain_exactly(problem_two)
     end
+
+    it 'should have working reference_where' do
+      expect(
+        Problem.reference_where(problem_one.reference_list)
+      ).to contain_exactly(problem_one)
+    end
+
 
     it 'should have working tag_where' do
       problem_one.tags << tag_one
       problem_two.tags << tag_two
       expect(
         Problem.tag_where(tag_one.name)
-      ).to include(problem_one)
+      ).to contain_exactly(problem_one)
 
       expect(
         Problem.tag_where(tag_one.name)
@@ -54,21 +61,21 @@ RSpec.describe Problem, type: :model do
 
       expect(
         Problem.tag_where(tag_two.name)
-      ).to include(problem_two)
+      ).to contain_exactly(problem_two)
     end
 
     it 'should have working content_where' do
       sub_content = problem_one.content[0..3]
       expect(
         Problem.content_where(sub_content)
-      ).to include(problem_one)
+      ).to contain_exactly(problem_one)
     end
 
     it 'should have working title_where' do
       sub_title = problem_one.title[0..3]
       expect(
         Problem.title_where(sub_title)
-      ).to include(problem_one)
+      ).to contain_exactly(problem_one)
     end
 
   end
