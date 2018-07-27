@@ -1,0 +1,6 @@
+<div class="new_profession">
+  <%= form_for @profession,remote: true, html: { class: 'new-tag-form' } do |f| %>
+    <%= f.text_field :name, style:'width:300px;margin: 0 auto;',placeholder: 'Name of profession', class: 'form-control' %>
+    <%= f.submit 'Submit', style: 'width:100px;', class: 'btn btn-primary mt-2' %>
+  <% end %>
+</div>

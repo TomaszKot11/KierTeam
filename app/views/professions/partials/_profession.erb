@@ -1,0 +1,14 @@
+<div data-profession-id="<%= profession.id %>" class="tab_section2">
+  <div class="row mt-3">
+    <div class="col">
+      <%= profession.name %>
+    </div>
+    <div class="col">
+      <%= link_to 'Delete', profession_path(id: profession.id),remote: true, method: :delete, data: {confirm: "You sure?"}, role: 'button', class: 'btn btn-danger ml-2r' %>
+    </div>
+    <div class="col">
+      <%= link_to 'Edit', edit_profession_path(id: profession.id), method: :get,role: 'button', class: 'btn btn btn-primary' %>
+    </div>
+  </div>
+  <hr/>
+</div>

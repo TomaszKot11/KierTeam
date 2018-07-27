@@ -21,18 +21,18 @@
               <div class="row">
                 <div class="col-md-6">
                   <span class="text-muted">Email:</span> <%= "#{@user.email}" %><br>
-                  <span class="text-muted">Position:</span><%= " #{@user.position}" %><br>
+                  <span class="text-muted">Position:</span><%= " #{@user.profession.name}" %><br>
                   <small class="text-muted"><%= "#{@user.created_at}" %></small>
                 </div>
                 <div class="col-md-6">
                      <% if user_signed_in? %>
                         <% if current_user.id==@user.id || current_user.is_admin==true%>
-                          
+
                              <%= link_to "Edit Profile", edit_user_registration_path, role: 'button', class: 'btn btn-primary' %>
                         <% end %>
-                  <% end %>    
+                  <% end %>
 
-                  </div>        
+                  </div>
                 </div>
               </div>
             </div>
@@ -47,7 +47,7 @@
                                 <hr/>
 
                             </div>
-                        </div>                        
+                        </div>
                     <% end %>
                 <% else %>
                     <i>No problems created</i>
@@ -60,5 +60,4 @@
     </div>
   </div>
 </div>
- </div>   
- 
+ </div>
