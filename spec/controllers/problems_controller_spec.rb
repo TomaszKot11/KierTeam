@@ -302,7 +302,11 @@ RSpec.describe ProblemsController, type: :controller do
             root_alert_redirect
           end
 
-          # maybe more examples should be provided?
+          it 'references blank query redirect to root_path with alert' do
+            get :search_problems, params: { advanced_search_on: 'on', reference_on: 'on', lookup: '' }
+            root_alert_redirect
+          end
+
           it 'title gives valid results' do
             get :search_problems, params: { advanced_search_on: 'on', title_on: 'on', lookup: problem_one.title }
             expect(assigns(:problems)).to contain_exactly(problem_one)
@@ -314,6 +318,16 @@ RSpec.describe ProblemsController, type: :controller do
           end
 
           # the same tests pattern for references
+
+          it 'references give valid results' do
+            get :search_problems, params: { advanced_search_on: 'on', reference_on: 'on', lookup: problem_one.reference_list }
+            expect(assigns(:problems)).to contain_exactly(problem_one)
+          end
+
+          it 'content gives valid results' do
+            get :search_problems, params: { advanced_search_on: 'on', content_on: 'on', lookup: problem_one.content }
+            expect(assigns(:problems)).to contain_exactly(problem_one)
+          end
 
         end
 
@@ -359,16 +373,16 @@ RSpec.describe ProblemsController, type: :controller do
           let(:problem_one) { create(:problem) }
           let(:problem_two) { create(:problem_2, content: problem_one.title) }
 
-          it 'should use default search' do
+            it 'should use default search' do
 
-          get :search_problems, params: {
-            title_on: 'on',
-            content_on: 'on',
-            tag_names: [sample_tag_a.name],
-            lookup: problem_one.title
-          }
+            get :search_problems, params: {
+             title_on: 'on',
+             content_on: 'on',
+             tag_names: [sample_tag_a.name],
+             lookup: problem_one.title
+            }
           # or is between
-          expect(assigns(:problems)).to contain_exactly(problem_one, problem_two)
+            expect(assigns(:problems)).to contain_exactly(problem_one, problem_two)
           end
         end
       end
