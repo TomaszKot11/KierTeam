@@ -50,8 +50,7 @@ gem 'rubocop', require: false
 
 gem 'bootstrap_form', '>= 4.0.0.alpha1'
 
-  # for fake data for tests
-  gem 'faker'
+gem 'faker'
 
 group :development, :test do
   gem 'bundler-audit'
@@ -86,8 +85,6 @@ end
 group :production do
   gem 'pg'
   gem 'unicorn'
-    # for fake data for tests
-  gem 'faker'
 end
 
 group :test do
