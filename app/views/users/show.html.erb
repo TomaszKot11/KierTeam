@@ -21,7 +21,8 @@
               <div class="row">
                 <div class="col-md-6">
                   <span class="text-muted">Email:</span> <%= "#{@user.email}" %><br>
-                  <span class="text-muted">Position:</span><%= " #{@user.profession.name}" %><br>
+                  <% if @user.profession!=nil %><span class="text-muted">Position:</span><%= " #{@user.profession.name}" %><br>
+                  <% end %>
                   <small class="text-muted"><%= "#{@user.created_at}" %></small>
                 </div>
                 <div class="col-md-6">

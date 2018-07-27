@@ -1,8 +1,12 @@
 <% if user.is_admin.nil? %>
   <li class="list-group-item">
-  	<h5> <%= link_to user.email, user_path(id: user.id) %> </h5>
-  		<%= "#{user.name} #{user.surname}" %><br>
-  	<%= user.profession.name %>
+  <h5> <%= link_to user.email, user_path(id: user.id) %> </h5>
+  <%= "#{user.name} #{user.surname}" %><br>
+
+  <% if !user.profession.nil? %>
+    <%= "#{user.profession.name}" %>
+  <% end %>
+
   <% if current_user.is_admin?%>
   	<%= link_to 'Delete', user_path(id: user.id),remote: true, method: :delete, data: {confirm: "You sure?"}, role: 'button', class: 'btn btn-danger ml-2r' %>
   <%end%>
