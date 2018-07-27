@@ -15,7 +15,8 @@ document.addEventListener("turbolinks:load", function() {
             typingTimer = setTimeout(checkFormat, doneTypingInterval);
         }
     });
-
+//TODO: some bugs when www.google.pl text text
+// TODO: shorter
     function checkFormat(){
         var text = $input.val().trim();
         // avoid futher bugs within helper in Rails
@@ -43,25 +44,17 @@ document.addEventListener("turbolinks:load", function() {
        for (s of split) {
         s.trim();
         array = s.split(" ");
-        // alert(array[0]);
         if (array.size > 2 || array.size < 1 ){
-            // wrong
-           // alert('errors 1');
              makeRedBackground();
             return 1;
         }else if(array.size == 1){
-            // only URL
+
             if(!isValidURL(array[0])){
-                // red
-              //  alert('errors 2');
                 makeRedBackground();
                 return 1;
             }
         }else{
-            // both url and name
             if(!isValidURL(array[0])){
-                // red
-                //alert('errors 3');
                 makeRedBackground();
                 return 1;
             }

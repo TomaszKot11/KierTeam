@@ -11,6 +11,7 @@ module ApplicationHelper
 
   private
 
+  # tools for custom_reference_problem
   def extract_domain_name(raw_link)
     return '' if raw_link.blank?
     link = raw_link
