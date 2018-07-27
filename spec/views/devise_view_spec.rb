@@ -65,6 +65,6 @@ describe "devise views - login, register, ", type: :feature do
       # fill nothing
     end
     click_button 'Send me reset password instructions'
-    expect(page).to have_content "Email can't be blank"
+    expect(page).to have_content "can't be blank"
   end
 end
