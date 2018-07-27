@@ -10,7 +10,7 @@ module ApplicationHelper
       get_rid_of_http(splitted[0])
       return link_to token, "http://#{splitted[0]}"
     else
-
+      get_rid_of_http(splitted[0])
       return link_to splitted[1], "http://#{splitted[0]}"
     end
   end
