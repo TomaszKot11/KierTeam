@@ -1,10 +1,8 @@
 <div style="background:transparent !important" class="jumbotron">
-  <% if comments.any? %>
     <h2 class="text-center">Comment Section</h2>
     <div class="commentSection-comments">
       <% comments.each do |comment| %>
         <%= render 'problems/partials/comment', comment: comment %>
       <% end %>
     </div>
-  <% end %>
 </div>

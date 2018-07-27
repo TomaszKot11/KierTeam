@@ -7,9 +7,10 @@ class User < ApplicationRecord
   validates_attachment_content_type :avatar, content_type: %r{\Aimage\/.*\z}
   validates_attachment :avatar, size: { in: 0..3.megabytes }
 
-  validates :name, :surname, :position, presence: true
-  validates :name, :surname, :position, length: { in: 3..80 }
+  validates :name, :surname, presence: true
+  validates :name, :surname, length: { in: 3..80 }
 
+  belongs_to :profession, optional: true
   has_many :comments, dependent: :destroy
   has_many :created_problems, foreign_key: :creator_id, class_name: 'Problem', inverse_of: :users
   has_many :problem_users

@@ -15,6 +15,8 @@ RSpec.describe ProblemsController, type: :controller do
     expect(flash[:notice]).to be_present
   end
 
+  subject(:authentication_redirect) { expect(response).to redirect_to(new_user_session_path) }
+
   describe '#index' do
 
     subject(:get_index) { get :index }
@@ -62,7 +64,7 @@ RSpec.describe ProblemsController, type: :controller do
 
       it 'not logged in user should be redirected to log_in' do
       get_new
-      expect(response).to redirect_to(new_user_session_path)
+      authentication_redirect
     end
   end
 
@@ -120,7 +122,8 @@ RSpec.describe ProblemsController, type: :controller do
 
     it 'not logged user should be restricted from creating problem' do
       valid_post
-      expect(response).to redirect_to(new_user_session_path)
+     # expect(response).to redirect_to(new_user_session_path)
+     authentication_redirect
     end
   end
 
@@ -152,7 +155,8 @@ RSpec.describe ProblemsController, type: :controller do
 
       it 'not logged in should be restricted' do
         get_contributors
-        expect(response).to redirect_to(new_user_session_path)
+       # expect(response).to redirect_to(new_user_session_path)
+       authentication_redirect
       end
   end
 
@@ -188,7 +192,8 @@ RSpec.describe ProblemsController, type: :controller do
 
     it 'not logged in user should be restricted from destroying' do
       expect { delete_problem }.to change(Problem, :count).by(0)
-      expect(response).to redirect_to(new_user_session_path)
+      #expect(response).to redirect_to(new_user_session_path)
+      authentication_redirect
     end
   end
 
@@ -220,7 +225,6 @@ RSpec.describe ProblemsController, type: :controller do
     it 'should assign all necessary variables' do
       expect(assigns(:problem)).not_to be_nil
       expect(assigns(:comment)).not_to be_nil
-      expect(assigns(:creator_id)).not_to be_nil
       expect(assigns(:is_current_contributor)).not_to be_nil
       expect(assigns(:is_creator)).not_to be_nil
       expect(assigns(:comments)).not_to be_nil
@@ -368,5 +372,69 @@ RSpec.describe ProblemsController, type: :controller do
           end
         end
       end
+  end
+
+
+  describe '#edit' do
+
+  let(:problem_one) { create(:problem) }
+  subject(:get_edit) { get :edit, params: { id: problem_one.id } }
+
+  context 'not logged user' do
+
+    it 'should be restricted' do
+      get_edit
+      authentication_redirect
+    end
+
+  end
+
+  context 'logged in user' do
+
+    let(:user_sud) { create(:user) }
+    let(:problem_creator) { create(:problem, creator_id: user_sud.id) }
+
+    before :each do
+      user_sud.confirm
+      sign_in(user_sud)
+    end
+
+
+    it 'not creator or admin can\'t edit' do
+      get_edit
+      expect(response).to redirect_to(root_path)
+      expect(flash[:notice]).to be_present
+    end
+
+    it 'creator can edit' do
+      get :edit, params: { id: problem_creator.id }
+      expect(response).to render_template('edit')
+    end
+
+    it 'should assign @problem and @all_user_mapped' do
+      get :edit, params: { id: problem_creator.id }
+      expect(assigns(:problem)).not_to be_nil
+      expect(assigns(:all_users_mapped)).not_to be_nil
+    end
+  end
+
+  context 'admin' do
+    let(:user_admin) { create(:user, is_admin: true) }
+
+    it 'admin can edit' do
+      user_admin.confirm
+      sign_in(user_admin)
+      get_edit
+      expect(response).to render_template('edit')
+    end
+  end
+
+  end
+
+
+
+
+  describe '#update' do
+
   end
 end

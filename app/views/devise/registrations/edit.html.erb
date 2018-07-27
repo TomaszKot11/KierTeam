@@ -16,8 +16,10 @@
     <% end %>
     <div class='field mt-3'>
       <i>(To change avatar, upload an image)</i>
-      <%= f.file_field :avatar %>
+      <%= f.file_field :avatar, class: 'avatar-preview' %>
     </div>
+      <div id="target">
+      </div>
 
      <% if @user.avatar? %>
         <div class='field mt-3'>
@@ -45,9 +47,9 @@
       <%= f.text_field :surname, autocomplete: "surname", class: 'form-control' %>
     </div>
 
-    <div class="field">
-      <%= f.text_field :position, autocomplete: "position", class: 'form-control' %>
-    </div>
+     <div class="field">
+        <%= f.collection_select(:profession_id, Profession.all, :id, :name)  %>
+      </div>
 
     <hr/>
     <div class="field">
