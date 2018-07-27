@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe "devise views - login, register, ", type: :feature do
   let!(:user1) { create(:user, email: 'user@example.com', password: 'password') }
+  let!(:profession1) {create(:profession)}
   before :each do
     user1.confirm
   end
@@ -32,7 +33,6 @@ describe "devise views - login, register, ", type: :feature do
     within(".new_user") do
       fill_in 'Name', with: user1.name
       fill_in 'Surname', with: user1.surname
-      fill_in 'Position', with: user1.position
       fill_in 'Email', with: "user1.email@aa.pl"
       fill_in 'Password', with: user1.password
       fill_in 'Password confirmation', with: user1.password
@@ -47,7 +47,7 @@ describe "devise views - login, register, ", type: :feature do
       # fill nothing
     end
     click_button 'Sign up'
-    expect(page).to have_content '8 errors prohibited this user from being saved:'
+    expect(page).to have_content "can't be blank"
   end
 
   it "remind password with valid attributes" do
@@ -65,6 +65,6 @@ describe "devise views - login, register, ", type: :feature do
       # fill nothing
     end
     click_button 'Send me reset password instructions'
-    expect(page).to have_content "Email can't be blank"
+    expect(page).to have_content "can't be blank"
   end
 end
