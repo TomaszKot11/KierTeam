@@ -30,6 +30,18 @@ when 'development'
 
   for i in 0..10
     Problem.create(title: "Ruby on Rails #{i}", content: "Problem with Ruby on Rails #{i}", reference_list: 'Ruby on Rails references', status: true, created_at: Date.today, creator_id: User.first.id)
+  end
+
+
+  for i in 0..10
+    Problem.create(title: "Android #{i}", content: "Problem with Android #{i}", reference_list: 'Android references', status: true, created_at: Date.today, creator_id: User.first.id)
+  end
+
+  for i in 0..10
+    Problem.create(title: "iOS #{i}", content: "Problem with iOS #{i}", reference_list: 'iOS references', status: true, created_at: Date.today, creator_id: User.first.id)
+  end
+
+  for i in 0..10
 
 when 'production'
   Tag.create(name: 'Android')
