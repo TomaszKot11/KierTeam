@@ -12,9 +12,9 @@ class ProblemsController < ApplicationController
 
   def edit
     @problem = Problem.find(params[:id])
-    redirect_to root_path, notice: 'You are not able to edit this problem!' if @problem.creator_id != current_user.id && !current_user.is_admin
+    is_allowed = @problem.creator_id != current_user.id && !current_user.is_admin
+    redirect_to root_path, notice: 'You are not able to edit this problem!' if is_allowed
     @all_users_mapped = User.all.reject { |user| user == current_user || current_user.is_admin == true }
-
   end
 
   def update
