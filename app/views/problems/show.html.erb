@@ -9,7 +9,7 @@
         <h5> Reference list </h5>
         <p class="card-text"><%= @problem.reference_list %></p>
         <% if user_signed_in? %>
-          <% if @is_creator %>
+          <% if @is_creator || current_user.is_admin? %>
             <%=  link_to 'Delete my problem  ', problem_remove_path(id: @problem.id), method: :delete, data: {confirm: "You sure?"},role: 'button', class: 'btn btn-danger' %>
             <%=  link_to 'Edit my problem', edit_problem_path(id: @problem.id),role: 'button', class: 'btn btn-primary' %>
             <%= link_to 'Back', problems_path, role: 'button', class: 'btn btn-primary',role: 'button', class: 'btn btn-primary' %>

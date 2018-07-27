@@ -1,7 +1,5 @@
 require 'faker'
 
-User.create(email:'admin@aa.pl',name:'admin',surname:'admin',password:'admin',position:'admin',is_admin:true).confirm
-
 case Rails.env
 when 'development'
   Tag.create(name: 'Android')
