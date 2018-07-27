@@ -1,5 +1,8 @@
 module ApplicationHelper
-  # returns array of links
+
+  # produces more user-friendly
+  # links with given by user name
+  # or from domain name
   def custom_reference_problem(ref_name)
     link_name = ref_name.split("\n")
     links = []
