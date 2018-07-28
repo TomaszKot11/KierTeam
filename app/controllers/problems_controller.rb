@@ -2,7 +2,7 @@ class ProblemsController < ApplicationController
   before_action :authenticate_user!, only: %i[new create add_contributor destroy edit update]
 
   def index
-    @problems = Problem.all
+    @problems = Problem.all.paginate(per_page: 5, page: params[:page])
   end
 
   def new

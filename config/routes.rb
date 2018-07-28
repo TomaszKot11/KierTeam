@@ -10,8 +10,7 @@ Rails.application.routes.draw do
   resources :problems, only: [:destroy], as: :problem_remove
 
   devise_for :users, :controllers => { registrations: 'registrations' }
-  resources :users, only: [:show, :index]
-
+  resources :users, only: [:show, :index, :destroy]
   resources :comments, only: [:create, :destroy]
 
   resources :tags, only: [:create, :index, :destroy, :update, :edit]
