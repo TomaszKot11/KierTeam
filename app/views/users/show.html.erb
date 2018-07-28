@@ -37,22 +37,9 @@
                 </div>
               </div>
             </div>
-            <hr><br>
+            <hr/>
                <h2> Created_problems: </h2>
-                <% if @problems.any? %>
-                    <% @problems.each do |problem| %>
-                        <div class="row">
-                            <div class="col-xs-10 col-md-11">
-                                <h4> <%= link_to problem.title, problem_path(id: problem.id) %> </h4>
-                                Created at: <%= localize(problem.created_at, :format => :long) %> <br>
-                                <hr/>
-
-                            </div>
-                        </div>
-                    <% end %>
-                <% else %>
-                    <i>No problems created</i>
-                <% end %>
+                <%= render './users/partials/profile_posts_tabs', not_posted: @problems_not_posted, posted: @problems_posted %>
             </div>
             </div>
           </div>
