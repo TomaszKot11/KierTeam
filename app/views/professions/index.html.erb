@@ -1,9 +1,9 @@
 <div style="background:transparent !important" class="jumbotron text-center">
   <div class='container'>
-    <div class="tag_errors">
+    <div class="profession_errors">
     </div>
-    <h3> Create a tag </h3>
-    <%= render '/tags/partials/form'%>
+    <h3> Create a profession </h3>
+    <%= render '/professions/partials/form' %>
     <br><br>
 
     <div class="row mt-3">
@@ -19,12 +19,11 @@
     </div>
     <hr/>
 
-    <div class="tag_section">
-      <% @tags.each do |tag| %>
-        <%= render 'tags/partials/tag', tag: tag%>
+    <div class="profession_section">
+      <% @professions.each do |profession| %>
+        <%= render 'professions/partials/profession', profession: profession%>
       <% end %>
     </div>
-
   </div>
 </div>
 

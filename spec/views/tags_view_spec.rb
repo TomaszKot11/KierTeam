@@ -48,4 +48,14 @@ describe "scenario - visit page, create tag, destroy tag, edit tag", type: :feat
     click_link_or_button 'Submit'
     page.should have_content("Android_changed")
   end
+
+  it "edit tag - blank name" do
+    visit '/tags'
+    click_link_or_button 'Edit'
+    page.should have_content("Edit a tag")
+    page.should have_field("tag_name")
+    fill_in "tag_name", with: ''
+    click_link_or_button 'Submit'
+    page.should have_content("Name can't be blank")
+  end
 end

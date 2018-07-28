@@ -1,9 +1,12 @@
 <% if @tag.persisted? %>
+  $('.tag_errors').fadeIn('slow');
   $('.tag_errors').empty();
   $('.tag_section').append("<%= j render 'tags/partials/tag', tag: @tag %>");
 <% else %>
+  $('.tag_errors').fadeIn('slow');
   $('.tag_errors').empty();
   $('.tag_errors').append("<%= j render 'tags/partials/form_errors', tag: @tag %>");
+  $('.tag_errors').delay(5000).fadeOut('slow');
 <% end %>
 
 $('.new_tag').find('input[type="text"], input[type="number"]').val('');

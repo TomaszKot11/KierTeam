@@ -1,0 +1,6 @@
+<% if @profession.changed? %>
+  $('.profession_errors').fadeIn('slow');
+  $('.profession_errors').empty();
+  $('.profession_errors').append("<%= j render 'professions/partials/form_errors', profession: @profession %>");
+  $('.profession_errors').delay(5000).fadeOut('slow');
+<% end %>

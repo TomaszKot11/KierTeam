@@ -14,6 +14,7 @@ class Problem < ApplicationRecord
   scope :tag_where, ->(tag_name) { joins(:tags).merge(Tag.where(name: tag_name)) }
   scope :content_where, ->(query) { where('content LIKE ?', "%#{query}%") }
   scope :title_where, ->(query) { where('title LIKE ?', "%#{query}%") }
+  scope :reference_where, ->(query) { where('reference_list LIKE ?', "%#{query}%") }
 
   def current_user_contributor?(user)
     if user.nil?
@@ -24,7 +25,7 @@ class Problem < ApplicationRecord
   end
 
   def creator?(user)
-    if user.nil? || user.id != creator.id
+    if user.nil? || creator.nil? || user.id != creator.id
       false
     else
       true

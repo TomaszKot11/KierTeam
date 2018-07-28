@@ -1,0 +1,7 @@
+<% if @tag.changed? %>
+  $('.tag_errors').fadeIn('slow');
+  $('.tag_errors').empty();
+  $('.tag_errors').append("<%= j render 'tags/partials/form_errors', tag: @tag %>");
+  $('.tag_errors').delay(5000).fadeOut('slow');
+<% end %>
+

@@ -55,7 +55,7 @@ RSpec.describe TagsController, type: :controller do
     let!(:valid_attributes) { { id: tag1.id, tag: {name: 'tag1_name'}}}
     subject(:edit_tag) { get :edit, params: valid_attributes  }
 
-    context 'used is logged in' do
+    context 'user is logged in' do
       before :each do
         user_admin.confirm
         sign_in(user_admin)

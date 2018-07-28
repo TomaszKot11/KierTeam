@@ -84,7 +84,7 @@ RSpec.describe ProblemsController, type: :controller do
         sign_in(user_sud)
       end
 
-      it 'shoudl create problem with valid attributes' do
+      it 'should create problem with valid attributes' do
         expect { valid_post }.to change { Problem.count }.by(1)
       end
 
@@ -96,7 +96,6 @@ RSpec.describe ProblemsController, type: :controller do
         valid_post
         expect(assigns(:problem)).not_to be_nil
         expect(assigns(:all_users_mapped)).not_to be_nil
-        expect(assigns(:all_users_mapped)).to include([ user_sud.full_name, user_sud.id])
       end
 
       it 'should redirect to root with notice when valid post' do
@@ -222,7 +221,7 @@ RSpec.describe ProblemsController, type: :controller do
       expect(response).to render_template(:show)
     end
 
-    it 'should assign all necessary variables' do
+    it 'should assign all ne cessary variables' do
       expect(assigns(:problem)).not_to be_nil
       expect(assigns(:comment)).not_to be_nil
       expect(assigns(:is_current_contributor)).not_to be_nil
@@ -431,10 +430,52 @@ RSpec.describe ProblemsController, type: :controller do
 
   end
 
-
-
-
+  # needs some refactoring
   describe '#update' do
+  let(:user_sud) { create(:user) }
+  let(:problem_one) { create(:problem_2) }
+  let(:problem_two) { create(:problem) }
+  let(:valid_attributes) { { id: problem_one.id, problem: attributes_for(:problem, title: 'Valid name') } }
+  let(:invalid_attributes) { { id: problem_one.id, problem: attributes_for(:problem, title: nil) } }
+
+  subject(:valid_patch)  { patch :update, params: valid_attributes  }
+  subject(:invalid_patch) { patch :update, params: invalid_attributes }
+
+    it 'not logged in user should be restricted' do
+      valid_patch
+      authentication_redirect
+    end
+
+    context 'logged in user' do
+
+      before :each do
+        user_sud.confirm
+        sign_in(user_sud)
+      end
+
+      it 'invalid attributes should re-render template' do
+        invalid_patch
+        expect(response).to render_template('edit')
+      end
+
+      it 'should assign proper variables' do
+        valid_patch
+        expect(assigns(:problem)).not_to be_nil
+      end
+
+      it 'valid update should change attributes' do
+        valid_patch
+        expect(problem_one.reload.title).to eq('Valid name')
+      end
+
+      it 'valid update' do
+        valid_patch
+
+        expect(response).to redirect_to(problems_url)
+        expect(flash[:notice]).to be_present
+      end
+    end
+
 
   end
 end
