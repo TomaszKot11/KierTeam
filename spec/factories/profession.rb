@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :profession do
-    name "MyString"
+    name { Faker::Crypto.sha256[1..80] }
   end
 end

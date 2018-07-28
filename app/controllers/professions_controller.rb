@@ -25,8 +25,6 @@ class ProfessionsController < ApplicationController
     @profession = Profession.find(params[:id])
     if @profession.update(profession_params)
       redirect_to professions_path, notice: 'Profession edited'
-    else
-      redirect_to professions_path, alert: 'Profession not edited :(, something went wrong'
     end
   end
 

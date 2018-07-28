@@ -25,7 +25,7 @@ class Problem < ApplicationRecord
   end
 
   def creator?(user)
-    if user.nil? || user.id != creator.id
+    if user.nil? || creator.nil? || user.id != creator.id
       false
     else
       true
