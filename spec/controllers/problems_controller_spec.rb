@@ -96,7 +96,6 @@ RSpec.describe ProblemsController, type: :controller do
         valid_post
         expect(assigns(:problem)).not_to be_nil
         expect(assigns(:all_users_mapped)).not_to be_nil
-        expect(assigns(:all_users_mapped)).to include([ user_sud.full_name, user_sud.id])
       end
 
       it 'should redirect to root with notice when valid post' do
