@@ -7,14 +7,14 @@ class ProblemsController < ApplicationController
 
   def new
     @problem = Problem.new
-    @all_users_mapped = User.all.reject { |user| user == current_user && user.is_admin == true }
+    @all_users_mapped = User.all.reject { |user| user == current_user || user.is_admin }
   end
 
   def edit
     @problem = Problem.find(params[:id])
     is_allowed = @problem.creator_id != current_user.id && !current_user.is_admin
     redirect_to root_path, notice: 'You are not able to edit this problem!' if is_allowed
-    @all_users_mapped = User.all.reject { |user| user == current_user && user.is_admin == true }
+    @all_users_mapped = User.all.reject { |user| user == current_user || user.is_admin }
   end
 
   def update
@@ -28,7 +28,7 @@ class ProblemsController < ApplicationController
 
   def create
     @problem = Problem.new(problem_params.merge(creator_id: current_user.id))
-    @all_users_mapped = User.all.map { |p| [p.full_name, p.id] }
+    @all_users_mapped = User.all.reject { |user| user == current_user || user.is_admin }
     if @problem.save
       redirect_to root_path, notice: 'You created post successfully!'
     else
