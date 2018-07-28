@@ -1,4 +1,5 @@
 <% if @tag.persisted? %>
+  $('.tag_errors').empty();
   $('.tag_section').append("<%= j render 'tags/partials/tag', tag: @tag %>");
 <% else %>
   $('.tag_errors').empty();
