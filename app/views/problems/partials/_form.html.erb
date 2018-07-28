@@ -2,7 +2,7 @@
 	<%= bootstrap_form_for @problem, qlabel_errors: true, html: { id: 'new_problem_id', class: 'form-group' } do |f| %>
 	  <%= f.text_field :title, placeholder: 'Title', class: 'form-control' %>
 	  <%= f.text_area :content, cols: 5, rows: 5, placeholder: 'Content', class: 'form-control' %>
-	 	<%= f.text_area :reference_list, cols: 5, rows: 5, placeholder: 'Insert here references', class: 'form-control' %>
+	 	<%= f.text_area :reference_list, cols: 5, rows: 5, placeholder: 'Link Name [ENTER]', class: 'form-control references-js' %>
 
 	 	<%= f.collection_select :tag_ids, Tag.all, :id, :name,{label: "Select tags"}, { multiple: true, class: 'chosen-select'}  %>
 
