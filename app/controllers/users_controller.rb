@@ -16,7 +16,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @problems = Problem.where(creator_id: params[:id]).find_each
+    user_problems = Problem.where(creator_id: params[:id])
+    @problems_posted = user_problems.where(status: true)
+    @problems_not_posted = user_problems.where(status: false)
     @user_img = @user.avatar.url(:thumb)
   end
 end

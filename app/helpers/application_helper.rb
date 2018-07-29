@@ -1,5 +1,4 @@
 module ApplicationHelper
-
   # produces more user-friendly
   # links with given by user name
   # or from domain name
@@ -9,7 +8,7 @@ module ApplicationHelper
     link_name.each do |pair|
       links << produce_link(pair)
     end
-    return links
+    links
   end
 
   private
@@ -18,10 +17,12 @@ module ApplicationHelper
   def extract_domain_name(raw_link)
     return '' if raw_link.blank?
     link = raw_link
-    link = "http://#{raw_link}" unless raw_link.match(/^(http:\/\/|https:\/\/)/)
-    link = URI.parse(URI.encode(link)).host.present? ? URI.parse(URI.encode(link)).host : link.strip
-    domain_name = link.sub(/.*?www./,'')
-    domain_name = domain_name.match(/[A-Z]+.[A-Z]{2,4}$/i).to_s if domain_name.split('.').length >= 2 && domain_name.match(/[A-Z]+.[A-Z]{2,4}$/i).present?
+    link = "http://#{raw_link}" unless raw_link =~ %r{^(http:\/\/|https:\/\/)}
+    link = URI.parse(ERB::Util.url_encode(link)).host.presence || link.strip
+    domain_name = link.sub(/.*?www./, '')
+    condition = domain_name.split('.').length >= 2 && domain_name.match(/[A-Z]+.[A-Z]{2,4}$/i).present?
+    domain_name = domain_name.match(/[A-Z]+.[A-Z]{2,4}$/i).to_s if condition
+    domain_name
   end
 
   def get_rid_of_http(string_clean)
@@ -41,7 +42,6 @@ module ApplicationHelper
       get_rid_of_http(split[0])
       token = split[1]
     end
-    return link_to token, "http://#{split[0]}"
+    link_to token, "http://#{split[0]}"
   end
-
 end
