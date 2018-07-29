@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe "scenario - visit page, create profession, destroy profession, edit profession", type: :feature do
 
-  let!(:user_sud) { create(:user, email: 'user@example.com', password: 'password', is_admin: true) }
+  let!(:user_sud) { create(:user, email: 'user@example.com', password: 'password', is_admin: true, profession_id:nil) }
   let!(:profession1) {create(:profession, name: "Android developer")}
 
   before :each do
