@@ -196,6 +196,7 @@ RSpec.describe TagsController, type: :controller do
 
   describe '#update' do
     let!(:tag1) { create(:tag, name:'tag1_name') }
+
     let(:valid_attributes) {{ id: tag1.id, tag: { name:'tag1_name_changed' } }}
     let(:invalid_attributes) {{ id: tag1.id, format: :js, tag: { name:'' } }}
     subject(:update_tag_valid) { patch :update, params: valid_attributes }
@@ -207,10 +208,9 @@ RSpec.describe TagsController, type: :controller do
         sign_in(user_admin)
       end
 
-      it 'should update tag with valid attributes, redirect to index with notice message' do
+      it 'should update tag with valid attributes' do
+        #request.headers['accept'] = 'application/javascript'
         update_tag_valid
-        expect(response).to redirect_to(tags_path)
-        expect(flash[:notice]).to be_present
         expect(tag1.reload.name).to eq('tag1_name_changed')
       end
 
@@ -237,7 +237,7 @@ RSpec.describe TagsController, type: :controller do
       end
     end
 
-    context 'user is not logged in' do
+    context 'not logged in user' do
       it 'should not update tag' do
         update_tag_valid
         expect(tag1.reload.name).to eq('tag1_name')

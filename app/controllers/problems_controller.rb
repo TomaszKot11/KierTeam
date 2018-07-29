@@ -1,5 +1,5 @@
 class ProblemsController < ApplicationController
-  before_action :authenticate_user!, only: %i[new create add_contributor destroy edit update]
+  before_action :authenticate_user!, only: %i[new create add_contributor destroy edit update send_help_request]
 
   def index
     @problems = Problem.all.paginate(per_page: 5, page: params[:page])
@@ -105,6 +105,13 @@ class ProblemsController < ApplicationController
     @problem = Problem.find(params[:id])
     @problem.destroy
     redirect_to root_path, alert: 'Your problem was successfully destroyed!'
+  end
+
+  def send_help_request
+    problem = Problem.find(params[:id])
+    HelpProblemMailer.help_request_email(problem, current_user).deliver_now
+    # change this for more efficient way ?
+    redirect_to problem_path(id: params[:id]), notice: 'Request was sent'
   end
 
   private

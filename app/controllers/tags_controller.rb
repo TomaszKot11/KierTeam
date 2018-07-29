@@ -24,6 +24,7 @@ class TagsController < ApplicationController
   def update
     @tag = Tag.find(params[:id])
     return unless @tag.update(tag_params)
+    # ?
     redirect_to tags_path, notice: 'Tag edited'
   end
 

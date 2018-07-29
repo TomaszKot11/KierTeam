@@ -16,4 +16,7 @@ Rails.application.routes.draw do
   resources :tags, only: [:create, :index, :destroy, :update, :edit]
 
   resources :professions, only: [:create, :index, :destroy, :update, :edit]
+
+  # for help request mail
+  get :send_help_request, to: 'problems#send_help_request', as: :send_help_request
 end
