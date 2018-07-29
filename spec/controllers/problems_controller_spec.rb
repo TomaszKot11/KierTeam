@@ -35,6 +35,8 @@ RSpec.describe ProblemsController, type: :controller do
 
   end
 
+  # ------------------------------------------------------------------------
+
   describe '#new' do
 
     let!(:user_sud) { create(:user) }
@@ -67,6 +69,8 @@ RSpec.describe ProblemsController, type: :controller do
       authentication_redirect
     end
   end
+
+  # ------------------------------------------------------------------------
 
   describe '#create' do
 
@@ -126,6 +130,7 @@ RSpec.describe ProblemsController, type: :controller do
     end
   end
 
+  # ------------------------------------------------------------------------
 
   describe '#add_contributor' do
 
@@ -196,6 +201,8 @@ RSpec.describe ProblemsController, type: :controller do
     end
   end
 
+  # ------------------------------------------------------------------------
+
   describe '#show' do
 
     let!(:problem_sud) { create(:problem) }
@@ -231,6 +238,8 @@ RSpec.describe ProblemsController, type: :controller do
       expect(assigns(:comment_errors)).not_to be_nil
     end
   end
+
+  # ------------------------------------------------------------------------
 
   describe 'Searching logic' do
 
@@ -373,6 +382,7 @@ RSpec.describe ProblemsController, type: :controller do
       end
   end
 
+  # ------------------------------------------------------------------------
 
   describe '#edit' do
 
@@ -430,6 +440,7 @@ RSpec.describe ProblemsController, type: :controller do
 
   end
 
+  # ------------------------------------------------------------------------
   # needs some refactoring
   describe '#update' do
   let(:user_sud) { create(:user) }

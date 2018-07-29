@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Hi.</p>
+    <p>I need your help with '<%= @problem.title %>'.
+    You can see it at: <%= link_to 'Your solution page', problem_url(id: @problem.id) %>.</p>
+    <p>Please contact me as soon as you read this message.</p>
+    <p>Yours,</p>
+    <p><%=@user.name%> <%=@user.surname%>.</p>
+  </body>
+</html>

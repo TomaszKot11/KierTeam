@@ -23,9 +23,7 @@ class ProfessionsController < ApplicationController
 
   def update
     @profession = Profession.find(params[:id])
-    if @profession.update(profession_params)
-      redirect_to professions_path, notice: 'Profession edited'
-    end
+    redirect_to professions_path, notice: 'Profession edited' if @profession.update(profession_params)
   end
 
   def authorize_admin
