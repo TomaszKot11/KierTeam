@@ -196,10 +196,10 @@ RSpec.describe TagsController, type: :controller do
 
   describe '#update' do
     let!(:tag1) { create(:tag, name:'tag1_name') }
-    let(:valid_attributes) {{ id: tag1.id, tag: { name:'tag1_name_changed' } }}
-    let(:invalid_attributes) {{ id: tag1.id, tag: { name:'' } }}
-    subject(:update_tag_valid) { patch :update, params: valid_attributes }
-    subject(:update_tag_invalid) { patch :update, params: invalid_attributes }
+    let(:valid_attributes) { { id: tag1.id, tag: { name:'tag1_name_changed' } } }
+    let(:invalid_attributes) { { id: tag1.id, tag: { name: nil} } }
+    subject(:update_tag_valid) { patch :update, xhr: true, params: valid_attributes }
+    subject(:update_tag_invalid) { patch :update, xhr: true, params: invalid_attributes }
 
     context 'user is admin and logged in' do
       before :each do
@@ -207,17 +207,14 @@ RSpec.describe TagsController, type: :controller do
         sign_in(user_admin)
       end
 
-      it 'should update tag with valid attributes, redirect to index with notice message' do
+      it 'should update tag with valid attributes' do
+        #request.headers['accept'] = 'application/javascript'
         update_tag_valid
-        expect(response).to redirect_to(tags_path)
-        expect(flash[:notice]).to be_present
         expect(tag1.reload.name).to eq('tag1_name_changed')
       end
 
-      it 'should not update tag with invalid attributes, redirect to index with notice message' do
+      it 'should not update tag with invalid attributes' do
         update_tag_invalid
-        expect(response).to redirect_to(tags_path)
-        expect(flash[:alert]).to be_present
         expect(tag1.reload.name).to eq('tag1_name')
       end
     end
@@ -239,15 +236,10 @@ RSpec.describe TagsController, type: :controller do
       end
     end
 
-    context 'user is not logged in' do
+    context 'not logged in user' do
       it 'should not update tag' do
         update_tag_valid
         expect(tag1.reload.name).to eq('tag1_name')
-      end
-
-      it 'unauthorized should not destroy tag' do
-        update_tag_valid
-        expect(response).to redirect_to :new_user_session
       end
     end
   end
