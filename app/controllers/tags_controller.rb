@@ -23,10 +23,9 @@ class TagsController < ApplicationController
 
   def update
     @tag = Tag.find(params[:id])
-    @tag.update(tag_params)
-    # There is no poin in ajax if you redirect ?
-    # instead use ajax notice?
-    # redirect_to tags_path, notice: 'Tag edited' if @tag.update(tag_params)
+    return unless @tag.update(tag_params)
+    # ?
+    redirect_to tags_path, notice: 'Tag edited'
   end
 
   private

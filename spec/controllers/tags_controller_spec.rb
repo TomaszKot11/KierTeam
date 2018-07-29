@@ -48,7 +48,7 @@ RSpec.describe TagsController, type: :controller do
     end
   end
 
-  # ------------------------------------------------------------------------
+  #------------------------------------------------------------------------
 
   describe '#edit' do
     let!(:tag1) { create(:tag, name:'tag1_name') }
@@ -89,7 +89,7 @@ RSpec.describe TagsController, type: :controller do
     end
   end
 
-  # ------------------------------------------------------------------------
+  #------------------------------------------------------------------------
 
   describe '#create' do
     let(:valid_attributes) {  { tag: attributes_for(:tag) } }
@@ -143,7 +143,7 @@ RSpec.describe TagsController, type: :controller do
     end
   end
 
-  # ------------------------------------------------------------------------
+  #------------------------------------------------------------------------
 
   describe '#destroy' do
     let!(:tag1) { create(:tag) }
@@ -192,14 +192,15 @@ RSpec.describe TagsController, type: :controller do
     end
   end
 
-  # ------------------------------------------------------------------------
+  #------------------------------------------------------------------------
 
   describe '#update' do
     let!(:tag1) { create(:tag, name:'tag1_name') }
-    let(:valid_attributes) { { id: tag1.id, tag: { name:'tag1_name_changed' } } }
-    let(:invalid_attributes) { { id: tag1.id, tag: { name: nil} } }
-    subject(:update_tag_valid) { patch :update, xhr: true, params: valid_attributes }
-    subject(:update_tag_invalid) { patch :update, xhr: true, params: invalid_attributes }
+
+    let(:valid_attributes) {{ id: tag1.id, tag: { name:'tag1_name_changed' } }}
+    let(:invalid_attributes) {{ id: tag1.id, format: :js, tag: { name:'' } }}
+    subject(:update_tag_valid) { patch :update, params: valid_attributes }
+    subject(:update_tag_invalid) { patch :update, params: invalid_attributes }
 
     context 'user is admin and logged in' do
       before :each do
@@ -240,6 +241,11 @@ RSpec.describe TagsController, type: :controller do
       it 'should not update tag' do
         update_tag_valid
         expect(tag1.reload.name).to eq('tag1_name')
+      end
+
+      it 'unauthorized should not update tag' do
+        update_tag_valid
+        expect(response).to redirect_to :new_user_session
       end
     end
   end
