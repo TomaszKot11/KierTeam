@@ -41,19 +41,24 @@ class ProblemsController < ApplicationController
   end
 
   def search_problems
-    # for only tag searching searching phrase is not necessary
-   begin
-    @problems = create_searching_service.call
-   rescue ArgumentError => e
+    begin
+      problems_loc = create_searching_service.call
+    rescue ArgumentError => e
       redirect_to root_path, alert: e.message
       return
-   end
-    @problems = @problems.paginate(per_page: 5, page: params[:page])
+    end
+    @problems = problems_loc.paginate(per_page: 5, page: params[:page])
   end
 
-
   def create_searching_service
-    SearchingService.new({ advanced_search_on: params[:advanced_search_on], lookup: params[:lookup], title_on: params[:title_on], content_on: params[:content_on], reference_on: params[:reference_on], tag_names: params[:tag_names] })
+    SearchingService.new(
+      advanced_search_on: params[:advanced_search_on],
+      lookup: params[:lookup],
+      title_on: params[:title_on],
+      content_on: params[:content_on],
+      reference_on: params[:reference_on],
+      tag_names: params[:tag_names]
+    )
   end
 
   def show
