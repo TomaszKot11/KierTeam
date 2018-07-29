@@ -8,7 +8,6 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-   # flash[:notice] = 'User was destroyed!'
   end
 
   def edit
@@ -20,5 +19,4 @@ class UsersController < ApplicationController
     @problems = Problem.where(creator_id: params[:id]).find_each
     @user_img = @user.avatar.url(:thumb)
   end
-
 end
