@@ -40,19 +40,15 @@ class ProblemsController < ApplicationController
     @all_users_mapped = User.all.map { |p| [p.full_name, p.id] }
   end
 
-  # # fix this logic
-  # @advances_search_on = params[:advanced_search_on]
-  #   @lookup = params[:lookup]
-  #   @title_on = params[:title_on]
-  #   @content_on = params[:content_on]
-  #   @reference_on = params[:reference_on]
-  #   @tag_names = params[:tag_names]
-
-
-
   def search_problems
     # for only tag searching searching phrase is not necessary
-    @problems = create_searching_service.call.paginate(per_page: 5, page: params[:page])
+   begin
+    @problems = create_searching_service.call
+   rescue ArgumentError => e
+      redirect_to root_path, alert: e.message
+      return
+   end
+    @problems = @problems.paginate(per_page: 5, page: params[:page])
   end
 
 
