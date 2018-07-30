@@ -3,7 +3,7 @@ require 'rails_helper'
 describe "scenario - visit page, create problem, destroy problem, edit problem, add comment, destroy comment", type: :feature do
 
   let!(:user_sud) { create(:user, email: 'user@example.com', password: 'password', is_admin: true) }
- 
+  let!(:problem) {create(:problem,title: 'Zaraz przyjdzie wiosna', content: 'Będzie za momencik', reference_list: 'google.com wiosna', creator_id: user_sud.id, status: true)}
 
   before :each do
     user_sud.confirm
@@ -28,7 +28,7 @@ describe "scenario - visit page, create problem, destroy problem, edit problem, 
 
   end
 
-  it "creating problem, editing, deleting, creating comment and deleting " do
+  it "creating problem" do
     visit '/problems/new'
     fill_in 'problem_title', with: 'Zaraz przyjdzie wiosna'
     fill_in 'problem_content', with: 'Będzie za momencik'
@@ -36,6 +36,10 @@ describe "scenario - visit page, create problem, destroy problem, edit problem, 
     check 'Make my post visible to other users'
     click_link_or_button 'Save'
     expect(page).to have_text('You created post successfully!')
+    visit problem_path(Problem.last)
+  end
+
+  it "creating comment" do
     visit problem_path(Problem.last)
     page.should have_field("comment_title")
     page.should have_field("comment_content")
@@ -47,11 +51,19 @@ describe "scenario - visit page, create problem, destroy problem, edit problem, 
     page.should have_content('Wiosna już dorosła')
     page.should have_content('naboje ma w kieszeniach')
     page.should have_content('google.com/wiosna')
+  end
+
+  it "deleting comment " do
+    visit problem_path(Problem.last)
     click_link_or_button 'Delete'
     page.driver.browser.switch_to.alert.accept
     page.should have_no_content('Wiosna już dorosła')
     page.should have_no_content('naboje ma w kieszeniach')
     page.should have_no_content('google.com/wiosna')
+  end
+
+  it "editing problem " do
+    visit problem_path(Problem.last)
     click_link_or_button 'Edit my problem'
     fill_in 'problem_title', with: 'Wiosna wiosna'
     fill_in 'problem_content', with: 'wiosna, ach to ty'
@@ -61,6 +73,10 @@ describe "scenario - visit page, create problem, destroy problem, edit problem, 
     page.should have_content('Wiosna wiosna')
     page.should have_content('wiosna, ach to ty')
     page.should have_content("lato")
+  end
+
+  it "deleting problem " do
+    visit problem_path(Problem.last)
     click_link_or_button 'Delete my problem'
     page.driver.browser.switch_to.alert.accept
     expect(page).to have_text('Your problem was successfully destroyed!')
