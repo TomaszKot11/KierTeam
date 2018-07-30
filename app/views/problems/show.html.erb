@@ -39,7 +39,6 @@
             <div class="commentSection-add">
               <h3 class="commentSection-title">Add comment</h3>
               <%= render 'comments/form', object: @comment, errors: @comment_errors, locals: { problem_id: @problem.id, users: @users } %>
-              <hr/>
             </div>
           <% end %>
       <% end %>
