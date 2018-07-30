@@ -1,9 +1,12 @@
 <% if @comment.persisted? %>
+  $('.comment_form_errors').fadeIn('slow');
   $('.comment_form_errors').empty();
   $('.commentSection-comments').append("<%= j render 'problems/partials/comment', comment: @comment %>");
 <% else %>
+  $('.comment_form_errors').fadeIn('slow');
   $('.comment_form_errors').empty();
   $('.comment_form_errors').append("<%= j render 'comments/form_errors', comment: @comment %>");
+  $('.comment_form_errors').delay(5000).fadeOut('slow');
 <% end %>
 
 $('.comment_new').find('input[type="text"]').val('');
