@@ -1,52 +1,45 @@
-<div style="background:transparent !important" class="jumbotron">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-9">
-        <div class="panel panel-default">
-          <div class="panel-body">
-           <div class="row">
-            <div class="col-md-12 lead" >
-              <h3>User profile</h3>
-              <hr>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4 text-center">
-              <%= image_tag @user_img %>
-            </div>
-            <div class="col-md-8">
-              <div class="row">
-                <div class="col-md-12">
-                  <h1 class="only-bottom-margin"><%= "#{@user.full_name}" %></h1>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <span class="text-muted">Email:</span> <%= "#{@user.email}" %><br>
-                  <% if @user.profession!=nil %><span class="text-muted">Position:</span><%= " #{@user.profession.name}" %><br>
-                  <% end %>
-                  <small class="text-muted"><%= "#{@user.created_at}" %></small>
-                </div>
-                <div class="col-md-6">
-                     <% if user_signed_in? %>
-                        <% if current_user.id==@user.id || current_user.is_admin==true%>
+<div class="user_show">
+  <div class="jumbotron">
+    <div class="container">
 
-                             <%= link_to "Edit Profile", edit_user_registration_path, role: 'button', class: 'btn btn-primary' %>
-                        <% end %>
-                  <% end %>
-                  </div>
-                </div>
+      <div class="profile_part">
+        <div class="card">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="card-body">
+                <%= image_tag @user_img %>
               </div>
             </div>
-            <hr/>
-              <h2> Created_problems: </h2> <br>
-              <%= render './users/partials/profile_posts_tabs', not_posted: @problems_not_posted, posted: @problems_posted %>
-                </div>
+            <div class="col-md-6">
+              <div class="card-body">
+                <h3 class="card-title"><%= "#{@user.full_name}" %></h3>
+                <p class="card-text"> Email: <%= "#{@user.email}" %></p>
+                <p class="card-text"> Position: <%= "#{@user.profession.name}" %></p>
+                <p class="card-text"><small class="text-muted">Created at: <%= "#{@user.created_at}" %>  </small></p>
               </div>
+            </div>
+
+            <div class="col-md-2">
+              <% if user_signed_in? %>
+                <% if current_user.id==@user.id || current_user.is_admin==true%>
+                  <br>
+                  <%= link_to "Edit Profile", edit_user_registration_path, role: 'button', class: 'btn btn-primary' %>
+                <% end %>
+              <% end %>
             </div>
           </div>
         </div>
       </div>
+
+      <div class="problems_part">
+        <div class="card">
+          <br>
+          <h2> Created_problems: </h2>
+          <br> <br> <br>
+          <%= render './users/partials/profile_posts_tabs', not_posted: @problems_not_posted, posted: @problems_posted %>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>

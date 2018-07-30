@@ -1,0 +1,30 @@
+
+.user_index .jumbotron {
+  background: transparent;
+}
+
+.user_index .container {
+  width:800px;
+}
+
+/* ---------------------------------------------------- */
+
+.user_show .jumbotron {
+  background: transparent;
+}
+
+.user_show .profile_part .card {
+  width:600px;
+  margin: 0 auto 0;
+}
+
+.problems_part {
+  margin-top:100px;
+}
+
+.user_show .problems_part .card {
+  width:800px;
+  margin: 0 auto 0;
+  padding-top:20px;
+  text-align: center;
+}
