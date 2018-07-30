@@ -5,7 +5,7 @@
   		<% @problems.each do |problem| %>
   			<% if problem.status? %>
   	      <li class='list-group-item'><%= render 'problems/partials/single_result', problem: problem %></li>
-  		     <br />
+				  <br />
   	     <% end %>
       <% end %>
   	</div>
