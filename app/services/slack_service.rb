@@ -1,8 +1,10 @@
 class SlackService
 
-  def initialize(mail, msg)
+  def initialize(mail, problem_title, full_name, url)
     @email = mail
-    @message = msg
+    @problem_title = problem_title
+    @full_name = full_name
+    @url = url
   end
 
   def call
@@ -11,19 +13,24 @@ class SlackService
 
   private
 
-
   def send_message
     config_slack_bot
     client = Slack::Web::Client.new
     client.auth_test
     user_info = find_user_id(client)
-    raise UnableToCreateShipments, 'Unable to send slack notification' if user_info.count > 1
+    raise ArgumentError, 'Unable to send slack notification' if user_info.count > 1
+    msg = prepare_message(user_info[0])
     opened = client.im_open(user: user_info[0].id)
     channel_id = opened.channel.id
-    client.chat_postMessage(channel: channel_id, text: 'Hello with direct message', as_user: true)
+    client.chat_postMessage(
+      channel: channel_id,
+      text: msg,
+      as_user: false,
+      icon_emoji: ':ghost:',
+      username: 'BinarStackNotifier'
+    )
     client.im_close(channel: channel_id)
   end
-
 
   def config_slack_bot
     Slack.configure do |config|
@@ -35,11 +42,14 @@ class SlackService
     # filter out bots
     # left this code in case of strange Slack API behaviour
     # living_users = user_list.members.select { |user| user.is_bot == false }
-    # SLACK WTF? slackbot is also bot...
 
     # left this code in case of strange Slack API behaviour
     #living_users.select { |member| member.profile.email ==  'kottomasz98@gmail.com' }
-    user_list.members.select { |member| member.profile.email == 'kottomasz98@gmail.com' }
+    user_list.members.select { |member| member.profile.email == @email }
   end
 
+  # maybe should be parsed from view?
+  def prepare_message(user_info)
+    "Hey <@#{user_info.id}>, I need your help with '#{@problem_title}'.\nSee it at: <#{@url}>\nBest,\n#{@full_name}"
+  end
 end

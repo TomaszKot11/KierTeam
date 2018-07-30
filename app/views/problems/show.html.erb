@@ -24,10 +24,8 @@
                 <br><br>
                 <%=  link_to 'Delete my problem  ', problem_remove_path(id: @problem.id), method: :delete, data: {confirm: "You sure?"},role: 'button', class: 'btn btn-danger' %>
                 <br><br>
-              <% else %>
-                <br><br>
-                <%= link_to 'Send help request to author', send_help_request_path(id: @problem.id), role: 'button', class: 'btn btn-warning' %>
               <% end %>
+                <%= link_to 'Send help request to author', send_help_request_path(id: @problem.id), role: 'button', class: 'btn btn-warning' %>
             <% end %>
           </div>
         </div>
