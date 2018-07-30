@@ -1,36 +1,48 @@
-<div style="background:transparent !important" class="jumbotron">
-  <div class='container'>
-    <div class="card" style="width: 100%;">
-      <div class="card-body">
-        <h2 class="card-title"><%= @problem.title %></h2>
-        <hr/>
-        <p class="card-text"><%= @problem.content %></p>
-        <hr/>
-        <h5> Reference list </h5>
-        <% custom_reference_problem(@problem.reference_list).each do |link| %>
-          <p class='card-text'><%= link %> </p>
-        <% end %>
-        <% if user_signed_in? %>
-          <% if @is_creator || current_user.is_admin? %>
-            <%=  link_to 'Delete my problem  ', problem_remove_path(id: @problem.id), method: :delete, data: {confirm: "You sure?"},role: 'button', class: 'btn btn-danger' %>
-            <%=  link_to 'Edit my problem', edit_problem_path(id: @problem.id),role: 'button', class: 'btn btn-primary' %>
-            <%= link_to 'Back', problems_path, role: 'button', role: 'button', class: 'btn btn-primary' %>
-          <% else %>
-            <%= link_to 'Send help request to author', send_help_request_path(id: @problem.id), role: 'button', class: 'btn btn-warning' %>
-          <% end %>
-        <% end %>
-      </div>
-    </div>
+<div class="problem_show">
+  <div class="jumbotron">
+    <div class='container'>
 
-    <% if @problem.status? %>
-        <%= render 'problems/partials/comment_section', comments: @comments %>
-        <% if @is_current_contributor || @is_creator %>
-          <div class="commentSection-add">
-            <h3 class="commentSection-title">Add comment</h3>
-            <%= render 'comments/form', object: @comment, errors: @comment_errors, locals: { problem_id: @problem.id, users: @users } %>
-            <hr/>
+      <div class="card">
+        <div class="row">
+          <div class="col-9 ">
+            <div class="card-body">
+              <h2 class="card-title"><%= @problem.title %></h2>
+              <hr/>
+              <p class="card-text"><%= @problem.content %></p>
+              <hr/>
+              <h5> Reference list </h5>
+              <% custom_reference_problem(@problem.reference_list).each do |link| %>
+                <p class='card-text'><%= link %> </p>
+              <% end %>
+            </div>
           </div>
-        <% end %>
-    <% end %>
+          <div class="col">
+            <% if user_signed_in? %>
+              <% if @is_creator || current_user.is_admin? %>
+                <br>
+                <%=  link_to 'Edit my problem', edit_problem_path(id: @problem.id),role: 'button', class: 'btn btn-primary' %>
+                <br><br>
+                <%=  link_to 'Delete my problem  ', problem_remove_path(id: @problem.id), method: :delete, data: {confirm: "You sure?"},role: 'button', class: 'btn btn-danger' %>
+                <br><br>
+              <% else %>
+                <br><br>
+                <%= link_to 'Send help request to author', send_help_request_path(id: @problem.id), role: 'button', class: 'btn btn-warning' %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <% if @problem.status? %>
+          <%= render 'problems/partials/comment_section', comments: @comments %>
+          <% if @is_current_contributor || @is_creator %>
+            <div class="commentSection-add">
+              <h3 class="commentSection-title">Add comment</h3>
+              <%= render 'comments/form', object: @comment, errors: @comment_errors, locals: { problem_id: @problem.id, users: @users } %>
+              <hr/>
+            </div>
+          <% end %>
+      <% end %>
+    </div>
   </div>
 </div>
