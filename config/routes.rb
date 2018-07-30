@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   get '/problems/search_problems', to: 'problems#search_problems', as: :problem_search
   get '/problems/add_contributor', to: 'problems#add_contributor', as: :add_contributor
 
-  # match 'users/:id' => 'users#destroy', :via => :delete, :as => :admin_destroy_user
-
+  get 'problems/filter', to: 'problems#filter_search_results', as: :filter_results
+  #match 'users/:id' => 'users#destroy', :via => :delete, :as => :admin_destroy_user
 
   resources :problems
   resources :problems, only: [:destroy], as: :problem_remove

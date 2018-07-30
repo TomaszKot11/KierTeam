@@ -50,15 +50,13 @@ class ProblemsController < ApplicationController
     @problems = problems_loc.paginate(per_page: 5, page: params[:page])
   end
 
-  def create_searching_service
-    SearchingService.new(
-      advanced_search_on: params[:advanced_search_on],
-      lookup: params[:lookup],
-      title_on: params[:title_on],
-      content_on: params[:content_on],
-      reference_on: params[:reference_on],
-      tag_names: params[:tag_names]
-    )
+  def filter_search_results
+    # we can assume that previous
+    # search was successful
+    problems_loc = create_searching_service.call
+    filtered_results = create_filtering_service(problems_loc).call
+    @problems = filtered_results.paginate(per_page: 5, page: params[:page])
+    render 'search_problems'
   end
 
   def show
@@ -85,6 +83,24 @@ class ProblemsController < ApplicationController
   end
 
   private
+
+  def create_searching_service
+    SearchingService.new(
+      advanced_search_on: params[:advanced_search_on],
+      lookup: params[:lookup],
+      title_on: params[:title_on],
+      content_on: params[:content_on],
+      reference_on: params[:reference_on],
+      tag_names: params[:tag_names]
+    )
+  end
+
+  def create_filtering_service(problems_collection)
+    FilteringService.new(
+      collection: problems_collection,
+      order: params[:order_by]
+    )
+  end
 
   def problem_params
     params.require(:problem).permit(
