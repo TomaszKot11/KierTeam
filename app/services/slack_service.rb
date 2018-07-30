@@ -27,8 +27,7 @@ class SlackService
 
   def config_slack_bot
     Slack.configure do |config|
-      config.token = Rails.application.secrets.SLACK_KEY
-
+      config.token = Rails.application.credentials.slack[:access_key]
     end
   end
   def find_user_id(client)
