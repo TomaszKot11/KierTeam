@@ -48,6 +48,7 @@ class ProblemsController < ApplicationController
       return
     end
     @problems = problems_loc.paginate(per_page: 5, page: params[:page])
+    SlackService.new('mail','wiadomosc').call
   end
 
   def filter_search_results
