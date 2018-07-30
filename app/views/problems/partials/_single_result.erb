@@ -1,14 +1,16 @@
-<div class="row">
-  <div class="col-md8">
-    <div class="card" style="width: 100%;border-width:0;">
-      <div class="card-body">
-        <h4 class="card-title"><%= problem.title %></h4>
-        <% if !problem.creator.nil? %>
+<div class="problem_single_result">
+  <div class="row">
+    <div class="col-md8">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title"><%= problem.title %></h4>
+          <% if !problem.creator.nil? %>
           <p class="card-text">Author: <%= link_to "#{problem.creator.name} #{problem.creator.surname}", user_path(id: problem.creator.id ) %> </p>
         <% end %>
         <p class="card-text">Created at: <%= localize(problem.created_at, :format => :long) %> </p>
         <p class='card-text'>Modified at: <%= localize(problem.updated_at, :format => :long) %></p>
         <%= link_to 'Show more information', problem_path(id: problem.id), type: 'button' , class: 'btn btn-primary' %>
+        </div>
       </div>
     </div>
   </div>

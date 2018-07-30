@@ -5,12 +5,14 @@
         <div class="panel panel-default">
           <div class="panel-body">
            <div class="row">
-              <div class="col-md-12 lead "><h3>User profile</h3><hr></div>
+            <div class="col-md-12 lead" >
+              <h3>User profile</h3>
+              <hr>
             </div>
+          </div>
           <div class="row">
             <div class="col-md-4 text-center">
               <%= image_tag @user_img %>
-
             </div>
             <div class="col-md-8">
               <div class="row">
@@ -32,15 +34,15 @@
                              <%= link_to "Edit Profile", edit_user_registration_path, role: 'button', class: 'btn btn-primary' %>
                         <% end %>
                   <% end %>
-
                   </div>
                 </div>
               </div>
             </div>
             <hr/>
-               <h2> Created_problems: </h2>
-                <%= render './users/partials/profile_posts_tabs', not_posted: @problems_not_posted, posted: @problems_posted %>
-            </div>
+              <h2> Created_problems: </h2> <br>
+              <%= render './users/partials/profile_posts_tabs', not_posted: @problems_not_posted, posted: @problems_posted %>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -48,4 +50,3 @@
     </div>
   </div>
 </div>
- </div>
