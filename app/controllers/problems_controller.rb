@@ -1,15 +1,6 @@
 class ProblemsController < ApplicationController
   before_action :authenticate_user!, only: %i[new create add_contributor destroy edit update send_help_request]
 
-  # class variables
-  # extract to other class?
-  @@lookup = nil
-  @@tag_names = nil
-  @@advanced_search_on = nil
-  @@title_on = nil
-  @@content_on = nil
-  @@reference_on = nil
-
   def index
     @problems = Problem.all.paginate(per_page: 5, page: params[:page])
   end
@@ -57,54 +48,15 @@ class ProblemsController < ApplicationController
       return
     end
     @problems = problems_loc.paginate(per_page: 5, page: params[:page])
-    init_previous_search_options
   end
 
   def filter_search_results
     # we can assume that previous
     # search was successful
-    problems_loc = recreate_searching_service.call
-    filtered_results = create_filtering_service.call
-  end
-
-  def create_searching_service
-    SearchingService.new(
-      advanced_search_on: params[:advanced_search_on],
-      lookup: params[:lookup],
-      title_on: params[:title_on],
-      content_on: params[:content_on],
-      reference_on: params[:reference_on],
-      tag_names: params[:tag_names]
-    )
-  end
-
-  # I think better is to recreate the collection
-  # than to store it
-  def recreate_searching_service
-    SearchingService.new(
-      advanced_search_on: @@advanced_search_on,
-      lookup: @@lookup,
-      title_on: @@title_on,
-      content_on: @@content_on,
-      reference_on: @@reference_on,
-      tag_names: @@tag_names
-    )
-  end
-
-  def create_filtering_service(problems_collection)
-    FilteringService.new(
-      collection: problems_collection,
-      order: params[:order_wanted]
-    )
-  end
-
-  def init_previous_search_options
-    @@lookup = params[:lookup]
-    @@tag_names = params[:tag_names]
-    @@advanced_search_on = params[:advanced_search_on]
-    @@title_on = params[:title_on]
-    @@content_on = params[:content_on]
-    @@reference_on = params[:reference_on]
+    problems_loc = create_searching_service.call
+    filtered_results = create_filtering_service(problems_loc).call
+    @problems = filtered_results.paginate(per_page: 5, page: params[:page])
+    render 'search_problems'
   end
 
   def show
@@ -131,6 +83,24 @@ class ProblemsController < ApplicationController
   end
 
   private
+
+  def create_searching_service
+    SearchingService.new(
+      advanced_search_on: params[:advanced_search_on],
+      lookup: params[:lookup],
+      title_on: params[:title_on],
+      content_on: params[:content_on],
+      reference_on: params[:reference_on],
+      tag_names: params[:tag_names]
+    )
+  end
+
+  def create_filtering_service(problems_collection)
+    FilteringService.new(
+      collection: problems_collection,
+      order: params[:order_by]
+    )
+  end
 
   def problem_params
     params.require(:problem).permit(

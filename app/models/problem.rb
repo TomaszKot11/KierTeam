@@ -16,6 +16,13 @@ class Problem < ApplicationRecord
   scope :title_where, ->(query) { where('title LIKE ?', "%#{query}%") }
   scope :reference_where, ->(query) { where('reference_list LIKE ?', "%#{query}%") }
 
+  scope :order_title_desc, -> { order(title: :desc) }
+  scope :order_title_asc, -> { order(title: :asc) }
+  scope :order_content_desc, -> { order(content: :desc) }
+  scope :order_content_asc, -> { order(content: :asc) }
+  scope :updated_at_desc, -> { order(updated_at: :desc) }
+  scope :updated_at_asc, -> { order(updated_at: :asc) }
+
   def current_user_contributor?(user)
     if user.nil?
       false
