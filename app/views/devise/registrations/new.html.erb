@@ -1,57 +1,59 @@
- <div class='container' style='width:550px;margin: 0 auto;'>
-  <br>
-  <div class="page-header">
-    <h2>Sign up</h2>
-  </div>
-
-  <%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { multipart: true }  ) do |f| %>
-
-      <div class="field">
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
-      </div>
-
-      <div class="field">
-        <%= f.text_field :name, autocomplete: "off", class: 'form-control' %>
-      </div>
-
-      <div class="field">
-        <%= f.text_field :surname, autocomplete: "off", class: 'form-control' %>
-      </div>
-
-      <div class="field">
-        <%= f.collection_select(:profession_id, Profession.all, :id, :name)  %>
-      </div>
-
-      <div class="field">
-        <i>(leave blank if you don't want, it will be generated from your initials)</i>
-        <%= f.file_field :avatar, class: 'avatar-preview' %>
-      </div>
-      <div id="target">
-      </div>
-
-      <br>
-      <div class="field">
-        <% if @minimum_password_length %>
-          <em>(<%= @minimum_password_length %> characters minimum)</em>
-        <% end %><br />
-        <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
-      </div>
-
-      <div class="field">
-        <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %>
-      </div>
-
-      <hr/>
-
-      <div class="row justify-content-start">
-        <div class="col-md-auto col-xs-12 form-group"">
-          <div class="actions">
-            <%= f.submit "Sign up" , class: 'btn btn-primary' %>
-          </div>
-      </div>
-
-       <%= render "devise/shared/links" %>
+ <div class="devise_register">
+   <div class='container'>
+    <br>
+    <div class="page-header">
+      <h2>Sign up</h2>
     </div>
 
-  <% end %>
+    <%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { multipart: true }  ) do |f| %>
+
+        <div class="field">
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
+        </div>
+
+        <div class="field">
+          <%= f.text_field :name, autocomplete: "off", class: 'form-control' %>
+        </div>
+
+        <div class="field">
+          <%= f.text_field :surname, autocomplete: "off", class: 'form-control' %>
+        </div>
+
+        <div class="field">
+          <%= f.collection_select(:profession_id, Profession.all, :id, :name)  %>
+        </div>
+
+        <div class="field">
+          <i>(leave blank if you don't want, it will be generated from your initials)</i>
+          <%= f.file_field :avatar, class: 'avatar-preview' %>
+        </div>
+        <div id="target">
+        </div>
+
+        <br>
+        <div class="field">
+          <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> characters minimum)</em>
+          <% end %><br />
+          <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
+        </div>
+
+        <div class="field">
+          <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %>
+        </div>
+
+        <hr/>
+
+        <div class="row justify-content-start">
+          <div class="col-md-auto col-xs-12 form-group"">
+            <div class="actions">
+              <%= f.submit "Sign up" , class: 'btn btn-primary' %>
+            </div>
+        </div>
+
+         <%= render "devise/shared/links" %>
+      </div>
+
+    <% end %>
+  </div>
 </div>
