@@ -1,0 +1,81 @@
+.problem_index {
+  text-align: left;
+}
+
+.problem_index .jumbotron {
+  background: transparent;
+}
+
+.problem_index .card {
+  border-width: 0;
+}
+
+/* ---------------------------------------------------- */
+
+.problem_new {
+  text-align: center;
+}
+
+.problem_new .jumbotron {
+  background:transparent;
+}
+
+.problem_new .container {
+  text-align: left;
+  width: 1000px;
+}
+
+.problem_new .search-field {
+  font-size:15px;
+}
+
+
+/* ---------------------------------------------------- */
+
+.problem_edit {
+  text-align: center;
+}
+
+.problem_edit .jumbotron {
+  background: transparent;
+}
+
+.problem_edit .container {
+  text-align: left;
+  width: 1000px;
+}
+
+/* ---------------------------------------------------- */
+
+.problem_show {
+  text-align: center;
+}
+
+.problem_show .jumbotron {
+  background: transparent;
+}
+
+.problem_show .container {
+  text-align: left;
+  width: 1000px;
+}
+
+.problem_show .card {
+  width: 100%;
+}
+
+.problem_show .btn{
+  width:200px;
+  white-space: normal;
+}
+
+/* ---------------------------------------------------- */
+
+.problem_search .jumbotron {
+  background: transparent;
+}
+
+.problem_single_result .card {
+  border-width: 0;
+  width: 100%;
+}
