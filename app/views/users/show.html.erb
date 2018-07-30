@@ -14,7 +14,9 @@
               <div class="card-body">
                 <h3 class="card-title"><%= "#{@user.full_name}" %></h3>
                 <p class="card-text"> Email: <%= "#{@user.email}" %></p>
-                <p class="card-text"> Position: <%= "#{@user.profession.name}" %></p>
+                <% if !@user.profession.nil? %>
+                  <p class="card-text"> Position: <%= "#{@user.profession.name}" %></p>
+                <% end %>
                 <p class="card-text"><small class="text-muted">Created at: <%= "#{@user.created_at}" %>  </small></p>
               </div>
             </div>
