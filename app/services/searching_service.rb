@@ -1,8 +1,4 @@
 class SearchingService
-  attr_accessor :advances_search_on,
-    :lookup, :title_on, :content_on,
-    :reference_on, :tag_names
-
   def initialize(params = {})
     @advances_search_on = params[:advanced_search_on]
     @lookup = params[:lookup]
@@ -37,6 +33,9 @@ class SearchingService
     problems_loc = tag_search_without_query
     if is_content || is_title || is_reference
 
+      p '@!#@#!!#@'
+      p is_lookup
+      p '!@#@#!!#@s'
       raise ArgumentError, 'Query may not be blank' if is_lookup
 
       problems_loc = perform_text_search(is_title, is_reference, is_content, problems_loc)
@@ -48,12 +47,23 @@ class SearchingService
     # content
     problems_loc = problems_loc.content_where(@lookup) unless is_content
 
+    # p '1'
+    # p problems_loc
+    # p is_content
+    # p '!$$#!$#@'
+    # p is_reference
+    # p '#@###!!##'
+    # p problems_loc.first.tags
+    # p '!#!##@'
     # title
     problems_loc = problems_loc.title_where(@lookup) unless is_title
 
     # references
     problems_loc = problems_loc.reference_where(@lookup) unless is_reference
 
+    p '2'
+    p problems_loc
+    p '!$$#!$#@'
     problems_loc
   end
 
