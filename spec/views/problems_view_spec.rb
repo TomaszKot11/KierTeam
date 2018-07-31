@@ -1,9 +1,12 @@
 require 'rails_helper'
 
-describe "scenario - visit page, create problem, destroy problem, edit problem, add comment, destroy comment", type: :feature do
+describe "scenario - visit page, create problem, destroy problem, edit problem, add comment, destroy comment, search for problem", type: :feature do
 
   let!(:user_sud) { create(:user, email: 'user@example.com', password: 'password', is_admin: true) }
   let!(:problem) {create(:problem,title: 'Zaraz przyjdzie wiosna', content: 'Będzie za momencik', reference_list: 'google.com wiosna', creator_id: user_sud.id, status: true)}
+  let(:problem_a) { create(:problem, title: 'Android') }
+  let(:problem_b) { create(:problem, reference_list: 'Android213') }
+  let(:problem_c) { create(:problem, content: 'Android rules') }
 
   before :each do
     user_sud.confirm
@@ -80,5 +83,28 @@ describe "scenario - visit page, create problem, destroy problem, edit problem, 
     click_link_or_button 'Delete my problem'
     page.driver.browser.switch_to.alert.accept
     expect(page).to have_text('Your problem was successfully destroyed!')
+  end
+
+  context 'searching engine' do
+    it 'using basic searching engine, see results, see one result' do
+      # laziness
+      problem_a
+      problem_b
+      problem_c
+      visit root_path
+      page.fill_in 'lookup', with: 'Android'
+      within 'form' do
+        find('.searching-btn').click
+      end
+      expect(page).to have_current_path(problem_search_path, ignore_query: true)
+      p '#!@#@!#!@'
+      p Problem.all
+      p '#!@!#@!@#'
+      expect(page).to have_css('.card-title', count: 3)
+    end
+
+    it 'using advanced searching' do
+
+    end
   end
 end
