@@ -292,93 +292,93 @@ RSpec.describe ProblemsController, type: :controller do
 
       end
 
-  #     context 'advanced search' do
-  #       let(:problem_one) { create(:problem) }
-  #       let(:problem_two) { create(:problem_2) }
-  #       let(:sample_tag_a) { create(:tag) }
+      context 'advanced search' do
+        let(:problem_one) { create(:problem) }
+        let(:problem_two) { create(:problem_2) }
+        let(:sample_tag_a) { create(:tag) }
 
-  #       context 'advanced title and content searching' do
+        context 'advanced title and content searching' do
 
-  #         it 'title blank query redirect to root_path with alert' do
-  #           get :search_problems, params: { advanced_search_on: 'on', title_on: 'on', lookup: '' }
-  #           root_alert_redirect
-  #         end
+          it 'title blank query redirect to root_path with alert' do
+            get :search_problems, params: { advanced_search_on: 'on', title_on: 'on', lookup: '' }
+            root_alert_redirect
+          end
 
-  #         it 'content blank query redirect to root_path with alert' do
-  #           get :search_problems, params: { advanced_search_on: 'on', content_on: 'on', lookup: '' }
-  #           root_alert_redirect
-  #         end
+          it 'content blank query redirect to root_path with alert' do
+            get :search_problems, params: { advanced_search_on: 'on', content_on: 'on', lookup: '' }
+            root_alert_redirect
+          end
 
-  #         # maybe more examples should be provided?
-  #         it 'title gives valid results' do
-  #           get :search_problems, params: { advanced_search_on: 'on', title_on: 'on', lookup: problem_one.title }
-  #           expect(assigns(:problems)).to contain_exactly(problem_one)
-  #         end
+          it 'title gives valid results' do
+            get :search_problems, params: { advanced_search_on: 'on', title_on: 'on', lookup: problem_one.title }
+            expect(assigns(:problems)).to contain_exactly(problem_one)
+          end
 
-  #         it 'content gives valid results' do
-  #           get :search_problems, params: { advanced_search_on: 'on', content_on: 'on', lookup: problem_one.content }
-  #           expect(assigns(:problems)).to contain_exactly(problem_one)
-  #         end
+          it 'content gives valid results' do
+            get :search_problems, params: { advanced_search_on: 'on', content_on: 'on', lookup: problem_one.content }
+            expect(assigns(:problems)).to contain_exactly(problem_one)
+          end
 
-  #         # the same tests pattern for references
+          it 'reference_list gives valid results' do
+            get :search_problems, params: { advanced_search_on: 'on', lookup: problem_one.reference_list, reference_on: 'on' }
+            expect(assigns(:problems)).to contain_exactly(problem_one)
+          end
+        end
 
-  #       end
 
-  #       context 'advanced tag filtering' do
-  #         let(:sample_tag_b) { create(:tag_1) }
+        context 'advanced tag filtering' do
+          let(:sample_tag_b) { create(:tag_1) }
 
-  #         # somehow specific behaviour - should be persisted
-  #         # while refactoring
-  #         it 'query blank no redirection' do
-  #           get :search_problems, params: { advanced_search_on: 'on', tag_names: ['Ruby on Rails'], lookup: '' }
-  #           expect(response).not_to redirect_to(root_path)
-  #         end
+          it 'query blank no redirection' do
+            get :search_problems, params: { advanced_search_on: 'on', tag_names: ['Ruby on Rails'], lookup: '' }
+            expect(response).not_to redirect_to(root_path)
+          end
 
-  #         it 'gives valid results' do
-  #           problem_one.tags << sample_tag_a
-  #           problem_one.tags << sample_tag_b
-  #           problem_two.tags << sample_tag_a
 
-  #           get :search_problems,
-  #             params: {
-  #             advanced_search_on: 'on',
-  #             tag_names: [ sample_tag_a.name, sample_tag_b.name],
-  #             lookup: 'a'
-  #           }
+          it 'gives valid results' do
+            problem_one.tags << sample_tag_a
+            problem_one.tags << sample_tag_b
+            problem_two.tags << sample_tag_a
 
-  #           expect(assigns(:problems)).to contain_exactly(problem_one)
-  #         end
+            get :search_problems,
+              params: {
+              advanced_search_on: 'on',
+              tag_names: [ sample_tag_a.name, sample_tag_b.name],
+              lookup: 'a'
+            }
 
-  #       end
+            expect(assigns(:problems)).to contain_exactly(problem_one)
+          end
 
-  #       # temporary behaviour
-  #       it 'should return all problems when no criteria specified' do
-  #         get :search_problems, params: { advanced_search_on: 'on' }
-  #         # laziness
-  #         problem_one.title
-  #         problem_two.title
-  #         expect(assigns(:problems)).to contain_exactly(problem_one, problem_two)
-  #       end
+          it 'should return all problems when no criteria specified' do
+            get :search_problems, params: { advanced_search_on: 'on', lookup: ''}
+            # laziness
+            problem_one.title
+            problem_two.title
+            expect(assigns(:problems)).to contain_exactly(problem_one, problem_two)
+          end
 
-  #       # ignore advanced options when advanced_search_on not on
-  #       context 'ignore advanced options search when not explicitly on' do
-  #         # override
-  #         let(:problem_one) { create(:problem) }
-  #         let(:problem_two) { create(:problem_2, content: problem_one.title) }
+        end
 
-  #         it 'should use default search' do
+        # ignore advanced options when advanced_search_on not on
+        context 'ignore advanced options search when not explicitly on' do
+          # override
+          let(:problem_one) { create(:problem) }
+          let(:problem_two) { create(:problem_2, content: problem_one.title) }
 
-  #         get :search_problems, params: {
-  #           title_on: 'on',
-  #           content_on: 'on',
-  #           tag_names: [sample_tag_a.name],
-  #           lookup: problem_one.title
-  #         }
-  #         # or is between
-  #         expect(assigns(:problems)).to contain_exactly(problem_one, problem_two)
-  #         end
-  #       end
-  #     end
+          it 'should use default search' do
+
+          get :search_problems, params: {
+            title_on: 'on',
+            content_on: 'on',
+            tag_names: [sample_tag_a.name],
+            lookup: problem_one.title
+          }
+          # or is between
+          expect(assigns(:problems)).to contain_exactly(problem_one, problem_two)
+          end
+        end
+      end
 
       it 'create_searching_service should produce SearchingService' do
         service = controller.send(:create_searching_service)
