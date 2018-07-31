@@ -6,10 +6,13 @@
         <hr/>
         <p class="card-text"><%= @problem.content %></p>
         <hr/>
+        <p class="card-text">
+        
         <h5> Reference list </h5>
         <% custom_reference_problem(@problem.reference_list).each do |link| %>
           <p class='card-text'><%= link %> </p>
         <% end %>
+        <p class="card-text"><%= @problem.project %></p>
         <% if user_signed_in? %>
           <% if @is_creator || current_user.is_admin? %>
             <%=  link_to 'Delete my problem  ', problem_remove_path(id: @problem.id), method: :delete, data: {confirm: "You sure?"},role: 'button', class: 'btn btn-danger' %>
