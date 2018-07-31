@@ -1,4 +1,8 @@
 class SearchingService
+  attr_accessor :advances_search_on,
+    :lookup, :title_on, :content_on,
+    :reference_on, :tag_names
+
   def initialize(params = {})
     @advances_search_on = params[:advanced_search_on]
     @lookup = params[:lookup]
