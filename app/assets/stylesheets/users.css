@@ -4,7 +4,19 @@
 }
 
 .user_index .container {
-  width:800px;
+  width:600px;
+}
+
+.user_index .btn{
+  width:80px;
+  white-space: normal;
+  margin-top:5px;
+}
+
+.user_index .banned_title{
+  text-align: center;
+  vertical-align: middle;
+  color:red;
 }
 
 /* ---------------------------------------------------- */

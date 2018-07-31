@@ -6,13 +6,14 @@ Rails.application.routes.draw do
   get '/problems/add_contributor', to: 'problems#add_contributor', as: :add_contributor
 
   get 'problems/filter', to: 'problems#filter_search_results', as: :filter_results
-  #match 'users/:id' => 'users#destroy', :via => :delete, :as => :admin_destroy_user
 
   resources :problems
   resources :problems, only: [:destroy], as: :problem_remove
 
   devise_for :users, :controllers => { registrations: 'registrations' }
   resources :users, only: [:show, :index, :destroy]
+  put 'users/:id', to: 'users#ban'
+
   resources :comments, only: [:create, :destroy]
 
   resources :tags, only: [:create, :index, :destroy, :update, :edit]
