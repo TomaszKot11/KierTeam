@@ -1,5 +1,4 @@
 class SlackService
-
   def initialize(mail, problem_title, full_name, url)
     @email = mail
     @problem_title = problem_title
@@ -18,7 +17,7 @@ class SlackService
     client = Slack::Web::Client.new
     client.auth_test
     user_info = find_user_id(client)
-    raise ArgumentError, 'Unable to send slack notification' if user_info.count > 1
+    raise ArgumentError, 'Unable to send slack notification' if user_info.count > 1 || user_info[0].nil?
     msg = prepare_message(user_info[0])
     opened = client.im_open(user: user_info[0].id)
     channel_id = opened.channel.id
@@ -37,6 +36,7 @@ class SlackService
       config.token = Rails.application.credentials.slack[:access_key]
     end
   end
+
   def find_user_id(client)
     user_list = client.users_list
     # filter out bots
@@ -44,7 +44,6 @@ class SlackService
     # living_users = user_list.members.select { |user| user.is_bot == false }
 
     # left this code in case of strange Slack API behaviour
-    #living_users.select { |member| member.profile.email ==  'kottomasz98@gmail.com' }
     user_list.members.select { |member| member.profile.email == @email }
   end
 

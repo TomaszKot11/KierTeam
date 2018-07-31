@@ -81,9 +81,14 @@ class ProblemsController < ApplicationController
     creator = User.find(problem.creator_id)
     HelpProblemMailer.help_request_email(problem, current_user).deliver_now
     begin
-      create_slack_service(creator.email, problem.title, "#{creator.name} #{creator.surname}", problem_url(id: problem.id)).call
+      create_slack_service(
+        creator.email,
+        problem.title,
+        "#{creator.name} #{creator.surname}",
+        problem_url(id: problem.id)
+      ).call
     rescue ArgumentError => e
-      flash[:alert] = 'Unable to send Slack notification'
+      flash[:alert] = e.message
       # strange construction
       successful = false
     end
