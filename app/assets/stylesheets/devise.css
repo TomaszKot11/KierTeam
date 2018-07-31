@@ -1,26 +1,5 @@
 
-.devise_confirmation .container {
-  width:550px;
-  margin: 0 auto;
-}
-
-/* ---------------------------------------------------- */
-
-.devise_password .container {
-  width:550px;
-  margin: 0 auto;
-}
-
-/* ---------------------------------------------------- */
-
-.devise_register .container {
-  width:550px;
-  margin: 0 auto;
-}
-
-/* ---------------------------------------------------- */
-
-.devise_session .container {
+.devise_page .container {
   width:550px;
   margin: 0 auto;
 }
