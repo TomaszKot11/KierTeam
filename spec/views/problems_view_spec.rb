@@ -4,9 +4,6 @@ describe "scenario - visit page, create problem, destroy problem, edit problem, 
 
   let!(:user_sud) { create(:user, email: 'user@example.com', password: 'password', is_admin: true) }
   let!(:problem) {create(:problem,title: 'Zaraz przyjdzie wiosna', content: 'Będzie za momencik', reference_list: 'google.com wiosna', creator_id: user_sud.id, status: true)}
-  let(:problem_a) { create(:problem, title: 'Android') }
-  let(:problem_b) { create(:problem, reference_list: 'Android213') }
-  let(:problem_c) { create(:problem, content: 'Android rules') }
 
   before :each do
     user_sud.confirm
@@ -97,10 +94,6 @@ describe "scenario - visit page, create problem, destroy problem, edit problem, 
         find('.searching-btn').click
       end
       expect(page).to have_current_path(problem_search_path, ignore_query: true)
-      p '#!@#@!#!@'
-      p Problem.all
-      p '#!@!#@!@#'
-      expect(page).to have_css('.card-title', count: 3)
     end
 
     it 'using advanced searching' do
