@@ -2,9 +2,8 @@
   <div class="card-body">
     <div  class="row">
       <div class="col-md-2">
-        <% # TODO: make it circular %>
         <%= image_tag(comment.user.avatar.url(:thumb), class: "img img-rounded img-fluid") %>
-        <p class="text-secondary text-center"><%= comment.user.full_name%></p>
+        <p class="text-secondary text-left"><%= comment.user.full_name%></p>
       </div>
       <div class="col-md-10">
         <p><h5><%= comment.title %></h5></p>

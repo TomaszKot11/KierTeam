@@ -1,90 +1,79 @@
-<div class='container' style='width:550px;margin: 0 auto;'>
-
-  <br>
-  <div class="page-header">
-    <h2>Profile edit</h2>
-  </div>
-
-
-  <%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, class: 'form-control') do |f| %>
-
-    <div class='field mt-3'>
-      <i>(To change avatar, upload an image)</i>
-      <%= f.file_field :avatar, class: 'avatar-preview' %>
-    </div>
-      <div id="target">
-      </div>
-
-     <% if @user.avatar? %>
-        <div class='field mt-3'>
-          <%= label_tag   'Your current image' %>
-          <%= image_tag @user.avatar.url(:thumb) %>
-        </div>
-      <% end %>
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-    <% end %>
-
-    <div class="field">
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
-    </div>
-
-    <div class="field">
-      <%= f.text_field :name, autocomplete: "name", class: 'form-control' %>
-    </div>
-
-    <div class="field">
-      <%= f.text_field :surname, autocomplete: "surname", class: 'form-control' %>
-    </div>
-
-     <div class="field">
-        <%= f.collection_select(:profession_id, Profession.all, :id, :name)  %>
-      </div>
-
-    <hr/>
-    <div class="field">
-      <i>(leave blank if you don't want to change it)</i><br />
-      <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
-      <% if @minimum_password_length %>
-        <br />
-        <em><%= @minimum_password_length %> characters minimum</em>
-      <% end %>
-    </div>
-
-    <div class="field">
-      <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %>
-    </div>
-
-     <hr/>
-
-    <div class="field">
-      <i>(we need your current password to confirm your changes)</i><br />
-      <%= f.password_field :current_password, autocomplete: "off", class: 'form-control' %>
-    </div>
+<div class="devise_page">
+  <div class='container'>
 
     <br>
-
-    <div class="actions">
-      <%= f.submit "Update", class: 'btn btn-warning' %>
-    </div>
-  <% end %>
-
-  <hr/>
-
-  <h3>Delete my account</h3>
-
-  <p>Unhappy with our service ? </p>
-
-  <div class="row justify-content-start">
-
-    <div class="col-md-auto col-xs-12 form-group"">
-      <%= button_to "Delete", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-danger' %>
+    <div class="page-header">
+      <h2>Profile edit</h2>
     </div>
 
-    <div class="col-md-auto col-xs-12 form-group"">
-       <%= link_to "Back", :back, class: 'btn btn-primary' %>
+    <%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, class: 'form-control') do |f| %>
+
+      <div class='field mt-3'>
+        <i>(To change avatar, upload an image)</i>
+        <%= f.file_field :avatar, class: 'avatar-preview' %>
+      </div>
+        <div id="target">
+        </div>
+
+       <% if @user.avatar? %>
+          <div class='field mt-3'>
+            <%= label_tag   'Your current image' %>
+            <%= image_tag @user.avatar.url(:thumb) %>
+          </div>
+        <% end %>
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
+      <div class="field">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
+      </div>
+      <div class="field">
+        <%= f.text_field :name, autocomplete: "name", class: 'form-control' %>
+      </div>
+      <div class="field">
+        <%= f.text_field :surname, autocomplete: "surname", class: 'form-control' %>
+      </div>
+       <div class="field">
+          <%= f.collection_select(:profession_id, Profession.all, :id, :name)  %>
+        </div>
+      <hr/>
+      <div class="field">
+        <i>(leave blank if you don't want to change it)</i><br />
+        <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
+        <% if @minimum_password_length %>
+          <br />
+          <em><%= @minimum_password_length %> characters minimum</em>
+        <% end %>
+      </div>
+      <div class="field">
+        <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %>
+      </div>
+
+       <hr/>
+      <div class="field">
+        <i>(we need your current password to confirm your changes)</i><br />
+        <%= f.password_field :current_password, autocomplete: "off", class: 'form-control' %>
+      </div>
+
+      <br>
+
+      <div class="actions">
+        <%= f.submit "Update", class: 'btn btn-warning' %>
+      </div>
+    <% end %>
+
+    <hr/>
+
+    <h3>Delete my account</h3>
+    <p>Unhappy with our service ? </p>
+    <div class="row justify-content-start">
+      <div class="col-md-auto col-xs-12 form-group"">
+        <%= button_to "Delete", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-danger' %>
+      </div>
+      <div class="col-md-auto col-xs-12 form-group"">
+         <%= link_to "Back", :back, class: 'btn btn-primary' %>
+      </div>
     </div>
 
   </div>
-
 </div>

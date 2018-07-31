@@ -1,28 +1,27 @@
-<div class="container" style='width:550px;margin: 0 auto;'>
-	<br>
-  	<div class="page-header">
-   	  <h2>Forgot your password?</h2>
- 	</div>
+<div class="devise_page">
+  <div class="container">
+  	<br>
+    	<div class="page-header">
+     	  <h2>Forgot your password?</h2>
+   	</div>
 
-	<%= bootstrap_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+  	<%= bootstrap_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
 
-	  <div class="field">
-	    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-	  </div>
-	  <hr/>
+  	  <div class="field">
+  	    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  	  </div>
+  	  <hr/>
 
-	  <div class="row justify-content-start">
-	  	<div class="col-md-auto col-xs-12 form-group"">
-		  <div class="actions">
-		    <%= f.submit "Send me reset password instructions", class: 'btn btn-primary' %>
-		  </div>
-		</div>
+  	  <div class="row justify-content-start">
+  	  	<div class="col-md-auto col-xs-12 form-group"">
+  		  <div class="actions">
+  		    <%= f.submit "Send me reset password instructions", class: 'btn btn-primary' %>
+  		  </div>
+  		</div>
 
-		  <%= render "devise/shared/links" %>
+  		  <%= render "devise/shared/links" %>
 
-	  </div>
-	<% end %>
-
-
-
+  	  </div>
+  	<% end %>
+  </div>
 </div>

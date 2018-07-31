@@ -2,12 +2,16 @@
   <% problems.each do |problem| %>
     <div class="row">
       <div class="col-xs-10 col-md-11">
-        <h4> <%= link_to problem.title, problem_path(id: problem.id) %> </h4>
-        Created at: <%= localize(problem.created_at, :format => :long) %> <br>
-        <hr/>
+        <div class="card">
+          <div class="card-body">
+            <h4> <%= link_to problem.title, problem_path(id: problem.id) %> </h4>
+            Created at: <%= localize(problem.created_at, :format => :long) %> <br>
+          </div>
+        </div>
       </div>
     </div>
   <% end %>
 <% else %>
-  <i>No problems created</i>
+  <i>No solutions here </i>
 <% end %>
+

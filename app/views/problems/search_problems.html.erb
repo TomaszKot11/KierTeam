@@ -1,19 +1,43 @@
-<div style="background:transparent" class="jumbotron">
-  <div class='container'>
-    <% if @problems.empty? %>
-        <ul class='list-group'>
-          <li class='list-group-item'>It looks as if you have to fix it on your own :(</li>
-        </ul>
-      <% else %>
-        <ul class='list-group'>
-          <%= will_paginate @problems, class: 'digg_pagination' %>
-            <% @problems.each do |problem| %>
-             <% if problem.status? %>
-              <li class='list-group-item'><%= render 'problems/partials/single_result', problem: problem %></li>
-              <hr />
-            <% end %>
-        </ul>
+<div class="problem_search">
+  <div class="jumbotron">
+    <div class='container'>
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          Filter Results
+        </button>
+      </p>
+      <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+          <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Sort by
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <%= link_to 'Title (A-Z)', filter_results_path(order_by: 'title: :asc', advanced_search_on: params[:advanced_search_on], lookup: params[:lookup], title_on: params[:title_on], content_on: params[:content_on], reference_on: params[:reference_on], tag_names: params[:tag_names]), class: 'dropdown-item' %>
+                <%= link_to 'Title (Z-A)', filter_results_path(order_by: 'title: :desc', advanced_search_on: params[:advanced_search_on], lookup: params[:lookup], title_on: params[:title_on], content_on: params[:content_on], reference_on: params[:reference_on], tag_names: params[:tag_names]), class: 'dropdown-item' %>
+                <%= link_to 'Content (A-Z)', filter_results_path(order_by: 'content: :asc', advanced_search_on: params[:advanced_search_on], lookup: params[:lookup], title_on: params[:title_on], content_on: params[:content_on], reference_on: params[:reference_on], tag_names: params[:tag_names]), class: 'dropdown-item' %>
+                <%= link_to 'Content (Z-A)', filter_results_path(order_by: 'content: :desc', advanced_search_on: params[:advanced_search_on], lookup: params[:lookup], title_on: params[:title_on], content_on: params[:content_on], reference_on: params[:reference_on], tag_names: params[:tag_names]), class: 'dropdown-item' %>
+                <%= link_to 'From the newest', filter_results_path(order_by: 'updated_at: :asc', advanced_search_on: params[:advanced_search_on], lookup: params[:lookup], title_on: params[:title_on], content_on: params[:content_on], reference_on: params[:reference_on], tag_names: params[:tag_names]), class: 'dropdown-item' %>
+                <%= link_to 'From the oldest', filter_results_path(order_by: 'updated_at: :desc', advanced_search_on: params[:advanced_search_on], lookup: params[:lookup], title_on: params[:title_on], content_on: params[:content_on], reference_on: params[:reference_on], tag_names: params[:tag_names]), class: 'dropdown-item' %>
+              </div>
+            </div>
+          </div>
+      </div>
+      
+      <% if @problems.empty? %>
+          <ul class='list-group'>
+            <li class='list-group-item'>It looks as if you have to fix it on your own :(</li>
+          </ul>
+        <% else %>
+          <ul class='list-group'>
+            <%= will_paginate @problems, class: 'digg_pagination' %>
+              <% @problems.each do |problem| %>
+               <% if problem.status? %>
+                <li class='list-group-item'><%= render 'problems/partials/single_result', problem: problem %></li>
+                <hr />
+              <% end %>
+          </ul>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
 </div>
