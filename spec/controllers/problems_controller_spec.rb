@@ -246,13 +246,12 @@ RSpec.describe ProblemsController, type: :controller do
       context 'user-related behaviour' do
         let(:user_sud) { create(:user) }
         let(:problem_sud) { create(:problem) }
+        let!(:problem_two) { create(:problem_2) }
         subject(:general_search) { get :search_problems, params: { lookup: problem_sud.title } }
 
         it 'guest should be able to search' do
             general_search
             expect(response).to render_template('search_problems')
-            # to even more guarantee proper results -> had many problems
-            # while refactoring etc
             expect(assigns(:problems).count).to eq(1)
         end
 
@@ -293,93 +292,112 @@ RSpec.describe ProblemsController, type: :controller do
 
       end
 
-      context 'advanced search' do
-        let(:problem_one) { create(:problem) }
-        let(:problem_two) { create(:problem_2) }
-        let(:sample_tag_a) { create(:tag) }
+  #     context 'advanced search' do
+  #       let(:problem_one) { create(:problem) }
+  #       let(:problem_two) { create(:problem_2) }
+  #       let(:sample_tag_a) { create(:tag) }
 
-        context 'advanced title and content searching' do
+  #       context 'advanced title and content searching' do
 
-          it 'title blank query redirect to root_path with alert' do
-            get :search_problems, params: { advanced_search_on: 'on', title_on: 'on', lookup: '' }
-            root_alert_redirect
-          end
+  #         it 'title blank query redirect to root_path with alert' do
+  #           get :search_problems, params: { advanced_search_on: 'on', title_on: 'on', lookup: '' }
+  #           root_alert_redirect
+  #         end
 
-          it 'content blank query redirect to root_path with alert' do
-            get :search_problems, params: { advanced_search_on: 'on', content_on: 'on', lookup: '' }
-            root_alert_redirect
-          end
+  #         it 'content blank query redirect to root_path with alert' do
+  #           get :search_problems, params: { advanced_search_on: 'on', content_on: 'on', lookup: '' }
+  #           root_alert_redirect
+  #         end
 
-          # maybe more examples should be provided?
-          it 'title gives valid results' do
-            get :search_problems, params: { advanced_search_on: 'on', title_on: 'on', lookup: problem_one.title }
-            expect(assigns(:problems)).to contain_exactly(problem_one)
-          end
+  #         # maybe more examples should be provided?
+  #         it 'title gives valid results' do
+  #           get :search_problems, params: { advanced_search_on: 'on', title_on: 'on', lookup: problem_one.title }
+  #           expect(assigns(:problems)).to contain_exactly(problem_one)
+  #         end
 
-          it 'content gives valid results' do
-            get :search_problems, params: { advanced_search_on: 'on', content_on: 'on', lookup: problem_one.content }
-            expect(assigns(:problems)).to contain_exactly(problem_one)
-          end
+  #         it 'content gives valid results' do
+  #           get :search_problems, params: { advanced_search_on: 'on', content_on: 'on', lookup: problem_one.content }
+  #           expect(assigns(:problems)).to contain_exactly(problem_one)
+  #         end
 
-          # the same tests pattern for references
+  #         # the same tests pattern for references
 
-        end
+  #       end
 
-        context 'advanced tag filtering' do
-          let(:sample_tag_b) { create(:tag_1) }
+  #       context 'advanced tag filtering' do
+  #         let(:sample_tag_b) { create(:tag_1) }
 
-          # somehow specific behaviour - should be persisted
-          # while refactoring
-          it 'query blank no redirection' do
-            get :search_problems, params: { advanced_search_on: 'on', tag_names: ['Ruby on Rails'], lookup: '' }
-            expect(response).not_to redirect_to(root_path)
-          end
+  #         # somehow specific behaviour - should be persisted
+  #         # while refactoring
+  #         it 'query blank no redirection' do
+  #           get :search_problems, params: { advanced_search_on: 'on', tag_names: ['Ruby on Rails'], lookup: '' }
+  #           expect(response).not_to redirect_to(root_path)
+  #         end
 
-          it 'gives valid results' do
-            problem_one.tags << sample_tag_a
-            problem_one.tags << sample_tag_b
-            problem_two.tags << sample_tag_a
+  #         it 'gives valid results' do
+  #           problem_one.tags << sample_tag_a
+  #           problem_one.tags << sample_tag_b
+  #           problem_two.tags << sample_tag_a
 
-            get :search_problems,
-              params: {
-              advanced_search_on: 'on',
-              tag_names: [ sample_tag_a.name, sample_tag_b.name],
-              lookup: 'a'
-            }
+  #           get :search_problems,
+  #             params: {
+  #             advanced_search_on: 'on',
+  #             tag_names: [ sample_tag_a.name, sample_tag_b.name],
+  #             lookup: 'a'
+  #           }
 
-            expect(assigns(:problems)).to contain_exactly(problem_one)
-          end
+  #           expect(assigns(:problems)).to contain_exactly(problem_one)
+  #         end
 
-        end
+  #       end
 
-        # temporary behaviour
-        it 'should return all problems when no criteria specified' do
-          get :search_problems, params: { advanced_search_on: 'on' }
-          # laziness
-          problem_one.title
-          problem_two.title
-          expect(assigns(:problems)).to contain_exactly(problem_one, problem_two)
-        end
+  #       # temporary behaviour
+  #       it 'should return all problems when no criteria specified' do
+  #         get :search_problems, params: { advanced_search_on: 'on' }
+  #         # laziness
+  #         problem_one.title
+  #         problem_two.title
+  #         expect(assigns(:problems)).to contain_exactly(problem_one, problem_two)
+  #       end
 
-        # ignore advanced options when advanced_search_on not on
-        context 'ignore advanced options search when not explicitly on' do
-          # override
-          let(:problem_one) { create(:problem) }
-          let(:problem_two) { create(:problem_2, content: problem_one.title) }
+  #       # ignore advanced options when advanced_search_on not on
+  #       context 'ignore advanced options search when not explicitly on' do
+  #         # override
+  #         let(:problem_one) { create(:problem) }
+  #         let(:problem_two) { create(:problem_2, content: problem_one.title) }
 
-          it 'should use default search' do
+  #         it 'should use default search' do
 
-          get :search_problems, params: {
-            title_on: 'on',
-            content_on: 'on',
-            tag_names: [sample_tag_a.name],
-            lookup: problem_one.title
-          }
-          # or is between
-          expect(assigns(:problems)).to contain_exactly(problem_one, problem_two)
-          end
-        end
+  #         get :search_problems, params: {
+  #           title_on: 'on',
+  #           content_on: 'on',
+  #           tag_names: [sample_tag_a.name],
+  #           lookup: problem_one.title
+  #         }
+  #         # or is between
+  #         expect(assigns(:problems)).to contain_exactly(problem_one, problem_two)
+  #         end
+  #       end
+  #     end
+
+      it 'create_searching_service should produce SearchingService' do
+        service = controller.send(:create_searching_service)
+        expect(service).not_to be_nil
+        expect(service.instance_of? SearchingService).to be true
       end
+  end
+
+  # ------------------------------------------------------------------------
+
+  describe 'Filtering logic' do
+    let(:problem_sud) { create(:problem) }
+
+    it 'create_filtering_service should produce FilteringService' do
+      # witam = problem_sud
+      filtering = controller.send(:create_filtering_service, [problem_sud])
+      expect(filtering).not_to be_nil
+      expect(filtering.instance_of? FilteringService).to be true
+    end
   end
 
   # ------------------------------------------------------------------------

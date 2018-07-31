@@ -4,6 +4,4 @@ class RemoveOldAuthors < ApplicationJob
 	def perform(*args)
 		Users.old.destroy_all
 	end
-
-
 end
