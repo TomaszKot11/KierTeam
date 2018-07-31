@@ -17,6 +17,7 @@ document.addEventListener("turbolinks:load", function() {
     });
 //TODO: some bugs when www.google.pl text text
 // TODO: shorter
+//  NIGHTMARE !
     function checkFormat(){
         var text = $input.val().trim();
         // avoid futher bugs within helper in Rails
