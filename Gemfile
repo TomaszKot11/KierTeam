@@ -52,7 +52,6 @@ gem 'bootstrap_form', '>= 4.0.0.alpha1'
 
 gem 'faker'
 
-
 gem 'gitlab'
 
 group :development, :test do
