@@ -33,9 +33,6 @@ class SearchingService
     problems_loc = tag_search_without_query
     if is_content || is_title || is_reference
 
-      p '@!#@#!!#@'
-      p is_lookup
-      p '!@#@#!!#@s'
       raise ArgumentError, 'Query may not be blank' if is_lookup
 
       problems_loc = perform_text_search(is_title, is_reference, is_content, problems_loc)
@@ -45,25 +42,27 @@ class SearchingService
 
   def perform_text_search(is_title, is_reference, is_content, problems_loc)
     # content
-    problems_loc = problems_loc.content_where(@lookup) unless is_content
+    if is_content
+    #  p '@!##@!!#@'
+    # p 'Wyszukuje po content'
+    #  p '#!@#@!!@#!#@'
+     problems_loc = problems_loc.content_where(@lookup) # unless is_content
+    end
 
-    # p '1'
-    # p problems_loc
-    # p is_content
-    # p '!$$#!$#@'
-    # p is_reference
-    # p '#@###!!##'
-    # p problems_loc.first.tags
-    # p '!#!##@'
-    # title
-    problems_loc = problems_loc.title_where(@lookup) unless is_title
-
-    # references
-    problems_loc = problems_loc.reference_where(@lookup) unless is_reference
-
-    p '2'
-    p problems_loc
-    p '!$$#!$#@'
+    if is_title
+      # p '**************'
+      # p 'Wyszukuje po title'
+      # p '*************** '
+      # problems_loc = problems_loc.title_where(@lookup) # unless is_title
+    end
+    if is_reference
+      # p '##############'
+      # p 'Wyszukuje po references'
+      # p '##############'
+      # p Problem.all
+      # references
+      problems_loc = problems_loc.reference_where(@lookup) # unless is_reference
+    end
     problems_loc
   end
 
