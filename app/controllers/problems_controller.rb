@@ -10,7 +10,6 @@ class ProblemsController < ApplicationController
     @all_users_mapped = User.all.reject { |user| user == current_user || user.is_admin }
     git = Gitlab.projects(visibility: 'public', owned: true, simple: true)
     @projects = git.map { |p| [p.path] }
-
   end
 
   def edit
@@ -18,6 +17,8 @@ class ProblemsController < ApplicationController
     is_allowed = @problem.creator_id != current_user.id && !current_user.is_admin
     redirect_to root_path, notice: 'You are not able to edit this problem!' if is_allowed
     @all_users_mapped = User.all.reject { |user| user == current_user || user.is_admin }
+    git = Gitlab.projects(visibility: 'public', owned: true, simple: true)
+    @projects = git.map { |p| [p.path] }
   end
 
   def update

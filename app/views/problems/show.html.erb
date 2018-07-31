@@ -18,15 +18,17 @@
           </div>
           <div class="col">
             <% if user_signed_in? %>
-              <% if @is_creator || current_user.is_admin? %>
-                <br>
-                <%=  link_to 'Edit my problem', edit_problem_path(id: @problem.id),role: 'button', class: 'btn btn-primary' %>
-                <br><br>
-                <%=  link_to 'Delete my problem  ', problem_remove_path(id: @problem.id), method: :delete, data: {confirm: "You sure?"},role: 'button', class: 'btn btn-danger' %>
-                <br><br>
-              <% end %>
-                <%= link_to 'Send help request to author', send_help_request_path(id: @problem.id), role: 'button', class: 'btn btn-warning' %>
-                <br><br>
+              <div class="button_section">
+                <% if @is_creator || current_user.is_admin? %>
+                  <br>
+                  <%=  link_to 'Edit my problem', edit_problem_path(id: @problem.id),role: 'button', class: 'btn btn-primary' %>
+                  <br><br>
+                  <%=  link_to 'Delete my problem  ', problem_remove_path(id: @problem.id), method: :delete, data: {confirm: "You sure?"},role: 'button', class: 'btn btn-danger' %>
+                  <br><br>
+                <% end %>
+                  <%= link_to 'Send help request to author', send_help_request_path(id: @problem.id), role: 'button', class: 'btn btn-warning' %>
+                  <br><br>
+              </div>
             <% end %>
           </div>
         </div>
