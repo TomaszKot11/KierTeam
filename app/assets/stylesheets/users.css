@@ -26,7 +26,7 @@
 }
 
 .user_show .profile_part .card {
-  width:600px;
+  width:700px;
   margin: 0 auto 0;
 }
 
@@ -35,7 +35,7 @@
 }
 
 .user_show .problems_part .card {
-  width:800px;
+  width:1000px;
   margin: 0 auto 0;
   padding-top:20px;
   text-align: center;
