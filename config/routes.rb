@@ -21,4 +21,9 @@ Rails.application.routes.draw do
 
   # for help request mail
   get :send_help_request, to: 'problems#send_help_request', as: :send_help_request
+
+  if Rails.env.development?
+    require 'sidekiq/web'
+    mount Sidekiq::Web => '/sidekiq'
+  end
 end

@@ -52,7 +52,10 @@ gem 'bootstrap_form', '>= 4.0.0.alpha1'
 
 gem 'faker'
 
-group :development, :tewst do
+
+gem 'gitlab'
+
+group :development, :test do
   gem 'bundler-audit'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -100,3 +103,5 @@ gem 'slack-ruby-client'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+
+gem 'sidekiq'
