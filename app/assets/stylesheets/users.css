@@ -4,19 +4,7 @@
 }
 
 .user_index .container {
-  width:600px;
-}
-
-.user_index .btn{
-  width:80px;
-  white-space: normal;
-  margin-top:5px;
-}
-
-.user_index .banned_title{
-  text-align: center;
-  vertical-align: middle;
-  color:red;
+  width:800px;
 }
 
 /* ---------------------------------------------------- */
@@ -26,7 +14,7 @@
 }
 
 .user_show .profile_part .card {
-  width:700px;
+  width:600px;
   margin: 0 auto 0;
 }
 
@@ -35,7 +23,7 @@
 }
 
 .user_show .problems_part .card {
-  width:1000px;
+  width:600px;
   margin: 0 auto 0;
   padding-top:20px;
   text-align: center;
