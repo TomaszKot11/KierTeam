@@ -246,13 +246,12 @@ RSpec.describe ProblemsController, type: :controller do
       context 'user-related behaviour' do
         let(:user_sud) { create(:user) }
         let(:problem_sud) { create(:problem) }
+        let!(:problem_two) { create(:problem_2) }
         subject(:general_search) { get :search_problems, params: { lookup: problem_sud.title } }
 
         it 'guest should be able to search' do
             general_search
             expect(response).to render_template('search_problems')
-            # to even more guarantee proper results -> had many problems
-            # while refactoring etc
             expect(assigns(:problems).count).to eq(1)
         end
 
@@ -310,7 +309,6 @@ RSpec.describe ProblemsController, type: :controller do
             root_alert_redirect
           end
 
-          # maybe more examples should be provided?
           it 'title gives valid results' do
             get :search_problems, params: { advanced_search_on: 'on', title_on: 'on', lookup: problem_one.title }
             expect(assigns(:problems)).to contain_exactly(problem_one)
@@ -321,19 +319,21 @@ RSpec.describe ProblemsController, type: :controller do
             expect(assigns(:problems)).to contain_exactly(problem_one)
           end
 
-          # the same tests pattern for references
-
+          it 'reference_list gives valid results' do
+            get :search_problems, params: { advanced_search_on: 'on', lookup: problem_one.reference_list, reference_on: 'on' }
+            expect(assigns(:problems)).to contain_exactly(problem_one)
+          end
         end
+
 
         context 'advanced tag filtering' do
           let(:sample_tag_b) { create(:tag_1) }
 
-          # somehow specific behaviour - should be persisted
-          # while refactoring
           it 'query blank no redirection' do
             get :search_problems, params: { advanced_search_on: 'on', tag_names: ['Ruby on Rails'], lookup: '' }
             expect(response).not_to redirect_to(root_path)
           end
+
 
           it 'gives valid results' do
             problem_one.tags << sample_tag_a
@@ -350,15 +350,14 @@ RSpec.describe ProblemsController, type: :controller do
             expect(assigns(:problems)).to contain_exactly(problem_one)
           end
 
-        end
+          it 'should return all problems when no criteria specified' do
+            get :search_problems, params: { advanced_search_on: 'on', lookup: ''}
+            # laziness
+            problem_one.title
+            problem_two.title
+            expect(assigns(:problems)).to contain_exactly(problem_one, problem_two)
+          end
 
-        # temporary behaviour
-        it 'should return all problems when no criteria specified' do
-          get :search_problems, params: { advanced_search_on: 'on' }
-          # laziness
-          problem_one.title
-          problem_two.title
-          expect(assigns(:problems)).to contain_exactly(problem_one, problem_two)
         end
 
         # ignore advanced options when advanced_search_on not on
@@ -380,6 +379,25 @@ RSpec.describe ProblemsController, type: :controller do
           end
         end
       end
+
+      it 'create_searching_service should produce SearchingService' do
+        service = controller.send(:create_searching_service)
+        expect(service).not_to be_nil
+        expect(service.instance_of? SearchingService).to be true
+      end
+  end
+
+  # ------------------------------------------------------------------------
+
+  describe 'Filtering logic' do
+    let(:problem_sud) { create(:problem) }
+
+    it 'create_filtering_service should produce FilteringService' do
+      # witam = problem_sud
+      filtering = controller.send(:create_filtering_service, [problem_sud])
+      expect(filtering).not_to be_nil
+      expect(filtering.instance_of? FilteringService).to be true
+    end
   end
 
   # ------------------------------------------------------------------------
