@@ -1,13 +1,17 @@
 <div class="problem_index">
   <div class="jumbotron">
   	<div class="container">
-  	<%= will_paginate @problems, class: 'digg_pagination' %>
-  		<% @problems.each do |problem| %>
-  			<% if problem.status? %>
-  	      <li class='list-group-item'><%= render 'problems/partials/single_result', problem: problem %></li>
-				  <br />
-  	     <% end %>
-      <% end %>
+    	<%= will_paginate @problems, class: 'digg_pagination' %>
+        <br>
+    		<% @problems.each do |problem| %>
+    			<% if problem.status? %>
+    	      <li class='list-group-item'>
+              <%= render 'problems/partials/single_result', problem: problem %>
+            </li>
+  				  <br />
+    	     <% end %>
+        <% end %>
+      <%= will_paginate @problems, class: 'digg_pagination' %>
   	</div>
   </div>
 </div>

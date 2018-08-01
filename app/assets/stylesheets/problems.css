@@ -88,3 +88,8 @@
   border-width: 0;
   width: 100%;
 }
+
+.problem_single_result .problem_content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

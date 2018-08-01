@@ -1,17 +1,29 @@
 <div class="problem_single_result">
   <div class="row">
-    <div class="col-md8">
+    <div class="col-md-8">
       <div class="card">
+
         <div class="card-body">
           <h4 class="card-title"><%= problem.title %></h4>
           <% if !problem.creator.nil? %>
-          <p class="card-text">Author: <%= link_to "#{problem.creator.name} #{problem.creator.surname}", user_path(id: problem.creator.id ) %> </p>
-        <% end %>
-        <p class="card-text">Created at: <%= localize(problem.created_at, :format => :long) %> </p>
-        <p class='card-text'>Modified at: <%= localize(problem.updated_at, :format => :long) %></p>
-        <%= link_to 'Show more information', problem_path(id: problem.id), class: 'btn btn-primary' %>
+            <p class="card-text">Author: <%= link_to "#{problem.creator.name} #{problem.creator.surname}", user_path(id: problem.creator.id ) %> </p>
+          <% end %>
+          <p class="card-text">Created at: <%= localize(problem.created_at, :format => :long) %> </p>
+          <p class='card-text'>Modified at: <%= localize(problem.updated_at, :format => :long) %></p>
+          <%= link_to 'Show more information', problem_path(id: problem.id), class: 'btn btn-primary' %>
         </div>
       </div>
     </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <div class="problem_content">
+            <%= truncate(problem.content, :length => 250) %>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
