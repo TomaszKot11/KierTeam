@@ -95,7 +95,7 @@ class ProblemsController < ApplicationController
       create_slack_service(
         creator.email,
         problem.title,
-        "#{creator.name} #{creator.surname}",
+        "#{current_user.name} #{current_user.surname}",
         problem_url(id: problem.id)
       ).call
     rescue ArgumentError => e
