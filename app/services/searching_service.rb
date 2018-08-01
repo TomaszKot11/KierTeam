@@ -21,9 +21,6 @@ class SearchingService
 
   private
 
-  # may be inefficient? - all records?
-  # long if not to show all records when
-  # none option is specified
   def perform_advanced_search
     is_title = !@title_on.nil?
     is_content = !@content_on.nil?
@@ -41,14 +38,14 @@ class SearchingService
   end
 
   def perform_text_search(is_title, is_reference, is_content, problems_loc)
+
     # content
-    problems_loc = problems_loc.content_where(@lookup) unless is_content
+    problems_loc = problems_loc.content_where(@lookup)  if is_content
 
     # title
-    problems_loc = problems_loc.title_where(@lookup) unless is_title
+    problems_loc = problems_loc.title_where(@lookup) if is_title
 
-    # references
-    problems_loc = problems_loc.reference_where(@lookup) unless is_reference
+    problems_loc = problems_loc.reference_where(@lookup) if is_reference
 
     problems_loc
   end
