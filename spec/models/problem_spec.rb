@@ -22,6 +22,8 @@ RSpec.describe Problem, type: :model do
     it { should have_many(:tags).through(:problem_tags) }
   end
 
+
+
   describe 'scopes' do
 
     let!(:problem_one) { create(:problem) }
@@ -76,6 +78,35 @@ RSpec.describe Problem, type: :model do
       ).to contain_exactly(problem_one)
     end
 
+    context 'order' do
+      let!(:problem_a) { create(:problem) }
+      let!(:problem_b) { create(:problem) }
+      let!(:problem_c) { create(:problem) }
+
+      it 'should have working order_title_desc' do
+        expect(Problem.order_title_desc.to_a).to eq(Problem.order(Arel.sql('title DESC')).to_a)
+      end
+
+      it 'should have working order_title_asc' do
+        expect(Problem.order_title_asc.to_a).to eq(Problem.order(Arel.sql('title ASC')).to_a)
+      end
+
+      it 'should have working order_content_desc' do
+        expect(Problem.order_content_desc.to_a).to eq(Problem.order(Arel.sql('content DESC')).to_a)
+      end
+
+      it 'should have working order_content_asc' do
+        expect(Problem.order_content_asc.to_a).to eq(Problem.order(Arel.sql('content ASC')).to_a)
+      end
+
+      it 'should have working updated_at_desc' do
+        expect(Problem.updated_at_desc.to_a).to eq(Problem.order(Arel.sql('updated_at DESC')).to_a)
+      end
+
+      it 'should have working updated_at_ascs' do
+        expect(Problem.updated_at_asc.to_a).to eq(Problem.order(Arel.sql('updated_at ASC')).to_a)
+      end
+    end
   end
 
   describe '#current_user_contributor?' do
