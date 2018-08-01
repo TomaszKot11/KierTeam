@@ -1,20 +1,38 @@
 <% unless user.is_admin %>
   <li class="list-group-item" data-user-id =<%= user.id %>>
     <div class="row">
-      <div class="col-3">
+      <div class="col-5">
         <h5> <%= link_to user.email, user_path(id: user.id) %> </h5>
         <%= "#{user.name} #{user.surname}" %><br>
 
         <% unless user.profession.nil? %>
           <%= user.profession.name %>
         <% end %>
+        <br>
       </div>
 
-      <div class="col-1">
-        <% if current_user.is_admin? %>
+      <% if current_user.is_admin? %>
+        <div class="col-md-4">
+          <div class="banned_title">
+            <% unless user.blocked.nil? && user.blocked %>
+              <% if user.blocked %>
+                <br>
+                <h3> Banned </h3>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="col">
           <%= link_to 'Delete', user_path(id: user.id), method: :delete, remote: true, data: {confirm: "You sure?"}, role: 'button', class: 'btn btn-danger ml-2r' %>
-        <%end%>
-      </div>
+            <% if user.blocked %>
+              <%= link_to 'Unban', user_path(id: user.id, user: { blocked:false }),controller: :users_controller,action: :update, method: :put, data: {confirm: "You sure?"}, role: 'button', class: 'btn btn-warning ml-2r' %>
+            <% else %>
+              <%= link_to 'Ban', user_path(id: user.id, user: { blocked:true }),controller: :users_controller,action: :update, method: :put, data: {confirm: "You sure?"}, role: 'button', class: 'btn btn-warning ml-2r' %>
+            <% end %>
+        </div>
+      <% end %>
+
    </div>
   </li>
   <br>

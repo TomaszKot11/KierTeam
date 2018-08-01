@@ -22,6 +22,8 @@ class ProblemsController < ApplicationController
     is_allowed = @problem.creator_id != current_user.id && !current_user.is_admin
     redirect_to root_path, notice: 'You are not able to edit this problem!' if is_allowed
     @all_users_mapped = User.all.reject { |user| user == current_user || user.is_admin }
+    git = Gitlab.projects(visibility: 'public', owned: true, simple: true)
+    @projects = git.map { |p| [p.path] }
   end
 
   def update
@@ -85,14 +87,30 @@ class ProblemsController < ApplicationController
   end
 
   def send_help_request
+    successful = true
     problem = Problem.find(params[:id])
+    creator = User.find(problem.creator_id)
     HelpProblemMailer.help_request_email(problem, current_user).deliver_now
+    begin
+      create_slack_service(
+        creator.email,
+        problem.title,
+        "#{creator.name} #{creator.surname}",
+        problem_url(id: problem.id)
+      ).call
+    rescue ArgumentError => e
+      flash[:alert] = e.message
+      # strange construction
+      successful = false
+    end
     # change this for more efficient way ?
-    redirect_to problem_path(id: params[:id]), notice: 'Request was sent'
+    redirect_to problem_path(id: params[:id]), notice: 'Email request was sent' unless successful
+    redirect_to problem_path(id: params[:id]), notice: 'Request was sent' if successful
   end
 
   private
 
+  # delegaate this methods to factory class?
   def create_searching_service
     SearchingService.new(
       advanced_search_on: params[:advanced_search_on],
@@ -109,6 +127,10 @@ class ProblemsController < ApplicationController
       collection: problems_collection,
       order: params[:order_by]
     )
+  end
+
+  def create_slack_service(mail, problem_title, full_name, url)
+    SlackService.new(mail, problem_title, full_name, url)
   end
 
   def problem_params

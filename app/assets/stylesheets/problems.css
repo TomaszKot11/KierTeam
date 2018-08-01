@@ -74,6 +74,10 @@
   white-space: normal;
 }
 
+.problem_show .button_section {
+  margin-left: 10px;
+}
+
 /* ---------------------------------------------------- */
 
 .problem_search .jumbotron {

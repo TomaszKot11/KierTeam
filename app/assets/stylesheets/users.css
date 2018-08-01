@@ -28,23 +28,3 @@
   padding-top:20px;
   text-align: center;
 }
-
-.user_show .a:link {
-    color: white;
-}
-
-/* visited link */
-.user_show .a:visited {
-    color: green;
-}
-
-/* mouse over link */
-.user_show .a:hover {
-    color: grey;
-    text-decoration: none;
-}
-
-/* selected link */
-.user_show .a:active {
-    color: blue;
-}

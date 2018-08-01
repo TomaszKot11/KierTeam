@@ -4,21 +4,18 @@
 	  <%= f.text_area :content, cols: 5, rows: 5, placeholder: 'Content', class: 'form-control' %>
 	 	<%= f.text_area :reference_list, cols: 5, rows: 5, placeholder: 'Link Name [ENTER]', class: 'form-control references-js' %>
 
+    <div class="control-group">
+      <div class="controls">
+        <%= f.select(:project, options_for_select(
+        @projects.each_with_index do |element,index|
+        [[element[index]],[element[index]]]
+      end)) %>
+      </div>
+    </div>
+
 	 	<%= f.collection_select :tag_ids, Tag.all, :id, :name, {label: "Select tags "}, { multiple: true, class: 'chosen-select'}  %>
 
-	 <div class="control-group">
-	 	<%= f.label "Status", class: 'control-label' %>
-   		<div class="controls">
-   			<%= f.select(:project, options_for_select(
-   			@projects.each_with_index do |element,index|
-  			[[element[index]],[element[index]]]
-			end)) %>
-   		</div>
-   	</div>
-	 	
     <%= f.collection_select :user_ids, @all_users_mapped, :id, :name,{label: "Select contributors"}, { multiple: true, class: 'chosen-select'} %>
-
-
 
     <hr/>
 		<div class="form-check">
