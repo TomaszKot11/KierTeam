@@ -1,13 +1,12 @@
 <div class="user_index">
   <div class="jumbotron">
   	<div class="container">
-      <% # could be better %>
       <%= will_paginate @users, class: 'digg_pagination' %>
-		  <% @users.each do |user| %>
-			  <ul class="list-group" style="padding-bottom: 25px;">
-          <%= render 'users/partials/user', user: user %>
-		    </ul>
-		  <% end %>
+  		  <% @users.each do |user| %>
+  			  <ul class="list-group">
+            <%= render 'users/partials/user', user: user %>
+  		    </ul>
+  		  <% end %>
   	</div>
   </div>
 </div>
