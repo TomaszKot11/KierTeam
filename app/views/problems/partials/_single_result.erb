@@ -9,7 +9,7 @@
         <% end %>
         <p class="card-text">Created at: <%= localize(problem.created_at, :format => :long) %> </p>
         <p class='card-text'>Modified at: <%= localize(problem.updated_at, :format => :long) %></p>
-        <%= link_to 'Show more information', problem_path(id: problem.id), type: 'button' , class: 'btn btn-primary' %>
+        <%= link_to 'Show more information', problem_path(id: problem.id), class: 'btn btn-primary' %>
         </div>
       </div>
     </div>
