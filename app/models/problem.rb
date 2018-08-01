@@ -61,7 +61,6 @@ class Problem < ApplicationRecord
         same = text =~ regexp
         return false if same.nil?
         true
-      end
     end
 
     def invalid_format

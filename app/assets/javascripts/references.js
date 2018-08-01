@@ -1,5 +1,4 @@
 document.addEventListener("turbolinks:load", function() {
-
     var typingTimer;
     var doneTypingInterval = 1500;
     var $input = $('.references-js');

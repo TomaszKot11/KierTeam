@@ -1,7 +1,5 @@
 module ApplicationHelper
-  # produces more user-friendly
-  # links with given by user name
-  # or from domain name
+  # Produces more user-friendly shortcut for link
   def custom_reference_problem(ref_name)
     link_name = ref_name.split("\n")
     links = []
