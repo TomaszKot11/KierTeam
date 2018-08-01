@@ -3,13 +3,39 @@
     <div class="container">
         <%= image_tag("binlogo.png", class: "img-responsive center-block") %>
           <%= form_tag problem_search_path, method: :get do %>
-            <%= text_field_tag :lookup, nil, placeholder: "Please, tell me your problem", class: 'form-control ' %>
+          
+<div class="container">
+    <br/>
+  <div class="row justify-content-center">
+                        <div class="col-12 col-md-10 col-lg-8">
+                            <form class="card card-sm">
+                                <div class="card-body row no-gutters align-items-center">
+                                    <div class="col-auto">
+                                        <i class="fas fa-search h4 text-body"></i>
+                                    </div>
+                                    <!--end of col-->
+                                    <div class="col">
+                                          <%= text_field_tag :lookup, nil, placeholder: "Please, tell me your problem", class: 'form-searchfield' %>
+                                    </div>
+                                    <!--end of col-->
+                                    <div class="col-auto">
+                                        <button class="btn btn-lg btn-success" type="submit">Search</button>
+                                    </div>
+                                    <!--end of col-->
+                                </div>
+                            </form>
+                        </div>
+                        <!--end of col-->
+                    </div>
+</div>
+
               <a class="btn btn-primary mt-2 advanced-search-btn" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Advanced searching</a>
               <div class="collapse" id="collapseExample">
                   <div class="card card-body">
                     <%= render './home/partials/advanced_search'%>
                   </div>
               </div>
+
             <%= submit_tag 'Search',name: :search, class: 'btn btn-success mt-2 searching-btn' %>
           <% end %>
     </div>

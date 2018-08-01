@@ -5,10 +5,15 @@ class ProblemsController < ApplicationController
     @problems = Problem.all.paginate(per_page: 5, page: params[:page])
   end
 
+  def check_projects
+     Gitlab.projects(visibility: 'public', owned: true, simple: true)
+  end
+
+
   def new
     @problem = Problem.new
     @all_users_mapped = User.all.reject { |user| user == current_user || user.is_admin }
-    git = Gitlab.projects(visibility: 'public', owned: true, simple: true)
+    git = check_projects
     @projects = git.map { |p| [p.path] }
   end
 
@@ -33,7 +38,7 @@ class ProblemsController < ApplicationController
   def create
     @problem = Problem.new(problem_params.merge(creator_id: current_user.id))
     @all_users_mapped = User.all.reject { |user| user == current_user || user.is_admin }
-    git = Gitlab.projects(visibility: 'public', owned: true, simple: true)
+     git = check_projects
     @projects = git.map { |p| [p.path] }
     if @problem.save
       redirect_to root_path, notice: 'You created post successfully!'
