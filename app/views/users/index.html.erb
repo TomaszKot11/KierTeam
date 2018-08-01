@@ -7,6 +7,7 @@
             <%= render 'users/partials/user', user: user %>
   		    </ul>
   		  <% end %>
+      <%= will_paginate @users, class: 'digg_pagination' %>
   	</div>
   </div>
 </div>
