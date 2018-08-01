@@ -21,4 +21,9 @@ $(function() {
                 draggable: true
             });
     }
+
+    // override confirm window
+    window.confirm = function(msg){
+
+    }
 });
