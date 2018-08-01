@@ -49,10 +49,12 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'rubocop', require: false
 
 gem 'bootstrap_form', '>= 4.0.0.alpha1'
-
+#generatic synthetic values, useful in seeds and testing
 gem 'faker'
-
+#integration with gitlab api
 gem 'gitlab'
+#schedules jobs 
+gem 'whenever', require:false
 
 group :development, :test do
   gem 'bundler-audit'
@@ -95,9 +97,11 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
+  gem 'whenever-test'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'sidekiq'
+gem 'whenever', require:false
