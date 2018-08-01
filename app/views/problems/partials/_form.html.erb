@@ -13,7 +13,7 @@
       </div>
     </div>
 
-	 	<%= f.collection_select :tag_ids, Tag.all, :id, :name, {label: "Select tags "}, { multiple: true, class: 'chosen-select'}  %>
+	 	<%= f.collection_select :tag_ids, Tag.all, :id, :name, { label: "Select tags " }, { multiple: true, class: 'chosen-select'}  %>
 
     <%= f.collection_select :user_ids, @all_users_mapped, :id, :name,{label: "Select contributors"}, { multiple: true, class: 'chosen-select'} %>
 

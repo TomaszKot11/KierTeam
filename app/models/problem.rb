@@ -2,6 +2,7 @@ class Problem < ApplicationRecord
   validates :title, :content, presence: true
   validates :title, length: { in: 5..160 }
   validates :content, length: { in: 5..1500 }
+  validate :validate_refernece
   belongs_to :creator, class_name: 'User'
   has_many :comments, dependent: :destroy
   has_many :problem_users, inverse_of: :problem
@@ -38,4 +39,89 @@ class Problem < ApplicationRecord
       true
     end
   end
+
+  def debug(msg, sign)
+    p "#{sign}#{sign}#{sign}#{sign}#{sign}#{sign}#{sign}"
+    p msg
+    p "#{sign}#{sign}#{sign}#{sign}#{sign}#{sign}#{sign}"
+  end
+
+  def validate_refernece
+    s = reference_list.split(/\n/)
+    debug(s, '#')
+    # single line
+    if(s.size == 1)
+      s[0].strip!
+      array = s[0].split(' ');
+      if(array.size == 1 || array.size == 2)
+          invalid_format unless valid_URL?(array[0])
+      else
+          invalid_format
+      end
+    end
+
+    s.each do |w|
+      w.strip!
+      array = w.split(' ')
+      if(array.size == 2 || array.size == 1)
+        debug('Wywalam invalid w pierwszym', '{')
+        invalid_format unless valid_URL?(array[0])
+      else
+          debug('Sprawdzam czy poprawne 1', '/')
+          invalid_format
+      end
+    end
+    # everything ok
+  end
+
+  def valid_URL?(text)
+    regexp = /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/
+    witam = text =~ regexp
+    return false if witam == nil
+    return true
+  end
 end
+
+def invalid_format
+  errors.add(:reference_list, 'References are not in valid format')
+end
+
+# if(split.size == 0){
+#   makeRedBackground();
+#   return false;
+# }else if(split.size == 1){
+#   array = s.split(" ");
+#   if(array.size == 1){
+#       if(!isValidURL(array[0])){
+#           makeRedBackground();
+#       }else if(array.size == 2){
+#           if(!isValidURL(array[0])){
+#              makeRedBackground();
+#           }
+#       }else{
+#          makeRedBackground();
+#       }
+#   }
+#   return false;
+# }
+# if(split[split.length -1] == "") split.pop();
+# for (s of split) {
+# s.trim();
+# array = s.split(" ");
+# if (array.size > 2 || array.size < 1 ){
+#    makeRedBackground();
+#   return false;
+# }else if(array.size == 1){
+
+#   if(!isValidURL(array[0])){
+#       makeRedBackground();
+#       return false;
+#   }
+# }else{
+#   if(!isValidURL(array[0])){
+#       makeRedBackground();
+#       return false;
+#   }
+# }
+
+# }
