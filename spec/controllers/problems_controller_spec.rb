@@ -393,7 +393,6 @@ RSpec.describe ProblemsController, type: :controller do
     let(:problem_sud) { create(:problem) }
 
     it 'create_filtering_service should produce FilteringService' do
-      # witam = problem_sud
       filtering = controller.send(:create_filtering_service, [problem_sud])
       expect(filtering).not_to be_nil
       expect(filtering.instance_of? FilteringService).to be true
