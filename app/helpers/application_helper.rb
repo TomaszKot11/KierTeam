@@ -1,3 +1,5 @@
+require 'uri'
+
 module ApplicationHelper
   # Produces more user-friendly shortcut for link
   def custom_reference_problem(ref_name)
@@ -14,32 +16,20 @@ module ApplicationHelper
   # tools for custom_reference_problem
   def extract_domain_name(raw_link)
     return '' if raw_link.blank?
-    link = raw_link
-    link = "http://#{raw_link}" unless raw_link =~ %r{^(http:\/\/|https:\/\/)}
-    link = URI.parse(ERB::Util.url_encode(link)).host.presence || link.strip
-    domain_name = link.sub(/.*?www./, '')
-    condition = domain_name.split('.').length >= 2 && domain_name.match(/[A-Z]+.[A-Z]{2,4}$/i).present?
-    domain_name = domain_name.match(/[A-Z]+.[A-Z]{2,4}$/i).to_s if condition
-    domain_name
-  end
-
-  def get_rid_of_http(string_clean)
-    string_clean.remove!('http://')
-    string_clean.remove!('https://')
+    uri = URI.parse(raw_link)
+    uri = URI.parse("http://#{raw_link}") if uri.scheme.nil?
+    host = uri.host.downcase
+    host.start_with?('www.') ? host[4..-1] : host
   end
 
   def produce_link(link_name)
-    split = link_name.split(' ')
+    s = link_name.split(' ')
     token = 'REFERENCE'
-    if split.count == 1
-      # user didn't provide name
-      token = extract_domain_name(split[0])
-      get_rid_of_http(split[0])
+    if s.count == 1
+      token = extract_domain_name(s[0])
     else
-      # user provided name
-      get_rid_of_http(split[0])
-      token = split[1]
+      token = s[1]
     end
-    link_to token, "http://#{split[0]}"
+    link_to token, "https://#{s[0]}"
   end
 end
