@@ -281,4 +281,13 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
   config.secret_key = '40f31b547b35d9bc7ff028665ab789fc88d2a6e840e7b16120d1ab5873579b099d98e243ba8c98475ea34ca8142e4ddddd76e03205cfc1b8f57998a6f2800586'
+  
+  # config.omniauth :facebook,
+  #   Rails.application.credentials[:facebook][:app_id],
+  #   Rails.application.credentials[:facebook][:app_secret],
+  #   callback_url: "http://localhost:3000/users/auth/facebook/callback"
+  config.omniauth :facebook,
+    '2041398582855919',
+    '182245b4c39b92d0a0cb5cd6aaa4c205',
+    callback_url: "http://localhost:3000/users/auth/facebook/callback"  
 end
