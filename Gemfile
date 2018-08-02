@@ -49,12 +49,14 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'rubocop', require: false
 
 gem 'bootstrap_form', '>= 4.0.0.alpha1'
-#generatic synthetic values, useful in seeds and testing
+# generatic synthetic values, useful in seeds and testing
 gem 'faker'
-#integration with gitlab api
+# integration with gitlab api
 gem 'gitlab'
-#schedules jobs
-gem 'whenever', require:false
+
+# schedules jobs
+gem 'whenever', require: false
+
 
 group :development, :test do
   gem 'bundler-audit'
@@ -107,4 +109,3 @@ gem 'slack-ruby-client'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'sidekiq'
-gem 'whenever', require:false

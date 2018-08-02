@@ -33,6 +33,7 @@ class UsersController < ApplicationController
   end
 
   private
+
   def authorize_admin
     redirect_to root_path, alert: 'Permissions denied' unless
      current_user.is_admin?
