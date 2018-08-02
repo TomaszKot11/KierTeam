@@ -38,7 +38,6 @@ class SearchingService
   end
 
   def perform_text_search(is_title, is_reference, is_content, problems_loc)
-
     # content
     problems_loc = problems_loc.content_where(@lookup)  if is_content
 
