@@ -2,6 +2,7 @@ class Problem < ApplicationRecord
   validates :title, :content, presence: true
   validates :title, length: { in: 5..160 }
   validates :content, length: { in: 5..1500 }
+  validate :validate_refernece
   belongs_to :creator, class_name: 'User'
   has_many :comments, dependent: :destroy
   has_many :problem_users, inverse_of: :problem
@@ -38,4 +39,31 @@ class Problem < ApplicationRecord
       true
     end
   end
+
+  def validate_refernece
+    s = reference_list.split(/\n/)
+    s.each do |w|
+      w.strip!
+      array = w.split(' ')
+      if(array.size == 2 || array.size == 1)
+        invalid_format unless valid_URL?(array[0])
+      else
+          invalid_format
+      end
+    end
+    # everything ok
+  end
+
+  private
+
+    def valid_URL?(text)
+        regexp = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/
+        same = text =~ regexp
+        return false if same.nil?
+        true
+    end
+
+    def invalid_format
+      errors.add(:reference_list, 'References are not in valid format')
+    end
 end
