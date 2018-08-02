@@ -6,9 +6,8 @@ class ProblemsController < ApplicationController
   end
 
   def check_projects
-     Gitlab.projects(visibility: 'public', owned: true, simple: true)
+    Gitlab.projects(visibility: 'public', owned: true, simple: true)
   end
-
 
   def new
     @problem = Problem.new
@@ -38,7 +37,7 @@ class ProblemsController < ApplicationController
   def create
     @problem = Problem.new(problem_params.merge(creator_id: current_user.id))
     @all_users_mapped = User.all.reject { |user| user == current_user || user.is_admin }
-     git = check_projects
+    git = check_projects
     @projects = git.map { |p| [p.path] }
     if @problem.save
       redirect_to root_path, notice: 'You created post successfully!'
