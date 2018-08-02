@@ -53,8 +53,10 @@ gem 'bootstrap_form', '>= 4.0.0.alpha1'
 gem 'faker'
 # integration with gitlab api
 gem 'gitlab'
+
 # schedules jobs
 gem 'whenever', require: false
+
 
 group :development, :test do
   gem 'bundler-audit'
