@@ -1,4 +1,4 @@
-  class ApplicationController < ActionController::Base
+class ApplicationController < ActionController::Base
   before_action :blocked?
 
   def not_found
@@ -8,9 +8,8 @@
   private
 
   def blocked?
-    if current_user.present? && current_user.blocked?
-      sign_out current_user
-      redirect_to new_user_session_path, alert: 'Account suspended'
-    end
+    # rubocop
+    sign_out current_user if current_user.present? && current_user.blocked?
+    redirect_to new_user_session_path, alert: 'Account suspended' if current_user.present? && current_user.blocked?
   end
 end

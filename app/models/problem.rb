@@ -46,8 +46,8 @@ class Problem < ApplicationRecord
     s.each do |w|
       w.strip!
       array = w.split(' ')
-      if (array.size == 2 || array.size == 1)
-        invalid_format unless valid_URL?(array[0])
+      if array.size == 2 || array.size == 1
+        invalid_format unless valid_url?(array[0])
       else
         invalid_format
       end
@@ -57,8 +57,8 @@ class Problem < ApplicationRecord
 
   private
 
-  def valid_URL?(text)
-    regexp = /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/
+  def valid_url?(text)
+    regexp = %r{^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$}
     same = text =~ regexp
     return false if same.nil?
     true

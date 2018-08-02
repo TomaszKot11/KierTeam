@@ -24,12 +24,11 @@ module ApplicationHelper
 
   def produce_link(link_name)
     s = link_name.split(' ')
-    token = 'REFERENCE'
-    if s.count == 1
-      token = extract_domain_name(s[0])
-    else
-      token = s[1]
-    end
+    token = if s.count == 1
+              extract_domain_name(s[0])
+            else
+              s[1]
+            end
     link_to token, "https://#{s[0]}"
   end
 end

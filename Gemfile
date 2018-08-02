@@ -57,7 +57,6 @@ gem 'gitlab'
 # schedules jobs
 gem 'whenever', require: false
 
-
 group :development, :test do
   gem 'bundler-audit'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
