@@ -390,13 +390,64 @@ RSpec.describe ProblemsController, type: :controller do
   # ------------------------------------------------------------------------
 
   describe 'Filtering logic' do
-    let(:problem_sud) { create(:problem) }
+    let!(:problem_a) { create(:problem, title: 'Android') }
+    let!(:problem_b) { create(:problem, title: 'Android problem') }
+    let!(:problem_c) { create(:problem, title: 'problem Android problem') }
 
-    it 'create_filtering_service should produce FilteringService' do
-      filtering = controller.send(:create_filtering_service, [problem_sud])
-      expect(filtering).not_to be_nil
-      expect(filtering.instance_of? FilteringService).to be true
+    it 'should filter descending title' do
+      get :filter_search_results, params: {
+        lookup: 'Android',
+        order_by: 'title: :desc'
+      }
+      expect(assigns[:problems].to_a).to eq(Problem.order(Arel.sql('title DESC')).to_a)
     end
+
+    it 'should filter ascedning title' do
+      get :filter_search_results, params: {
+        lookup: 'Android',
+        order_by: 'title: :asc'
+      }
+      expect(assigns[:problems].to_a).to eq(Problem.order(Arel.sql('title ASC')).to_a)
+    end
+
+    it 'should filter using ascedning updated_at' do
+      get :filter_search_results, params: {
+        lookup: 'Android',
+        order_by: 'updated_at: :asc'
+      }
+      expect(assigns[:problems].to_a).to eq(Problem.order(Arel.sql('updated_at ASC')).to_a)
+    end
+
+    it 'should filter using descending updated_at' do
+      get :filter_search_results, params: {
+        lookup: 'Android',
+        order_by: 'updated_at: :desc'
+      }
+      expect(assigns[:problems].to_a).to eq(Problem.order(Arel.sql('updated_at DESC')).to_a)
+    end
+
+    it 'should filter using ascedning content' do
+      get :filter_search_results, params: {
+        lookup: 'Android',
+        order_by: 'content: :asc'
+      }
+      expect(assigns[:problems].to_a).to eq(Problem.order(Arel.sql('content ASC')).to_a)
+    end
+
+    it 'should filter using descending reference_list' do
+      get :filter_search_results, params: {
+        lookup: 'Android',
+        order_by: 'content: :desc'
+      }
+      expect(assigns[:problems].to_a).to eq(Problem.order(Arel.sql('content DESC')).to_a)
+    end
+
+
+    # it 'create_filtering_service should produce FilteringService' do
+    #   filtering = controller.send(:create_filtering_service, [problem_a])
+    #   expect(filtering).not_to be_nil
+    #   expect(filtering.instance_of? FilteringService).to be true
+    # end
   end
 
   # ------------------------------------------------------------------------
