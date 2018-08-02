@@ -1,4 +1,4 @@
-require 'rails_helper'
+ require 'rails_helper'
 
 RSpec.describe SearchingService do
 
@@ -84,8 +84,7 @@ RSpec.describe SearchingService do
         end
 
         it 'reference-content search should give valid data' do
-            problem_one
-            problem_one.update_attributes(reference_list: problem_one.content)
+            problem_one.update_attributes(content: problem_one.reference_list)
             problem_two
             service = SearchingService.new(lookup: problem_one.content, advanced_search_on: 'on', content_on: 'on', reference_on: 'on')
             expect(service.call).to contain_exactly(problem_one)
