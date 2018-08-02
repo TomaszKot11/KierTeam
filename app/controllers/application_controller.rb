@@ -1,6 +1,10 @@
   class ApplicationController < ActionController::Base
   before_action :blocked?
 
+  def not_found
+    redirect_to root_path, alert: 'Website does not exist'
+  end
+
   private
 
   def blocked?
