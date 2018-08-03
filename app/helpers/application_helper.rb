@@ -29,6 +29,10 @@ module ApplicationHelper
             else
               s[1]
             end
-    link_to token, "https://#{s[0]}"
+
+    uri = URI.parse(s[0])
+    return link_to token, "https://#{s[0]}" if uri.scheme.nil?
+    link_to token, "#{s[0]}"
+
   end
 end
