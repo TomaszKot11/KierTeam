@@ -21,7 +21,16 @@ class SearchingService
 
   private
 
-  def perform_advanced_search
+  def split_words_and_search(words)
+    after_split = words.split(" ")
+    result = Problem.none
+    after_split.each do |word|
+      result = perform_advanced_search(word)
+    end
+    result
+  end
+
+  def perform_advanced_search(word)
     is_title = !@title_on.nil?
     is_content = !@content_on.nil?
     is_lookup = @lookup.empty?
