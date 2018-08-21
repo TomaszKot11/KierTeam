@@ -12,25 +12,33 @@ class SearchingService
     if !@advances_search_on.nil?
       problems = perform_advanced_search
     else
-      is_lookup = @lookup.empty?
-      raise ArgumentError, 'Query may not be blank' if is_lookup
-      problems = Problem.default_search(@lookup)
+      perform_defauls_search
     end
     problems
   end
 
   private
 
-  def split_words_and_search(words)
-    after_split = words.split(" ")
-    result = Problem.none
+  def perform_defauls_search
+    is_lookup = @lookup.empty?
+    raise ArgumentError, 'Query may not be blank' if is_lookup
+    after_split = split_searching_phrase
+    problems = Problem.none
+    # byebug
     after_split.each do |word|
-      result = perform_advanced_search(word)
+      searched = Problem.default_search(word)
+      problems = problems.or(searched)
     end
-    result
+    problems
   end
 
-  def perform_advanced_search(word)
+  def split_searching_phrase
+    after_split = @lookup.split(" ")
+    result = Problem.none
+    after_split
+  end
+
+  def perform_advanced_search
     is_title = !@title_on.nil?
     is_content = !@content_on.nil?
     is_lookup = @lookup.empty?
