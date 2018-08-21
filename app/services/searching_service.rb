@@ -12,7 +12,7 @@ class SearchingService
     if !@advances_search_on.nil?
       problems = perform_advanced_search
     else
-      perform_defauls_search
+      problems = perform_defauls_search
     end
     problems
   end
@@ -29,6 +29,9 @@ class SearchingService
       searched = Problem.default_search(word)
       problems = problems.or(searched)
     end
+    p '@!##@!3'
+    p problems
+    p '!@#@##@!'
     problems
   end
 
