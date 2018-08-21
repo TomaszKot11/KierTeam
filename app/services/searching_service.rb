@@ -24,14 +24,10 @@ class SearchingService
     raise ArgumentError, 'Query may not be blank' if is_lookup
     after_split = split_searching_phrase
     problems = Problem.none
-    # byebug
     after_split.each do |word|
       searched = Problem.default_search(word)
       problems = problems.or(searched)
     end
-    p '@!##@!3'
-    p problems
-    p '!@#@##@!'
     problems
   end
 
@@ -52,19 +48,23 @@ class SearchingService
 
       raise ArgumentError, 'Query may not be blank' if is_lookup
 
-      problems_loc = perform_text_search(is_title, is_reference, is_content, problems_loc)
+      after_split = split_searching_phrase
+      after_split.each do |word|
+        problems_returned = perform_text_search(word, is_title, is_reference, is_content, problems_loc)
+        problems_loc = problems_loc.or(problems_returned)
+      end
     end
     problems_loc
   end
 
-  def perform_text_search(is_title, is_reference, is_content, problems_loc)
+  def perform_text_search(phrase, is_title, is_reference, is_content, problems_loc)
     # content
-    problems_loc = problems_loc.content_where(@lookup)  if is_content
+    problems_loc = problems_loc.content_where(phrase)  if is_content
 
     # title
-    problems_loc = problems_loc.title_where(@lookup) if is_title
+    problems_loc = problems_loc.title_where(phrase) if is_title
 
-    problems_loc = problems_loc.reference_where(@lookup) if is_reference
+    problems_loc = problems_loc.reference_where(phrase) if is_reference
 
     problems_loc
   end

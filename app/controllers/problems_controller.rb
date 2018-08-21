@@ -57,7 +57,6 @@ class ProblemsController < ApplicationController
       redirect_to root_path, alert: e.message
       return
     end
-    # byebug
     @problems = problems_loc.paginate(per_page: 5, page: params[:page])
   end
 
