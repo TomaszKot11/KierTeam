@@ -50,30 +50,54 @@ class SearchingService
 
       after_split = split_searching_phrase
       after_split.each do |word|
-        problems_returned = perform_text_search(word, is_title, is_reference, is_content, problems_loc)
+        problems_returned = perform_text_search(word, is_title, is_reference, is_content)
         problems_loc = problems_loc.or(problems_returned)
+        # byebug
+        problems_loc
       end
     end
     problems_loc
   end
 
-  def perform_text_search(phrase, is_title, is_reference, is_content, problems_loc)
+  def perform_text_search(phrase, is_title, is_reference, is_content)
     # content
-    problems_loc = problems_loc.content_where(phrase)  if is_content
+    problems_loc = problems_loc.content_where(phrase) if is_content
 
     # title
-    problems_loc = problems_loc.title_where(phrase) if is_title
+    # problems_loc = problems_loc.title_where(phrase) if is_title
+    # problems_loc = problems_loc.title_where(phrase) if is_title
+    # if is_title
+    #   p 'Wykonuje title_where'
+    #   p '#######'
+    #   p problems_loc
+    #   p '#######'
+    #   p 'LLLLL'
+    #   p Problem.title_where(phrase)
+    #   p 'LLLLL'
+    #   problems_loc = problems_loc.title_where(phrase)
+    # end
 
-    problems_loc = problems_loc.reference_where(phrase) if is_reference
-
-    problems_loc
+    # p '!!!!'
+    # p problems_loc
+    # p is_title
+    # p '!!!!'
+    # # refereneces
+    # Problem.reference_where(phrase)
+    # problems_loc = problems_loc.reference_where(phrase) if is_reference
+    problems_reference = Problem.reference_where(phrase) if is_reference
+    problems_title = Problem.title_where(phrase) if is_title
+    problems_content = Problem.content_where(phrase) if is_content
+    problems_reference.or(problems_title).or(problems_content)
+    # problems_loc
   end
 
-  # Tags search is specific beacuse doesn't need any quey to be present
+  # Tags search is specific beacuse doesn't need any query to be present
   def tag_search_without_query
     tag_names = @tag_names.nil?
-    problems_loc = Problem.where(nil)
+    problems_loc = Problem.none
     @tag_names.each { |tag_name| problems_loc = problems_loc.tag_where(tag_name) } unless tag_names
     problems_loc
+    # byebug
+    # problems_loc
   end
 end
