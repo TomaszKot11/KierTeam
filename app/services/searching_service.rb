@@ -25,7 +25,7 @@ class SearchingService
     after_split = split_searching_phrase
     problems = Problem.none
     after_split.each do |word|
-      searched = Problem.default_search(word)
+      searched = Problem.default_search(word.downcase)
       problems = problems.or(searched)
     end
     problems
@@ -50,7 +50,7 @@ class SearchingService
 
       after_split = split_searching_phrase
       after_split.each do |word|
-        problems_returned = perform_text_search(word, is_title, is_reference, is_content)
+        problems_returned = perform_text_search(word.downcase, is_title, is_reference, is_content)
         problems_loc = problems_loc.or(problems_returned)
       end
     end

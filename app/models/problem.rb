@@ -12,11 +12,11 @@ class Problem < ApplicationRecord
   has_many :tags, through: :problem_tags, dependent: :destroy
   accepts_nested_attributes_for :problem_users
 
-  scope :default_search, ->(query) { where('title LIKE ? OR content LIKE ?', "%#{query}%", "%#{query}%") }
+  scope :default_search, ->(query) { where('lower(title) LIKE ? OR lower(content) LIKE ? OR lower(reference_list) LIKE ?', "%#{query}%", "%#{query}%", "%#{query}%") }
   scope :tag_where, ->(tag_name) { joins(:tags).merge(Tag.where(name: tag_name)) }
-  scope :content_where, ->(query) { where('content LIKE ?', "%#{query}%") }
-  scope :title_where, ->(query) { where('title LIKE ?', "%#{query}%") }
-  scope :reference_where, ->(query) { where('reference_list LIKE ?', "%#{query}%") }
+  scope :content_where, ->(query) { where('lower(content) LIKE ?', "%#{query}%") }
+  scope :title_where, ->(query) { where('lower(title) LIKE ?', "%#{query}%") }
+  scope :reference_where, ->(query) { where('lower(reference_list) LIKE ?', "%#{query}%") }
 
   scope :order_title_desc, -> { order(title: :desc) }
   scope :order_title_asc, -> { order(title: :asc) }
