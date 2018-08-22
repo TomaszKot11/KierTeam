@@ -20,7 +20,7 @@ class SearchingService
 
   private
 
-  def perform_defaul_search
+  def perform_default_search
     is_lookup = @lookup.empty?
     raise ArgumentError, 'Query may not be blank' if is_lookup
     after_split = split_searching_phrase
