@@ -9,17 +9,18 @@ class SearchingService
   end
 
   def call
-    if !@advances_search_on.nil?
-      problems = perform_advanced_search
-    else
-      problems = perform_defauls_search
-    end
+    problems = if @advances_search_on.nil?
+                 perform_default_search
+               else
+                 perform_advanced_search
+               end
+
     problems
   end
 
   private
 
-  def perform_defauls_search
+  def perform_defaul_search
     is_lookup = @lookup.empty?
     raise ArgumentError, 'Query may not be blank' if is_lookup
     after_split = split_searching_phrase
@@ -32,9 +33,7 @@ class SearchingService
   end
 
   def split_searching_phrase
-    after_split = @lookup.split(" ")
-    result = Problem.none
-    after_split
+    @lookup.split(' ')
   end
 
   def perform_advanced_search
@@ -74,6 +73,6 @@ class SearchingService
       @tag_names.each { |tag_name| problems_loc = problems_loc.tag_where(tag_name) }
       return problems_loc
     end
-    return Problem.none
+    Problem.none
   end
 end
