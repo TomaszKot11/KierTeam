@@ -25,7 +25,6 @@
       <% else %>
         <li><%=link_to 'Sign up', new_user_registration_path, role: 'button', class: 'nav-link mr-3 btn btn-outline-warning form-group' %></li>
         <li><%=link_to 'Log in', new_user_session_path, role: 'button', class: 'nav-link mr-3 btn btn-outline-warning form-group' %></li>
-        <li><%= link_to 'Log in with Facebook', user_facebook_omniauth_authorize_path, role: 'button', class: 'nav-link mr-3 btn btn-outline-warning form-group' %></li>
       <% end %>
     </ul>
   </div>
